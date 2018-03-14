@@ -153,9 +153,10 @@ namespace ValleyDreamsIndia.Controllers.Members
                 ViewBag.TransactionPassword = transactionpassword = usersPersonalModelView.BankDetails.TransactionPassword;
                 string fullname = usersPersonalModelView.PersonalDetails.FirstName + " " + usersPersonalModelView.PersonalDetails.LastName;
                 string sponsorId = userDetail.UsersDetail1.UserName;
+                string srno = userDetail.UsersDetail1.Id.ToString();
 
-                string textMessage = String.Format("Welcome to Bethuel Multi Trade Pvt. Ltd. \n\n Dear ({0}), \n Sponsor ID : {1} \n User ID : {2} \n Password : {3} \n Txn Password : {4}",
-                    fullname, sponsorId, username, password, transactionpassword);
+                string textMessage = String.Format("Welcome to Bethuel Multi Trade Pvt. Ltd. \n\n Dear ({0}),\n Sr. No : {1} \n Sponsor ID : {2} \n User ID : {3} \n Password : {4} \n Txn Password : {5}",
+                    fullname, srno, sponsorId, username, password, transactionpassword);
                 string smsStatus = SmsProvider.SendSms(usersPersonalModelView.PersonalDetails.PhoneNumber1, textMessage);
                 if (smsStatus == "Success")
                 {

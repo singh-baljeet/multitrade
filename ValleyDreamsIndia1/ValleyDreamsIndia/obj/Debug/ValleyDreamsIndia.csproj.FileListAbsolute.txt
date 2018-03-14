@@ -160,3 +160,4 @@ E:\ValleyDreamsIndia1\ValleyDreamsIndia\bin\Microsoft.Owin.Security.Twitter.xml
 E:\ValleyDreamsIndia1\ValleyDreamsIndia\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 E:\ValleyDreamsIndia1\ValleyDreamsIndia\obj\Debug\ValleyDreamsIndia.dll
 E:\ValleyDreamsIndia1\ValleyDreamsIndia\obj\Debug\ValleyDreamsIndia.pdb
+E:\ValleyDreamsIndia1\ValleyDreamsIndia\obj\Debug\ValleyDreamsIndia.csprojResolveAssemblyReference.cache

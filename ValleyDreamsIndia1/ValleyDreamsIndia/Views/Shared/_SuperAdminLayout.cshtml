@@ -81,6 +81,11 @@
                     <span class="icon-equalizer"></span>
                     <a href="/SuperAdmin/Contribution">Check Contributions</a>
                 </li>
+
+                <li id="navType" class="nav @(ViewContext.RouteData.Values["action"].ToString() == "RenewalContribution" ? "active" : "") ">
+                    <span class="icon-equalizer"></span>
+                    <a href="/SuperAdmin/RenewalContribution">Renewal Contributions</a>
+                </li>
                 
                 <li id="navType" class="nav @(ViewContext.RouteData.Values["action"].ToString() == "AssignPin" ? "active" : "") ">
                     <span class="icon-equalizer"></span>
@@ -176,14 +181,31 @@
                 .submit();
             })
 
-            //$("#admintreecancelbtn").click(function (e) {
-            //    $("#userId").val("");
-            //    $("#userId").removeAttr('required');
-            //    e.preventdefault();
-            //    return false;
-            //})
 
-           
+            $("#memberid").blur(function () {
+                var memberId = $(this).val();
+                $.ajax({
+                    url: '/SuperAdmin/GetMemberDetailsById?memberId=' + memberId,
+                    dataType: "json",
+                    type: "GET",
+                    success: function (data) {
+                        if (data == "False") {
+                            alert("No data found");
+                        }
+                        else {
+                            $("#sOtherContributionNumber").text(data.ContributionNo);
+                            $("#sOtherContributionDate").text(data.ContributionDate);
+                            $("#sOtherSponsoredId").text(data.SponsoredId);
+                            $("#sRenewalPinAvailable").text(data.AvailableRenewalPins);
+                        }
+                    },
+                    error: function (xhr) {
+                        debugger;
+                        alert('error');
+                    }
+                });
+            });
+
 
     $("#datepicker").datepicker();
     $("#datepicker1").datepicker();

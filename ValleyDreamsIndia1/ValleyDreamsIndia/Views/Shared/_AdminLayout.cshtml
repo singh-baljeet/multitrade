@@ -228,13 +228,10 @@
              //       });
              //   })
 
-				
-				
-                $("#memberid").blur(function () {
-                    debugger;
-                    var memberId = $(this).val();
+            $("#memberid").blur(function () {
+                var memberId = $(this).val();
                 $.ajax({
-                    url: '/Renewal/GetMemberDetailsById/' + memberId,
+                    url: '/Renewal/GetMemberDetailsById?memberId=' + memberId,
                     dataType: "json",
                     type: "GET",
                     success: function (data) {
@@ -242,7 +239,10 @@
                             alert("No data found");
                         }
                         else {
-                            console.log(data);
+                            $("#sOtherContributionNumber").text(data.ContributionNo);
+                            $("#sOtherContributionDate").text(data.ContributionDate);
+                            $("#sOtherSponsoredId").text(data.SponsoredId);
+                            $("#sRenewalPinAvailable").text(data.AvailableRenewalPins);
                         }
                     },
                     error: function (xhr) {
@@ -251,6 +251,7 @@
                     }
                 });
             });
+
 
     $("#datepicker").datepicker();
     $("#datepicker1").datepicker();

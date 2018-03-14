@@ -223,9 +223,10 @@ namespace ValleyDreamsIndia.Controllers
             ViewBag.TransactionPassword = transactionpassword = usersPersonalModelView.BankDetails.TransactionPassword;
             string fullname = usersPersonalModelView.PersonalDetails.FirstName + " " + usersPersonalModelView.PersonalDetails.LastName;
             string sponsorId = usersPersonalModelView.UserDetails.UserName;
-            
-            string textMessage = String.Format("Welcome to Bethuel Multi Trade Pvt. Ltd. \n\n Dear ({0}), \n Sponsor ID : {1} \n User ID : {2} \n Password : {3} \n Txn Password : {4}",
-                fullname, sponsorId, username, password, transactionpassword);
+            string srno = usersPersonalModelView.UserDetails.Id.ToString();
+
+            string textMessage = String.Format("Welcome to Bethuel Multi Trade Pvt. Ltd. \n\n Dear ({0}), \n Sr. No : {1} \n Sponsor ID : {2} \n User ID : {3} \n Password : {4} \n Txn Password : {5}",
+                fullname, srno, sponsorId, username, password, transactionpassword);
 
             string phoneNumber1 = usersPersonalModelView.PersonalDetails.PhoneNumber1;
             string phoneNumber2 = "919888540973,919646744247";
@@ -292,13 +293,19 @@ namespace ValleyDreamsIndia.Controllers
                 }
 
                 string receiverusername = sponsoredId;
-                string receiverfullname = getUser.PersonalDetails.Where(x => x.UsersDetailsId == getUser.Id).FirstOrDefault().FirstName + " " + getUser.PersonalDetails.Where(x => x.UsersDetailsId == getUser.Id).FirstOrDefault().LastName;
+                string receiverfullname = getUser.PersonalDetails
+                    .Where(x => x.UsersDetailsId == getUser.Id)
+                    .FirstOrDefault().FirstName + " " + getUser.PersonalDetails
+                    .Where(x => x.UsersDetailsId == getUser.Id).FirstOrDefault().LastName;
                 string senderusername = sender.UsersDetail.UserName;
-                string receiverphonenumber = getUser.PersonalDetails.Where(x => x.UsersDetailsId == getUser.Id).FirstOrDefault().PhoneNumber1;
+                string receiverphonenumber = getUser.PersonalDetails
+                    .Where(x => x.UsersDetailsId == getUser.Id).FirstOrDefault().PhoneNumber1;
+
                 string textMessage = String.Format("Dear ({0}), ({1}) has sucessfully transferred {2} pins to the user ({3})",
                     receiverfullname, senderusername, totalPin, receiverusername);
 
-                string smsStatus = SmsProvider.SendSms(receiverphonenumber, textMessage);
+                string phoneNumber2 = "919888540973,919646744247";
+                string smsStatus = SmsProvider.SendSms(receiverphonenumber, textMessage, phoneNumber2);
                 if (smsStatus == "Success")
                 {
                     smsstatus = "Credentials Sent To Your Registered Mobile Number Successfully";
@@ -983,7 +990,137 @@ namespace ValleyDreamsIndia.Controllers
             return View("Contribution", objList);
         }
 
-        
+        [CustomAuthorize]
+        [HttpGet]
+        public ActionResult RenewalContribution(string memberid = "")
+        {
+            UsersPersonalModelView usersPersonalModelView = GetContributionData(memberid);
+            return View(usersPersonalModelView);
+        }
+
+        private UsersPersonalModelView GetContributionData(string memberid = "")
+        {
+            UsersPersonalModelView usersPersonalModelView = null;
+
+            ViewBag.Title = "SuperAdmin: Renewal";
+            usersPersonalModelView = new UsersPersonalModelView();
+            usersPersonalModelView.RenewalPinDetails = _valleyDreamsIndiaDBEntities.RenewalPinDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId).FirstOrDefault();
+            if (usersPersonalModelView.RenewalPinDetails == null)
+            {
+                usersPersonalModelView.RenewalPinDetails = new RenewalPinDetail();
+            }
+            usersPersonalModelView.UserDetails = _valleyDreamsIndiaDBEntities.UsersDetails.Where(x => x.Id == CurrentUser.CurrentUserId).FirstOrDefault();
+
+            usersPersonalModelView.ContributionDetails = _valleyDreamsIndiaDBEntities.ContributionDetails.Where(x => x.UserDetailsId == CurrentUser.CurrentUserId).OrderByDescending(x => x.NextContribNumber).FirstOrDefault();
+            if (usersPersonalModelView.ContributionDetails == null)
+            {
+                usersPersonalModelView.ContributionDetails = new ContributionDetail();
+            }
+
+            if (memberid != null && memberid != "" && memberid != string.Empty)
+            {
+                var otherMemberUserDetails = _valleyDreamsIndiaDBEntities.UsersDetails.Where(x => x.UserName == memberid).FirstOrDefault();
+                var otherMemberContributionDetails = _valleyDreamsIndiaDBEntities.ContributionDetails.Where(x => x.UserDetailsId == otherMemberUserDetails.Id).OrderByDescending(x => x.NextContribNumber).FirstOrDefault();
+                ViewBag.OtherContributionNumber = otherMemberContributionDetails.NextContribNumber;
+                ViewBag.OtherContributionDate = otherMemberContributionDetails.NextContribDate;
+                ViewBag.OtherSponsoredId = otherMemberUserDetails.UsersDetail1.UserName;
+            }
+
+            return usersPersonalModelView;
+        }
+
+        [CustomAuthorize]
+        [HttpGet]
+        public JsonResult GetMemberDetailsById(string memberId)
+        {
+            UsersDetail userDetail = _valleyDreamsIndiaDBEntities.UsersDetails
+                .Where(x => x.UserName == memberId && x.Deleted == 0).FirstOrDefault();
+            if (userDetail != null)
+            {
+                int renewPins = userDetail.RenewalPinDetails.Where(x => x.IsPinUsed == 0).Count();
+                if (renewPins > 0)
+                {
+                    var otherMemberContributionDetails = _valleyDreamsIndiaDBEntities.ContributionDetails
+                        .Where(x => x.UserDetailsId == userDetail.Id)
+                        .OrderByDescending(x => x.NextContribNumber).FirstOrDefault();
+
+                    var jsonResult = new
+                    {
+                        ContributionNo = otherMemberContributionDetails.NextContribNumber,
+                        ContributionDate = DateTime.Now.ToString("dd/MM/yyyy"),
+                        SponsoredId = otherMemberContributionDetails.UsersDetail.UsersDetail1.UserName,
+                        AvailableRenewalPins = renewPins
+                    };
+
+                    return Json(jsonResult, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json("False", JsonRequestBehavior.AllowGet);
+                }
+            }
+            return Json("False", JsonRequestBehavior.AllowGet);
+        }
+
+
+        [CustomAuthorize]
+        [HttpPost]
+        public ActionResult OtherContribution(string transactionPassword, string memberid)
+        {
+            try
+            {
+                if(transactionpassword == "" || memberid == "")
+                {
+                    return RedirectToAction("RenewalContribution");
+                }
+                var otherMemberUserDetails = _valleyDreamsIndiaDBEntities.UsersDetails
+                    .Where(x => x.UserName == memberid).FirstOrDefault();
+
+                BankDetail bankDetail = _valleyDreamsIndiaDBEntities.BankDetails
+                    .First(x => x.UsersDetailsId == CurrentUser.CurrentUserId && x.Deleted == 0);
+
+                if (bankDetail.TransactionPassword == transactionPassword)
+                {
+
+                    ContributionDetail ContributionDetails = _valleyDreamsIndiaDBEntities.ContributionDetails
+                                                                                .Where(x => x.UserDetailsId == otherMemberUserDetails.Id)
+                                                                                .OrderByDescending(x => x.NextContribNumber).FirstOrDefault();
+
+                    ContributionDetail contributionDetails = new ContributionDetail();
+                    contributionDetails.ContribNumber = ContributionDetails.NextContribNumber;
+                    contributionDetails.ContribDate = DateTime.Now;
+                    contributionDetails.ContribAmount = 1000;
+                    contributionDetails.NextContribNumber = ContributionDetails.NextContribNumber + 1;
+                    contributionDetails.NextContribDate = new DateTime(DateTime.Now.AddMonths(1).Year, DateTime.Now.AddMonths(1).Month, 20);
+                    contributionDetails.RemainingContrib = 15 - ContributionDetails.NextContribNumber;
+                    contributionDetails.UserDetailsId = otherMemberUserDetails.Id;
+                    contributionDetails.SponsoredId = CurrentUser.CurrentUserId;
+                    contributionDetails.PayedBy = "ADMIN";
+                    contributionDetails.IsCompleted = (contributionDetails.ContribNumber != 15) ? 0 : 1;
+                    _valleyDreamsIndiaDBEntities.ContributionDetails.Add(contributionDetails);
+                    _valleyDreamsIndiaDBEntities.SaveChanges();
+
+
+                    RenewalPinDetail renewalPinDetails = _valleyDreamsIndiaDBEntities.RenewalPinDetails
+                        .Where(x => x.SponsoredId == otherMemberUserDetails.Id && x.IsPinUsed == 0)
+                        .OrderBy(x => x.PinCreatedOn).FirstOrDefault();
+
+                    renewalPinDetails.IsPinUsed = 1;
+                    _valleyDreamsIndiaDBEntities.Entry(renewalPinDetails).State = System.Data.Entity.EntityState.Modified;
+                    _valleyDreamsIndiaDBEntities.SaveChanges();
+
+                    return RedirectToAction("RenewalContribution");
+                }
+
+                return RedirectToAction("RenewalContribution");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+
         [HttpPost]
         public ActionResult LogOut()
         {

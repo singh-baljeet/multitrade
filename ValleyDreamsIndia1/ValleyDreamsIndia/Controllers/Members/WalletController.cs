@@ -14,6 +14,8 @@ namespace ValleyDreamsIndia.Controllers.Members
     public class WalletController : Controller
     {
         ValleyDreamsIndiaDBEntities _valleyDreamsIndiaDBEntities = null;
+        string smsstatus = "";
+
         public WalletController()
         {
             _valleyDreamsIndiaDBEntities = new ValleyDreamsIndiaDBEntities();
@@ -53,7 +55,6 @@ namespace ValleyDreamsIndia.Controllers.Members
         {
             UsersDetail userDetail = _valleyDreamsIndiaDBEntities.UsersDetails.Where(x => x.Id == CurrentUser.CurrentUserId && x.Deleted == 0).FirstOrDefault();
 
-
             int countPins = 0;
             if(pinType == "NEW")
             {
@@ -69,6 +70,8 @@ namespace ValleyDreamsIndia.Controllers.Members
                 try
                 {
                     var getUser = _valleyDreamsIndiaDBEntities.UsersDetails.Where(x => x.UserName == sponsoredId).FirstOrDefault();
+
+                    var sender = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.UsersDetailsId == CurrentUser.CurrentUserId).FirstOrDefault();
 
                     var isTransactionPasswordExists = _valleyDreamsIndiaDBEntities.BankDetails.Where(x => x.UsersDetailsId == CurrentUser.CurrentUserId && x.Deleted == 0 && x.TransactionPassword == transactionPassword).FirstOrDefault();
                     if (isTransactionPasswordExists != null)
@@ -97,9 +100,30 @@ namespace ValleyDreamsIndia.Controllers.Members
                             }
                         }
                         _valleyDreamsIndiaDBEntities.SaveChanges();
+
+                        string receiverusername = sponsoredId;
+                        string receiverfullname = getUser.PersonalDetails.Where(x => x.UsersDetailsId == getUser.Id).FirstOrDefault().FirstName + " " + getUser.PersonalDetails.Where(x => x.UsersDetailsId == getUser.Id).FirstOrDefault().LastName;
+                        string senderusername = sender.UsersDetail.UserName;
+                        string receiverphonenumber = getUser.PersonalDetails.Where(x => x.UsersDetailsId == getUser.Id).FirstOrDefault().PhoneNumber1;
+                        string textMessage = String.Format("Dear ({0}), ({1}) has sucessfully transferred {2} pins to the user ({3})",
+                            receiverfullname, senderusername, totalPin, receiverusername);
+
+                        string smsStatus = SmsProvider.SendSms(receiverphonenumber, textMessage);
+                        if (smsStatus == "Success")
+                        {
+                            smsstatus = "Credentials Sent To Your Registered Mobile Number Successfully";
+                        }
+                        ViewBag.SmsStatus = smsstatus;
+
+
+                        @ViewBag.Message = $"{pinType} type pins transfered successfully";
+                    }
+                    else
+                    {
+                        @ViewBag.Message = "Entered wrong transaction password";
                     }
 
-                 @ViewBag.Message = $"{pinType} type pins transfered successfully";
+                 
                 }
                 catch (Exception ex)
                 {
