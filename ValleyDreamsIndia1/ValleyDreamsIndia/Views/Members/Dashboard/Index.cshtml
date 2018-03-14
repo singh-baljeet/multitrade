@@ -1,0 +1,276 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div id="contentHeader">
+    <h1>Dashboard : <span style="font-weight:bolder; font-size:13px;">(www.bethuelmultitrade.com)</span></h1>
+</div> <!-- #contentHeader -->
+
+<div class="container">
+
+
+    <div class="grid-17">
+
+        <div class="widget widget-plain">
+
+            <div class="widget-content">
+
+                <h2 class="dashboard_title">
+                    Welcome @ViewBag.FullName
+                    <span>Login:</span><span>Date : @DateTime.Now.ToString("dd/MM/yyyy") | Time : @DateTime.Now.ToShortTimeString()</span>
+                </h2>
+
+                <div class="dashboard_report first activeState">
+                    <div class="pad">
+                        <span class="value">@ViewBag.MyTeam</span>Current Team
+                    </div> <!-- .pad -->
+                </div>
+
+                <div class="dashboard_report first activeState">
+                    <div class="pad">
+                        <span class="value">@ViewBag.DirectTeam</span>Directs
+                    </div> <!-- .pad -->
+                </div>
+
+                <div class="dashboard_report first activeState">
+                    <div class="pad">
+                        <span class="value">1000/-</span>Current Package
+                    </div> <!-- .pad -->
+                </div>
+
+                <div class="dashboard_report first activeState last">
+                    <div class="pad">
+                        <span class="value">@ViewBag.Status </span>Status
+                    </div> <!-- .pad -->
+
+                </div>
+
+
+
+                <div class="dashboard_report first activeState">
+                    <div class="pad">
+                        <span class="value">@ViewBag.UserName</span>Username
+                    </div> <!-- .pad -->
+                </div>
+
+                <div class="dashboard_report first activeState">
+                    <div class="pad">
+                        <span class="value">@ViewBag.Sponsor</span>My Sponser
+                    </div> <!-- .pad -->
+                </div>
+
+                <div class="dashboard_report first activeState">
+                    <div class="pad">
+                        <span class="value">@ViewBag.LeftTeam</span>Team in Left
+                    </div> <!-- .pad -->
+                </div>
+
+                <div class="dashboard_report first activeState last">
+                    <div class="pad">
+                        <span class="value">@ViewBag.RightTeam</span>Team in Right
+                    </div> <!-- .pad -->
+                </div>
+
+
+
+                <div class="dashboard_report first activeState">
+                    <div class="pad">
+                        <span class="value">@ViewBag.NewPins</span>New Pins
+                    </div><!-- .pad -->
+                </div>
+
+                <div class="dashboard_report first activeState">
+                    <div class="pad">
+                        <span class="value">@ViewBag.RenewalPins</span>Renewal Pins
+                    </div>
+                </div>
+
+                <div class="dashboard_report first activeState">
+                    <div class="pad">
+                        <span class="value"><span style="font-size:18px;">@Convert.ToDateTime(ViewBag.DOJ).ToString("dd/MM/yyyy")</span></span>Joining Date
+                    </div> <!-- .pad -->
+                </div>
+
+
+                <div class="dashboard_report first activeState last">
+                    <div class="pad">
+                        <span class="value">0</span>My Income
+                    </div> <!-- .pad -->
+                </div>
+
+
+
+
+            </div> <!-- .widget-content -->
+
+        </div> <!-- .widget -->
+
+
+    </div>
+
+    <div class="grid-7">
+
+
+
+        <div id="gettingStarted" class="widget">
+
+
+            <div class="widget">
+
+                <div class="widget-header">
+                    <span class="icon-article"></span>
+                    <h3 class="icon aperture">Calender</h3>
+                </div>
+
+                <div class="widget-content" align="center">
+
+                    <div class="field-group inlineField">
+
+                        <div class="field">
+                            <div id="datepicker_inline"></div>
+                        </div> <!-- .field -->
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+
+        </div>
+
+
+        <!-- .box -->
+
+    </div>
+
+    <div class="grid-17">
+        <div class="widget">
+
+            <div class="widget-header">
+                <span class="icon-chart"></span>
+                <h3 class="icon chart">Summary</h3>
+            </div>
+
+            <div class="widget-content">
+                <table class="stats" data-chart-type="bar" data-chart-colors="">
+                    <caption>Members Joined per Year </caption>
+                    <thead>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <th>1st Quarter</th>
+                            <th>2nd Quarter</th>
+                            <th>3rd Quarter</th>
+                            <th>4th Quarter</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <th>1st Quarter</th>
+                            <td>292</td>
+                            <td>382</td>
+                            <td>452</td>
+                            <td>567</td>
+                            <td>612</td>
+                            <td>650</td>
+
+                        </tr>
+
+                        <tr>
+                            <th>2nd Quarter</th>
+                            <td>450</td>
+                            <td>470</td>
+                            <td>489</td>
+                            <td>521</td>
+                            <td>548</td>
+                            <td>600</td>
+
+                        </tr>
+
+                        <tr>
+                            <th>3rd Quarter</th>
+                            <td>550</td>
+                            <td>564</td>
+                            <td>578</td>
+                            <td>586</td>
+                            <td>618</td>
+                            <td>640</td>
+
+                        </tr>
+                        <tr>
+                            <th>4th Quarter</th>
+                            <td>580</td>
+                            <td>589</td>
+                            <td>597</td>
+                            <td>602</td>
+                            <td>613</td>
+                            <td>655</td>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div> <!-- .widget-content -->
+
+
+
+
+        </div>
+    </div>
+
+    <div class="grid-7">
+        <div class="widget">
+
+            <div class="widget-header">
+                <h3 class="">Notifications</h3>
+            </div> <!-- .widget-header -->
+
+            <div class="widget-content">
+
+                <div class="notify">
+
+                    <a href="javascript:;" class="close">&times;</a>
+
+                    <h3>Default Notiftications</h3>
+
+                    <p>All the team members are advised to follow the instructions before operating this application.</p>
+                </div> <!-- .notify -->
+
+                <div class="notify notify-success">
+
+                    <a href="javascript:;" class="close">&times;</a>
+
+                    <h3>Success Notiftications</h3>
+
+                    <p>You have successfully logged in your account. Kindly follow the instructions before operating this application.</p>
+                </div> <!-- .notify -->
+
+                <div class="notify notify-warning">
+
+                    <a href="javascript:;" class="close">&times;</a>
+
+                    <h3>Warning Notiftications</h3>
+
+                    <p>All members must follow the application instructions, If any team member found to be unfollowing the instructions, will be removed from the team.</p>
+                </div> <!-- .notify -->
+                <!-- .notify -->
+
+                <div class="notify notify-info">
+
+                    <a href="javascript:;" class="close">&times;</a>
+
+                    <h3>Information Notiftications</h3>
+
+                    <p>Meeting regarding the next venture will be held on Monday i.e. 18/02/2018</p>
+                </div> <!-- .notify -->
+
+            </div> <!-- .widget-content -->
+
+        </div>
+    </div>
+
+
+</div> <!-- .container -->

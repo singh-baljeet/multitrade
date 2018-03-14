@@ -1,0 +1,205 @@
+﻿@model ValleyDreamsIndia.Models.UsersPersonalModelView
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div id="contentHeader">
+    <h1>Renewal</h1>
+</div> <!-- #contentHeader -->
+
+<div class="container">
+    <div class="grid-12">
+        <div class="widget widget-table">
+        @using (Html.BeginForm("ContributionPost", "Renewal", FormMethod.Post))
+        {
+            <div class="widget-header">
+                <span class="icon-list"></span>
+                <h3 class="icon chart">Self Renewal</h3>
+            </div>
+
+            <div class="widget-content">
+
+                <table class="table table-bordered table-striped">
+                    <thead>
+
+                        <tr>
+                            <th style="vertical-align:middle;">Available Renewal Pins</th>
+                            <th>
+                                @ViewBag.RenewalPinAvailable
+                            </th>
+                        </tr>
+
+                        <tr>
+                            <th>Contribution No.</th>
+                            <th>
+                                @Model.ContributionDetails.NextContribNumber
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>Earlier Contributioned Date</th>
+                            <th>
+                                @Convert.ToDateTime(Model.ContributionDetails.ContribDate).ToShortDateString()
+                            </th>
+                        </tr>
+
+                        <tr>
+                            <th>Last Contribution Date</th>
+                            <th>
+                                @Convert.ToDateTime(Model.ContributionDetails.NextContribDate).ToShortDateString()
+                            </th>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <th>User Id</th>
+                            <th>@Model.UserDetails.UserName</th>
+
+                        </tr>
+                        <tr>
+
+                            <th>Sponser Id</th>
+                            <th>@Model.UserDetails.UsersDetail1.UserName</th>
+
+                        </tr>
+                        <tr>
+                            <th>Amount</th>
+                            <th>@Model.ContributionDetails.ContribAmount/-</th>
+
+                        </tr>
+
+                        <tr>
+                            <th>Transaction</th>
+                            <th>
+                                @{
+                                    DateTime dt = DateTime.Now;
+                                    DateTime lastdt = Convert.ToDateTime(Model.ContributionDetails.ContribDate);
+                                    var todaydate = new DateTime(lastdt.AddMonths(1).Year, lastdt.AddMonths(1).Month, 1);
+                                    if (dt >= todaydate)
+                                    {
+                                        @Html.TextBox("transactionPassword")
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBox("transactionPassword", null, new { disabled = "disabled" })
+                                    }
+                                }
+                                
+                            </th>
+
+                        </tr>
+                    </thead>
+
+                </table>
+
+            </div> <!-- .widget-content -->
+
+            <div style="margin-top:20px; margin-bottom:20px;" align="center">
+                @{
+                    if (dt >= todaydate)
+                    {
+                        <span>
+                            <input type="submit" class="btn btn-primary" value="Pay Contribution" />
+                        </span>
+                    }
+                    else
+                    {
+                        <span>
+                            <input type="submit" class="btn btn-primary" value="Pay Contribution" disabled />
+                        </span>
+                    }
+                }
+
+                
+            </div>
+
+            <div style="margin-top:10px; margin-bottom:10px;" align="center">
+                @ViewBag.OwnRenewalMessage
+            </div>
+                }
+
+            </div>
+
+    </div>
+
+    <div class="grid-12">
+        <div class="widget widget-table">
+@using (Html.BeginForm("OtherContribution", "Renewal", FormMethod.Post))
+{
+            <div class="widget-header">
+                <span class="icon-list"></span>
+                <h3 class="icon chart">Other Member's Renewal</h3>
+            </div>
+
+            <div class="widget-content">
+
+                <table class="table table-bordered table-striped">
+                    <thead>
+
+                        <tr>
+                            <th>Member Id</th>
+                            <th>
+                                @Html.TextBox("memberid", null, new { htmlAttributes = new {id = "txtMemberId" } })
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>Contribution No.</th>
+                            <th>@ViewBag.OtherContributionNumber</th>
+                        </tr>
+                        <tr>
+                            <th>Contribution Date</th>
+                            <th>
+                                @ViewBag.OtherContributionDate
+                            </th>
+                        </tr>
+
+                        <tr>
+                            <th>Sponser Id</th>
+                            <th>@ViewBag.OtherSponsoredId</th>
+                        </tr>
+                        <tr>
+                            <th>Amount</th>
+                            <th>1000/-</th>
+
+                        </tr>
+                        <tr>
+                            <th>Available Renewal Pins</th>
+                            <th>@ViewBag.RenewalPinAvailable</th>
+                        </tr>
+
+
+
+                        <tr>
+                            <th>Transaction</th>
+                            <th>
+                                @Html.TextBox("transactionPassword")
+                            </th>
+
+                        </tr>
+
+
+
+
+                    </thead>
+
+
+                </table>
+
+
+            </div> <!-- .widget-content -->
+
+            <div style="margin-top:20px; margin-bottom:10px;" align="center">
+                <span><input type="submit" class="btn btn-primary" value="Pay Contribution"/></span>
+            </div>
+}
+        </div> <!-- .widget-content -->
+
+
+
+
+
+    </div>
+
+</div>
+

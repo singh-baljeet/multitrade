@@ -1,0 +1,125 @@
+﻿@model ValleyDreamsIndia.BankDetail
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div id="contentHeader">
+    <h1>Bank Information</h1>
+</div> <!-- #contentHeader -->
+
+<div class="container">
+    <div class="grid-17">
+        <div class="widget widget-table">
+
+@using (Html.BeginForm("Edit", "Bank"))
+{
+            <div class="widget-header">
+                <span class="icon-list"></span>
+                <h3 class="icon chart">Bank Account Management</h3>
+            </div>
+
+            <div class="widget-content">
+
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Bank Name</th>
+                            <th>@Html.TextBoxFor(m => m.BankName, new { placeholder = "Enter Name Of Bank" })
+                            </th>
+
+                        </tr>
+                        <tr>
+                            <th>A/C Holder Name</th>
+                            <th>
+                                @Html.TextBoxFor(m => m.AccountHolderName, new { placeholder = "Enter A/C Holder Name" })
+                            </th>
+                        </tr>
+
+                        <tr>
+                            <th>Bank A/C Number</th>
+                            <th>@Html.TextBoxFor(m => m.AccountNumber, new { placeholder = "Enter Valid Bank A/C No." })
+                            </th>
+
+                        </tr>
+                        <tr>
+                            <th>Verify A/C No.</th>
+                            <th>
+                                @Html.TextBoxFor(m => m.AccountNumber, new { placeholder = "Confirm Bank A/C No." })
+                            </th>
+                        </tr>
+
+                        <tr>
+                            <th>IFSC Code</th>
+                            <th>@Html.TextBoxFor(m => m.IFSCCode, new { placeholder = "Enter Valid IFSC Code" })
+                            </th>
+
+                        </tr>
+                        <tr>
+                            <th>PAN</th>
+                            <th>@Html.TextBoxFor(m => m.PANNumber, new { placeholder = "Enter Valid PAN Number" })
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                </table>
+
+
+
+
+            </div> <!-- .widget-content -->
+
+            <div style="margin-top:20px; margin-bottom:20px;" align="center">
+                <span><input type="submit" class="btn btn-primary" value="Submit" /></span>
+                <span style="margin-left:50px;"><button class="btn btn-quaternary">Cancel</button></span>
+            </div>
+
+            <div style="margin-top:10px; margin-bottom:10px;" align="center">
+                <span>@ViewBag.Message</span>
+            </div>
+}
+        </div>
+
+    </div>
+    <div class="grid-7">
+        <div id="gettingStarted" class="box">
+            <h3>Complete Profile</h3>
+
+            <p>Completing your profile will bring you to 8%.</p>
+
+            <div class="progress-bar secondary">
+                <div class="bar" style="width: 92%;">92%</div>
+            </div>
+
+            <ul>
+                <li><p href="javascript:;">Complete Your Profile</p></li>
+                <li><p href="javascript:;">Add Your Photo</p></li>
+                <li><p href="javascript:;">Invite People to Join</p></li>
+                <li><p href="javascript:;">Follow People</p></li>
+            </ul>
+        </div>
+
+        <br />
+        <div style="border:1px solid #000; border-radius:5px;">
+            <h3 style="margin:10px;">Task List</h3>
+
+
+
+
+            <ul class="taskList">
+                <li>Update your profile.</li>
+                <li>Secure your account.</li>
+                <li>Never share your credentials.</li>
+                <li>Keep changing your passwords.</li>
+
+            </ul>
+        </div>
+
+
+        <br /><br /><br />
+    </div>
+
+</div>
+

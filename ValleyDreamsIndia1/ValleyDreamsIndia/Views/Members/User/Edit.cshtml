@@ -1,0 +1,148 @@
+﻿@model ValleyDreamsIndia.UsersDetail 
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}  
+  <div id = "contentHeader" >
+    <h1>Passwords Management</h1>
+</div> <!-- #contentHeader -->
+
+<div class="container">
+    <div class="grid-20">
+        <div class="widget widget-table">
+
+            <div class="widget-header">
+                <span class="icon-list"></span>
+                <h3 class="icon chart">Change User Password</h3>
+            </div>
+
+@using (Html.BeginForm("EditPassword", "Users"))
+{
+            <div class="widget-content">
+
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Current Password</th>
+                            <th>
+                                @Html.Password("OldPassword", null, new { placeholder = "Enter Current Pass" }))
+                            </th>
+
+                        </tr>
+
+                        <tr>
+                            <th>New Password</th>
+                            <th>
+                                @Html.Password("NewPassword", null, new { placeholder = "Enter New Pass" })
+                            </th>
+
+                        </tr>
+                        <tr>
+                            <th>Confirm Password</th>
+                            <th>@Html.Password("ConfirmNewPassword", null, new { placeholder = "Confirm New Pass" })
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                </table>
+
+
+            </div> <!-- .widget-content -->
+
+            <div style="margin-top:20px; margin-bottom:20px;" align="center">
+                <span><input type="submit" class="btn btn-primary" value="Submit"/></span>
+
+                <span style="margin-left:50px;"><button class="btn btn-quaternary">Cancel</button></span>
+            </div>
+
+            <div style="margin-top:10px; margin-bottom:10px;" align="center">
+                <span>
+                    @if (ViewBag.ErrorMessage)
+                    {
+                        <span style="color:red;">@ViewBag.Error</span>
+                    }
+                </span>
+            </div>
+
+}
+
+
+        </div>
+
+    </div>
+    
+    <div class="grid-20">
+        <div class="widget widget-table">
+
+            <div class="widget-header">
+                <span class="icon-list"></span>
+                <h3 class="icon chart">Change Transaction Password</h3>
+            </div>
+@using (Html.BeginForm("EditTransactionPassword", "Users"))
+{
+            <div class="widget-content">
+
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Current Txn. Pass</th>
+                            <th>
+                                @Html.Password("OldTransactionPassword", null, new { placeholder = "Enter Current Txn. Pass" })
+                            @*<input type="password" name="ecp" id="ecp" size="20" class="" placeholder="Enter Current Txn. Pass" />*@
+                            </th>
+
+                        </tr>
+
+                        <tr>
+                            <th>New Txn. Pass</th>
+                            <th>
+                                @Html.Password("NewTransactionPassword", null, new { placeholder = "Enter New Txn. Pass" })
+                            @*<input type="password" name="enp" id="enp" size="20" class="" placeholder="Enter New Txn. Pass" />*@
+                            </th>
+
+                        </tr>
+                        <tr>
+                            <th>Confirm Txn. Pass</th>
+                            <th>
+                                @Html.Password("ConfirmTransactionNewPassword", null, new { placeholder = "Confirm New Txn. Pass" })
+                            @*<input type="password" name="cp" id="cp" size="20" class="" placeholder="Confirm New Txn. Pass" />*@
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                </table>
+
+
+            </div> <!-- .widget-content -->
+
+            <div style="margin-top:20px; margin-bottom:20px;" align="center">
+                <span><input type="submit" class="btn btn-primary" value="Submit" /></span>
+
+                <span style="margin-left:50px;"><button class="btn btn-quaternary">Cancel</button></span>
+            </div>
+
+            <div style="margin-top:10px; margin-bottom:10px;" align="center">
+                <span>
+                    @if (ViewBag.TransactionErrorMessage)
+                    {
+                        <span style="color:red;">@ViewBag.TransactionError</span>
+                    }
+                </span>
+            </div>
+
+}
+
+
+        </div>
+
+    </div>
+
+
+
+</div>
+

@@ -1,0 +1,191 @@
+﻿@model  ValleyDreamsIndia.Models.UserPersonalListModelView
+@{
+    Layout = "~/Views/Shared/_SuperAdminLayout.cshtml";
+}
+
+<div id="contentHeader">
+    <h1>Users List</h1>
+</div> <!-- #contentHeader -->
+
+<div class="container">
+    <div class="grid-12">
+
+        <div class="widget widget-table">
+            @using (Html.BeginForm("SearchByPlacementSide", "SuperAdmin", FormMethod.Post))
+            {
+                <div class="widget-header">
+                    <span class="icon-list"></span>
+                    <h3 class="icon chart">Select Member Placement</h3>
+                </div>
+                <div class="widget-content">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Placement</th>
+                                <th>
+                                    @Html.DropDownList("placementSide", new SelectList(
+                                                new List<Object>{
+                                                           new { value = "" , text = "-- Select Side --" },
+                                                           new { value = "LEFT" , text = "LEFT" },
+                                                           new { value = "RIGHT", text = "RIGHT"}
+                                                      },
+                                                    "value",
+                                                    "text",
+                                                     2))
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div> <!-- .widget-content -->
+                <p align="center" style="margin-top:20px;">
+                    <span><input type="submit" class="btn btn-large btn-blue" value="View" /></span>
+                </p>
+            }
+        </div>
+
+        @using (Html.BeginForm("SearchByMemberId", "SuperAdmin"))
+        {
+            <div class="widget widget-table">
+
+                <div class="widget-header">
+                    <span class="icon-list"></span>
+                    <h3 class="icon chart">Search Member</h3>
+                </div>
+
+                <div class="widget-content">
+
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Member Id</th>
+                                <th>
+                                    @Html.TextBox("memberId")
+                                </th>
+                                <th>
+                                    <p align="center" style="margin-top:20px;">
+                                        <span><input type="submit" class="btn btn-large btn-blue" value="View" /></span>
+                                    </p>
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div> <!-- .widget-content -->
+            </div>
+        }
+
+
+    </div>
+
+    <div class="grid-24">
+
+
+        <div class="widget widget-table">
+
+            <div class="widget-header">
+                <span class="icon-list"></span>
+                <h3 class="icon chart">Geneology</h3>
+            </div>
+
+            <div class="widget-content">
+
+                <table class="table table-bordered table-striped data-table">
+                    <thead>
+                        <tr>
+                            <th>Sr.</th>
+                            <th>Member Name</th>
+                            <th>Placement</th>
+                            <th>User Id</th>
+                            <th>DOJ</th>
+                            <th>Contact</th>
+                            <th>Sponser Id</th>
+                            <th>Last Contri.</th>
+                            <th>Paid On</th>
+                            @*<th>Actions</th>*@
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.PersonalDetails != null)
+                        {
+                            var i = 1;
+                            foreach (var item in Model.PersonalDetails)
+                            {
+                                <tr class="gradeA">
+                                    <td>@i</td>
+                                    <td>
+                                        @item.FirstName  @item.LastName
+                                    </td>
+                                    <td>
+                                        @item.PlacementSide
+                                    </td>
+                                    <td>
+                                        @item.UsersDetail.UserName
+                                    </td>
+                                    <td class="center">
+                                        @Convert.ToDateTime(item.JoinedOn).ToString("dd/MM/yyyy")
+                                    </td>
+                                    <td>@item.PhoneNumber1</td>
+                                    <td>@item.UsersDetail.UsersDetail1.UserName</td>
+                                    <td>
+                                        @{
+                                            if (item.UsersDetail.UsersDetail1.ContributionDetails != null)
+                                            {
+                                                try
+                                                {
+                                                    @item.UsersDetail.UsersDetail1.ContributionDetails.Where(x => x.UserDetailsId == item.UsersDetail.UsersDetail1.Id).OrderByDescending(y => y.ContribDate).FirstOrDefault().ContribNumber
+                                                }
+                                                catch
+                                                {
+                                                    <span>0</span>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <span>0</span>
+                                            }
+                                        }
+                                    </td>
+                                    <td>
+                                        @{
+                                            if (item.UsersDetail.UsersDetail1.ContributionDetails != null)
+                                            {
+                                                try
+                                                {
+                                                    @Convert.ToDateTime(item.UsersDetail.UsersDetail1.ContributionDetails.Where(x => x.UserDetailsId == item.UsersDetail.UsersDetail1.Id).OrderByDescending(y => y.ContribDate).FirstOrDefault().ContribDate).ToShortDateString()
+                                                }
+                                                catch
+                                                {
+                                                    <span>NA</span>
+                                                }
+
+                                            }
+                                            else
+                                            {
+                                                <span>NA</span>
+                                            }
+                                        }
+                                        
+                                    </td>
+                                    @*<td class="center">
+                                        <span>
+                                            @Html.ActionLink("Edit", "Edit", "Profile", new { currentId = item.UsersDetailsId }, null)
+                                        </span>
+                                        <span style="margin-left:10px;">
+                                            <a href="#">Cancel</a>
+                                        </span>
+                                    </td>*@
+                                </tr>
+                                i = i + 1;
+                            }
+                        }
+
+                    </tbody>
+                </table>
+            </div> <!-- .widget-content -->
+
+        </div> <!-- .widget-content -->
+
+    </div>
+
+
+
+</div>

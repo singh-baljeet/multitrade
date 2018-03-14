@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b81b01e9c2c4473cb898a3a8baecdfe8" Name="Diagram1" ZoomLevel="53">
+        <EntityTypeShape EntityType="ValleyDreamsIndiaDBModel.BankDetail" Width="1.5" PointX="3" PointY="11.75" />
+        <EntityTypeShape EntityType="ValleyDreamsIndiaDBModel.PersonalDetail" Width="1.5" PointX="3" PointY="5.625" />
+        <EntityTypeShape EntityType="ValleyDreamsIndiaDBModel.ContributionDetail" Width="1.5" PointX="3" PointY="0.75" />
+        <EntityTypeShape EntityType="ValleyDreamsIndiaDBModel.RenewalPinDetail" Width="1.5" PointX="3" PointY="16.375" />
+        <EntityTypeShape EntityType="ValleyDreamsIndiaDBModel.UsersDetail" Width="1.5" PointX="0.75" PointY="7.75" />
+        <AssociationConnector Association="ValleyDreamsIndiaDBModel.FK_BankDetails_UsersDetails" />
+        <AssociationConnector Association="ValleyDreamsIndiaDBModel.FK_ContributionDetails_UsersDetails" />
+        <AssociationConnector Association="ValleyDreamsIndiaDBModel.FK_PersonalDetails_UsersDetails" />
+        <AssociationConnector Association="ValleyDreamsIndiaDBModel.FK_RenewalPinDetails_RenewalPinDetails" />
+        <AssociationConnector Association="ValleyDreamsIndiaDBModel.FK_RenewalPinDetails_UsersDetails" />
+        <AssociationConnector Association="ValleyDreamsIndiaDBModel.FK_UsersDetails_UsersDetails" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

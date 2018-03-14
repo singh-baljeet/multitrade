@@ -1,0 +1,117 @@
+﻿@{
+    Layout = "~/Views/Shared/_SuperAdminLayout.cshtml";
+}
+<div id="contentHeader">
+    <h1>Wallet</h1>
+</div> <!-- #contentHeader -->
+
+<div class="container">
+    <div class="grid-12">
+        <div class="widget widget-table">
+
+            <div class="widget-header">
+                <span class="icon-list"></span>
+                <h3 class="icon chart">Transaction Panel</h3>
+            </div>
+
+            @using (Html.BeginForm("AssignPin", "SuperAdmin", FormMethod.Post))
+            {
+                <div class="widget-content">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+
+                            <tr>
+                                <th>Type Of Pin</th>
+                                <th>
+                                    @Html.DropDownList("pinType", new SelectList(
+                                        new List<Object>{
+                                            new { value = "NEW" , text = "NEW" },
+                                            new { value = "RENEW", text = "RENEW"}
+                                        },
+                                        "value",
+                                        "text",
+                                        2))
+                                </th>
+                            </tr>
+
+                            <tr>
+                                <th>Transfer To</th>
+                                <th>@Html.TextBox("sponsoredId", null , new { placeholder = "Enter Sponsored Id" , required = "required" })</th>
+                            </tr>
+
+                            <tr>
+                                <th>No. Of Pins</th>
+                                <th>@Html.TextBox("totalPin", null, new { placeholder = "Enter Total Pins", required = "required" })</th>
+
+                            </tr>
+
+                            <tr>
+                                <th>Transaction</th>
+                                <th>
+                                    @Html.Password("transactionPassword", null, new { placeholder = "Enter Txn. Pass", required = "required" })
+                                </th>
+                            </tr>
+
+                        </thead>
+
+
+                    </table>
+                </div> <!-- .widget-content -->
+
+                <div style="margin-top:20px; margin-bottom:20px;" align="center">
+                    <span><input type="submit" class="btn btn-primary" value="Transfer Pins" /></span>
+                </div>
+
+                <div style="margin-top:10px; margin-bottom:10px;" align="center">
+                    <span>
+                        @ViewBag.Message
+                    </span>
+                </div>
+            }
+
+
+            
+
+        </div>
+
+    </div>
+
+
+    @* @using (Html.BeginForm("AssignPin", "SuperAdmin", FormMethod.Post))
+    {
+            <table class="table table-bordered table-striped">
+                <tbody>
+                    <tr>
+                        <th>User Id</th>
+                        <th>
+                            @Html.TextBox("sponsoredId")
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Total Pin</th>
+                        <th>
+                            @Html.TextBox("totalPin")
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Pin Type</th>
+                        <th>
+                            @Html.DropDownList("pinType", new SelectList(
+                                new List<Object>{
+                                                                                   new { value = "NEW" , text = "NEW" },
+                                                                                   new { value = "RENEW", text = "RENEW"}
+                                  },
+                                "value",
+                                "text",
+                                 2))
+                        </th>
+                    </tr>
+
+                    <tr>
+                        <th colspan="2">
+                            <input type="submit" class="btn btn-large btn-blue" value="Submit" />
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+        }*@

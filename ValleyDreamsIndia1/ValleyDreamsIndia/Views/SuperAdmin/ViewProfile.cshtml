@@ -1,0 +1,360 @@
+﻿@model ValleyDreamsIndia.Models.UsersPersonalModelView
+@{
+    Layout = "~/Views/Shared/_SuperAdminLayout.cshtml";
+}   
+
+<div id="contentHeader">
+    <h1>User Profile</h1>
+</div> <!-- #contentHeader -->
+
+<div class="container">
+    <div class="grid-12">
+        <div class="widget widget-table">
+
+            <div class="widget-header">
+                <span class="icon-list"></span>
+                <h3 class="icon chart">Personal Info</h3>
+            </div>
+
+            <div class="widget-content">
+
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                    <img src="@Model.PersonalDetails.ProfilePic"
+                                         alt="Profile Pic"
+                                         style="width:150px;height:150px" />
+                            </th>
+                            <th style="vertical-align:top;">
+                                <ul>
+                                    <li style="font-size:14px;">
+                                        Id: @Model.UserDetails.UserName
+                                    </li>
+                                    <li style="font-size:14px;">
+                                        Joined On: @Convert.ToDateTime(Model.PersonalDetails.JoinedOn).ToShortDateString()
+                                    </li>
+                                    <li style="font-size:14px;">
+                                        Status: @if (Model.UserDetails.Deleted == 0)
+                                        { <span>Active</span>}
+                                        else
+                                        {<span>Inactive</span>}
+                                    </li>
+                                    <li style="font-size:14px;">
+                                        Package: 1000/-
+                                    </li>
+                                </ul>
+                            </th>
+
+
+                        </tr>
+
+                        <tr>
+                            <th>Username</th>
+                            <th>@Model.UserDetails.UserName</th>
+
+                        </tr>
+                        <tr>
+                            <th>Sponser Id</th>
+                            <th>@Model.UserDetails.UsersDetail1.UserName</th>
+
+                        </tr>
+                        <tr>
+                            <th>Placed On</th>
+                            <th>@Model.PersonalDetails.PlacementSide</th>
+
+                        </tr>
+
+                        <tr>
+                            <th>Name</th>
+                            <th>@Model.PersonalDetails.FirstName @Model.PersonalDetails.LastName </th>
+
+                        </tr>
+                        <tr>
+                            <th>Father's Name</th>
+                            <th>@Model.PersonalDetails.FatherName</th>
+                        </tr>
+                        <tr>
+                            <th>DOB</th>
+                            <th>@Model.PersonalDetails.BirthDate</th>
+
+                        </tr>
+                        <tr>
+                            <th>Contact-1</th>
+                            <th>@Model.PersonalDetails.PhoneNumber1</th>
+
+                        </tr>
+                        <tr>
+                            <th>Contact-2</th>
+                            <th>@Model.PersonalDetails.PhoneNumber2</th>
+
+                        </tr>
+                        <tr>
+                            <th>Email</th>
+                            <th>@Model.PersonalDetails.Email</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                </table>
+
+
+            </div> <!-- .widget-content -->
+
+        </div>
+
+    </div>
+
+
+    <div class="grid-12">
+        <div class="widget widget-table">
+
+            <div class="widget-header">
+                <span class="icon-list"></span>
+                <h3 class="icon chart">Residential Info</h3>
+            </div>
+
+            <div class="widget-content">
+
+                <table class="table table-bordered table-striped">
+                    <thead>
+
+                        <tr>
+                            <th>Address</th>
+                            <th>@Model.PersonalDetails.Address</th>
+
+                        </tr>
+                        <tr>
+                            <th>State</th>
+                            <th>@Model.PersonalDetails.State</th>
+
+                        </tr>
+                        <tr>
+                            <th>District</th>
+                            <th>@Model.PersonalDetails.District</th>
+
+                        </tr>
+                        <tr>
+                            <th>City</th>
+                            <th>@Model.PersonalDetails.City</th>
+
+                        </tr>
+
+                        <tr>
+                            <th>Pin-Code</th>
+                            <th>@Model.PersonalDetails.PinCode</th>
+
+                        </tr>
+                    </thead>
+
+
+                </table>
+
+
+            </div> <!-- .widget-content -->
+
+        </div>
+
+    </div>
+
+    <div class="grid-12">
+        <div class="widget widget-table">
+
+            <div class="widget-header">
+                <span class="icon-list"></span>
+                <h3 class="icon chart">Nominee & Banking Info</h3>
+            </div>
+
+            <div class="widget-content">
+
+                <table class="table table-bordered table-striped">
+                    <thead>
+
+                        <tr>
+                            <th>Nominee Id</th>
+                            <th>@Model.BankDetails.NomineeName</th>
+
+                        </tr>
+                        <tr>
+                            <th>Relation</th>
+                            <th>@Model.BankDetails.NomineeRelation</th>
+
+                        </tr>
+                        <tr>
+                            <th>Bank</th>
+                            <th>@Model.BankDetails.BankName</th>
+
+                        </tr>
+                        <tr>
+                            <th>A/C.Holder</th>
+                            <th>@Model.BankDetails.AccountHolderName</th>
+
+                        </tr>
+
+                        <tr>
+                            <th>A/C No.</th>
+                            <th>@Model.BankDetails.AccountNumber</th>
+
+                        </tr>
+
+                        <tr>
+                            <th>IFSC Code</th>
+                            <th>@Model.BankDetails.IFSCCode</th>
+
+                        </tr>
+
+                        <tr>
+                            <th>PAN</th>
+                            <th>@Model.BankDetails.PANNumber</th>
+
+                        </tr>
+
+
+                    </thead>
+
+
+                </table>
+
+
+            </div> <!-- .widget-content -->
+
+        </div>
+
+    </div>
+    <div class="grid-24">
+        <div class="widget widget-table">
+
+            <div class="widget-header">
+                <span class="icon-list"></span>
+                <h3 class="icon chart">Current Contribution : Total - 15</h3>
+            </div>
+            <div class="widget-content">
+
+                @*<table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+
+                                <div class="widget widget-plain">
+
+                                    <div class="widget-content">
+
+                                        <div class="dashboard_report first activeState">
+                                            <div class="pad">
+                                                <span class="value">@Model.ContributionDetails.ContribNumber</span>Paid Contributions
+                                            </div>
+                                        </div>
+
+                                        <div class="dashboard_report first activeState">
+                                            <div class="pad">
+                                                <span class="value">@Model.ContributionDetails.ContribNumber</span>Current Contribution
+                                            </div> 
+                                        </div>
+
+                                        <div class="dashboard_report first activeState">
+                                            <div class="pad">
+                                                <span class="value" style="font-size:20px;">@Convert.ToDateTime(Model.ContributionDetails.ContribDate).ToShortDateString()</span>Date of Current Contribution
+                                            </div> 
+                                        </div>
+
+                                        <div class="dashboard_report first activeState last">
+                                            <div class="pad">
+                                                <span class="value">@Model.ContributionDetails.ContribAmount/-</span>Contribution Amount
+                                            </div> 
+
+                                        </div>
+
+
+
+
+
+                                    </div> 
+
+                                </div>
+                            </th>
+                        </tr>
+
+                    </thead>
+
+
+                </table>*@
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="grid-24">
+        <div class="widget widget-table">
+
+            <div class="widget-header">
+                <span class="icon-list"></span>
+                <h3 class="icon chart">Next Contribution Info</h3>
+            </div>
+            <div class="widget-content">
+
+                @*<table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+
+                                <div class="widget widget-plain">
+
+                                    <div class="widget-content">
+
+                                        <div class="dashboard_report first activeState">
+                                            <div class="pad">
+                                                <span class="value"> @Model.ContributionDetails.RemainingContrib</span>Remaining Contributions
+                                            </div> 
+                                        </div>
+
+                                        <div class="dashboard_report first activeState">
+                                            <div class="pad">
+                                                <span class="value">@Model.ContributionDetails.NextContribNumber</span>Next Contribution
+                                            </div>
+                                        </div>
+
+                                        <div class="dashboard_report first activeState">
+                                            <div class="pad">
+                                                <span class="value" style="font-size:20px;">@Convert.ToDateTime(Model.ContributionDetails.NextContribDate).ToShortDateString()</span>Contribution Till Date
+                                            </div> 
+                                        </div>
+
+                                        <div class="dashboard_report first activeState last">
+                                            <div class="pad">
+                                                <span class="value">@Model.ContributionDetails.ContribAmount/-</span>Contribution Amount
+                                            </div> 
+
+                                        </div>
+
+
+
+
+
+                                    </div> 
+
+                                </div>
+                            </th>
+                        </tr>
+
+                    </thead>
+
+
+                </table>*@
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+      

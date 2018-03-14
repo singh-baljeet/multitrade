@@ -1,0 +1,222 @@
+﻿@model  IEnumerable<PersonalDetail>
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}    
+ <div id = "contentHeader" >
+    <h1>My Team</h1>
+</div> <!-- #contentHeader -->
+
+<div class="container">
+
+    <div class="grid-12">
+
+        <div class="widget widget-table">
+            @using (Html.BeginForm("SearchByPlacementSide", "Team"))
+            {
+                <div class="widget-header">
+                    <span class="icon-list"></span>
+                    <h3 class="icon chart">Select Member Placement</h3>
+                </div>
+                <div class="widget-content">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Placement</th>
+                                <th>
+                                    @Html.DropDownList("placementSide", new SelectList(
+                                                new List<Object>{
+                                                           new { value = "" , text = "-- Select Side --" },
+                                                           new { value = "LEFT" , text = "LEFT" },
+                                                           new { value = "RIGHT", text = "RIGHT"}
+                                                      },
+                                                    "value",
+                                                    "text",
+                                                     2))
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div> <!-- .widget-content -->
+                <p align="center" style="margin-top:20px;">
+                <span><input type="submit" class="btn btn-large btn-blue" value="View" /></span>
+            </p>
+            }
+        </div>
+
+        <div class="widget widget-table">
+            @using (Html.BeginForm("SearchByMemberId", "Team"))
+            {
+                <div class="widget-header">
+                    <span class="icon-list"></span>
+                    <h3 class="icon chart">Search Member By Id</h3>
+                </div>
+                <div class="widget-content">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Member Id</th>
+                                <th>
+                                    @Html.TextBox("memberId", null, new { placeholder="Enter Member Id", required="required"})
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div> <!-- .widget-content -->
+                <p align="center" style="margin-top:20px;">
+                    <span><input type="submit" class="btn btn-large btn-blue" value="View" /></span>
+
+
+
+                </p>
+
+            }
+        </div>
+
+
+    </div>
+
+    <div class="grid-12">
+        <div class="widget widget-table">
+
+            <div class="widget-header">
+                <span class="icon-list"></span>
+                <h3 class="icon chart">Member Info</h3>
+            </div>
+
+            <div class="widget-content">
+
+                <table class="table table-bordered table-striped">
+                    <thead>
+
+                        <tr>
+                            <th>Sponser Id</th>
+                            <th>@ViewBag.Sponsor</th>
+                        </tr>
+                         <tr>
+                            <th>Sponser Name</th>
+                            <th>@ViewBag.SponsorName</th>
+                        </tr>
+                        <tr>
+                            <th>User Id</th>
+                            <th>@ViewBag.UserName</th>
+
+
+                        </tr>
+                        <tr>
+                            <th>Member Name</th>
+                            <th>@ViewBag.FullName</th>
+
+
+                        </tr>
+
+                        <tr>
+                            <th>Left</th>
+                            <th>@ViewBag.LeftTeam</th>
+
+
+                        </tr>
+                        <tr>
+                            <th>Right</th>
+                            <th>@ViewBag.RightTeam</th>
+
+
+                        </tr>
+                        <tr>
+                            <th>Directs</th>
+                            <th>@ViewBag.DirectTeam</th>
+
+
+                        </tr>
+
+
+
+
+
+
+
+                    </thead>
+
+
+                </table>
+
+
+            </div> <!-- .widget-content -->
+
+
+
+
+
+        </div>
+    </div>
+
+    <div class="grid-24">
+
+
+        <div class="widget widget-table">
+
+            <div class="widget-header">
+                <span class="icon-list"></span>
+                <h3 class="icon chart">Geneology</h3>
+            </div>
+
+            <div class="widget-content">
+
+                <table class="table table-bordered table-striped data-table">
+                    <thead>
+                        <tr>
+                            <th>Sr.</th>
+                            <th>Member Name</th>
+                            <th>Placement</th>
+                            <th>User Id</th>
+                            <th>DOJ</th>
+                            <th>Contact</th>
+                            <th>Sponser Id</th>
+                            <th>Last Contri.</th>
+                            <th>Paid On</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @if (Model != null)
+                        {
+                            var i = 1;
+                            foreach (var itm in Model)
+                            {
+                                <tr class="gradeA">
+                                        <td>@i</td>
+                                        <td>@itm.FirstName @itm.LastName</td>
+                                        <td>@itm.PlacementSide</td>
+                                        <td>@itm.UsersDetail.UserName</td>
+                                        <td class="center">@Convert.ToDateTime(itm.JoinedOn).ToString("dd/MM/yyyy")</td>
+                                        <td>@itm.PhoneNumber1</td>
+                                        <td>@itm.UsersDetail.UsersDetail1.UserName</td>
+                                        <td>
+                                            @itm.UsersDetail.ContributionDetails.Where(x => x.UserDetailsId == itm.UsersDetail.Id).OrderByDescending(y => y.ContribDate).FirstOrDefault().ContribNumber
+                                        </td>
+                                        <td>
+                                            @Convert.ToDateTime(itm.UsersDetail.ContributionDetails.Where(x => x.UserDetailsId == itm.UsersDetail.Id).OrderByDescending(y => y.ContribDate).FirstOrDefault().ContribDate).ToString("dd/MM/yyyy")
+                                        </td>
+                                        <td class="center">
+                                            <span>
+                                                @Html.ActionLink("Edit", "Edit", "Profile", new { currentId = itm.UsersDetailsId }, null)
+                                            </span>
+                                            <span style="margin-left:10px;">
+                                                <a href="#">Cancel</a>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    i = i + 1;
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div> <!-- .widget-content -->
+
+        </div> <!-- .widget-content -->
+
+    </div>
+
+
+
+</div>

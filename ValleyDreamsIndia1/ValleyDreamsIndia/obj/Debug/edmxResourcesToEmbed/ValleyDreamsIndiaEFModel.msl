@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ValleyDreamsIndiaDBModelStoreContainer" CdmEntityContainer="ValleyDreamsIndiaDBEntities">
+    <EntitySetMapping Name="BankDetails">
+      <EntityTypeMapping TypeName="ValleyDreamsIndiaDBModel.BankDetail">
+        <MappingFragment StoreEntitySet="BankDetails">
+          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+          <ScalarProperty Name="UsersDetailsId" ColumnName="UsersDetailsId" />
+          <ScalarProperty Name="TransactionPassword" ColumnName="TransactionPassword" />
+          <ScalarProperty Name="PANNumber" ColumnName="PANNumber" />
+          <ScalarProperty Name="IFSCCode" ColumnName="IFSCCode" />
+          <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
+          <ScalarProperty Name="AccountHolderName" ColumnName="AccountHolderName" />
+          <ScalarProperty Name="BankName" ColumnName="BankName" />
+          <ScalarProperty Name="NomineeRelation" ColumnName="NomineeRelation" />
+          <ScalarProperty Name="NomineeName" ColumnName="NomineeName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PersonalDetails">
+      <EntityTypeMapping TypeName="ValleyDreamsIndiaDBModel.PersonalDetail">
+        <MappingFragment StoreEntitySet="PersonalDetails">
+          <ScalarProperty Name="LegId" ColumnName="LegId" />
+          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+          <ScalarProperty Name="UsersDetailsId" ColumnName="UsersDetailsId" />
+          <ScalarProperty Name="PinCode" ColumnName="PinCode" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="District" ColumnName="District" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="PhoneNumber2" ColumnName="PhoneNumber2" />
+          <ScalarProperty Name="PhoneNumber1" ColumnName="PhoneNumber1" />
+          <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+          <ScalarProperty Name="FatherName" ColumnName="FatherName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="PlacementSide" ColumnName="PlacementSide" />
+          <ScalarProperty Name="JoinedOn" ColumnName="JoinedOn" />
+          <ScalarProperty Name="SponsoredId" ColumnName="SponsoredId" />
+          <ScalarProperty Name="ProfilePic" ColumnName="ProfilePic" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ContributionDetails">
+      <EntityTypeMapping TypeName="ValleyDreamsIndiaDBModel.ContributionDetail">
+        <MappingFragment StoreEntitySet="ContributionDetails">
+          <ScalarProperty Name="IsCompleted" ColumnName="IsCompleted" />
+          <ScalarProperty Name="PayedBy" ColumnName="PayedBy" />
+          <ScalarProperty Name="SponsoredId" ColumnName="SponsoredId" />
+          <ScalarProperty Name="UserDetailsId" ColumnName="UserDetailsId" />
+          <ScalarProperty Name="RemainingContrib" ColumnName="RemainingContrib" />
+          <ScalarProperty Name="NextContribDate" ColumnName="NextContribDate" />
+          <ScalarProperty Name="NextContribNumber" ColumnName="NextContribNumber" />
+          <ScalarProperty Name="ContribAmount" ColumnName="ContribAmount" />
+          <ScalarProperty Name="ContribDate" ColumnName="ContribDate" />
+          <ScalarProperty Name="ContribNumber" ColumnName="ContribNumber" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RenewalPinDetails">
+      <EntityTypeMapping TypeName="ValleyDreamsIndiaDBModel.RenewalPinDetail">
+        <MappingFragment StoreEntitySet="RenewalPinDetails">
+          <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+          <ScalarProperty Name="PinCreatedOn" ColumnName="PinCreatedOn" />
+          <ScalarProperty Name="IsPinUsed" ColumnName="IsPinUsed" />
+          <ScalarProperty Name="RecipientId" ColumnName="RecipientId" />
+          <ScalarProperty Name="SponsoredId" ColumnName="SponsoredId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UsersDetails">
+      <EntityTypeMapping TypeName="ValleyDreamsIndiaDBModel.UsersDetail">
+        <MappingFragment StoreEntitySet="UsersDetails">
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+          <ScalarProperty Name="PinCreatedOn" ColumnName="PinCreatedOn" />
+          <ScalarProperty Name="IsPinUsed" ColumnName="IsPinUsed" />
+          <ScalarProperty Name="PinType" ColumnName="PinType" />
+          <ScalarProperty Name="SponsoredId" ColumnName="SponsoredId" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="CountPlacementSideFunc" FunctionName="ValleyDreamsIndiaDBModel.Store.CountPlacementSide">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ValleyDreamsIndiaDBModel.CountPlacementSideFunc_Result">
+          <ScalarProperty Name="LeftNodes" ColumnName="LeftNodes" />
+          <ScalarProperty Name="RightNodes" ColumnName="RightNodes" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetPlacementSideRecords" FunctionName="ValleyDreamsIndiaDBModel.Store.GetPlacementSideRecords" />
+    <FunctionImportMapping FunctionImportName="GetLastLeftPlacementSideRecords" FunctionName="ValleyDreamsIndiaDBModel.Store.GetLastLeftPlacementSideRecords" />
+    <FunctionImportMapping FunctionImportName="GetLastRightPlacementSideRecords" FunctionName="ValleyDreamsIndiaDBModel.Store.GetLastRightPlacementSideRecords" />
+  </EntityContainerMapping>
+</Mapping>

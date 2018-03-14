@@ -1,0 +1,244 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ValleyDreamsIndiaDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="ValleyDreamsIndiaDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="BankDetails" EntityType="ValleyDreamsIndiaDBModel.BankDetail" />
+    <EntitySet Name="PersonalDetails" EntityType="ValleyDreamsIndiaDBModel.PersonalDetail" />
+    <EntitySet Name="ContributionDetails" EntityType="ValleyDreamsIndiaDBModel.ContributionDetail" />
+    <EntitySet Name="RenewalPinDetails" EntityType="ValleyDreamsIndiaDBModel.RenewalPinDetail" />
+    <EntitySet Name="UsersDetails" EntityType="ValleyDreamsIndiaDBModel.UsersDetail" />
+    <AssociationSet Name="FK_BankDetails_UsersDetails" Association="ValleyDreamsIndiaDBModel.FK_BankDetails_UsersDetails">
+      <End Role="UsersDetail" EntitySet="UsersDetails" />
+      <End Role="BankDetail" EntitySet="BankDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ContributionDetails_UsersDetails" Association="ValleyDreamsIndiaDBModel.FK_ContributionDetails_UsersDetails">
+      <End Role="UsersDetail" EntitySet="UsersDetails" />
+      <End Role="ContributionDetail" EntitySet="ContributionDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PersonalDetails_UsersDetails" Association="ValleyDreamsIndiaDBModel.FK_PersonalDetails_UsersDetails">
+      <End Role="UsersDetail" EntitySet="UsersDetails" />
+      <End Role="PersonalDetail" EntitySet="PersonalDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RenewalPinDetails_RenewalPinDetails" Association="ValleyDreamsIndiaDBModel.FK_RenewalPinDetails_RenewalPinDetails">
+      <End Role="UsersDetail" EntitySet="UsersDetails" />
+      <End Role="RenewalPinDetail" EntitySet="RenewalPinDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RenewalPinDetails_UsersDetails" Association="ValleyDreamsIndiaDBModel.FK_RenewalPinDetails_UsersDetails">
+      <End Role="UsersDetail" EntitySet="UsersDetails" />
+      <End Role="RenewalPinDetail" EntitySet="RenewalPinDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsersDetails_UsersDetails" Association="ValleyDreamsIndiaDBModel.FK_UsersDetails_UsersDetails">
+      <End Role="UsersDetail" EntitySet="UsersDetails" />
+      <End Role="UsersDetail1" EntitySet="UsersDetails" />
+    </AssociationSet>
+    <FunctionImport Name="CountPlacementSideFunc" ReturnType="Collection(ValleyDreamsIndiaDBModel.CountPlacementSideFunc_Result)">
+      <Parameter Name="USERSDETAILSID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetPlacementSideRecords" ReturnType="Collection(Int32)">
+      <Parameter Name="USERSDETAILSID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetLastLeftPlacementSideRecords" ReturnType="Collection(Int32)">
+      <Parameter Name="USERSDETAILSID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetLastRightPlacementSideRecords" ReturnType="Collection(Int32)">
+      <Parameter Name="USERSDETAILSID" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+  <EntityType Name="BankDetail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NomineeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="NomineeRelation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BankName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="AccountHolderName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AccountNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="IFSCCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PANNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TransactionPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="UsersDetailsId" Type="Int32" />
+    <Property Name="Deleted" Type="Int32" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="UsersDetail" Relationship="ValleyDreamsIndiaDBModel.FK_BankDetails_UsersDetails" FromRole="BankDetail" ToRole="UsersDetail" />
+  </EntityType>
+  <EntityType Name="PersonalDetail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProfilePic" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="SponsoredId" Type="Int32" />
+    <Property Name="JoinedOn" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PlacementSide" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FatherName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BirthDate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PhoneNumber1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PhoneNumber2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Address" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="District" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PinCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="UsersDetailsId" Type="Int32" />
+    <Property Name="Deleted" Type="Int32" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="LegId" Type="Int32" />
+    <NavigationProperty Name="UsersDetail" Relationship="ValleyDreamsIndiaDBModel.FK_PersonalDetails_UsersDetails" FromRole="PersonalDetail" ToRole="UsersDetail" />
+  </EntityType>
+  <EntityType Name="ContributionDetail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ContribNumber" Type="Int32" />
+    <Property Name="ContribDate" Type="DateTime" Precision="3" />
+    <Property Name="ContribAmount" Type="Int32" />
+    <Property Name="NextContribNumber" Type="Int32" />
+    <Property Name="NextContribDate" Type="DateTime" Precision="3" />
+    <Property Name="RemainingContrib" Type="Int32" />
+    <Property Name="UserDetailsId" Type="Int32" />
+    <Property Name="SponsoredId" Type="Int32" />
+    <Property Name="PayedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="IsCompleted" Type="Int32" />
+    <NavigationProperty Name="UsersDetail" Relationship="ValleyDreamsIndiaDBModel.FK_ContributionDetails_UsersDetails" FromRole="ContributionDetail" ToRole="UsersDetail" />
+  </EntityType>
+  <EntityType Name="RenewalPinDetail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SponsoredId" Type="Int32" />
+    <Property Name="RecipientId" Type="Int32" />
+    <Property Name="IsPinUsed" Type="Int32" />
+    <Property Name="PinCreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="Deleted" Type="Int32" />
+    <NavigationProperty Name="UsersDetail" Relationship="ValleyDreamsIndiaDBModel.FK_RenewalPinDetails_RenewalPinDetails" FromRole="RenewalPinDetail" ToRole="UsersDetail" />
+    <NavigationProperty Name="UsersDetail1" Relationship="ValleyDreamsIndiaDBModel.FK_RenewalPinDetails_UsersDetails" FromRole="RenewalPinDetail" ToRole="UsersDetail" />
+  </EntityType>
+  <EntityType Name="UsersDetail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="SponsoredId" Type="Int32" />
+    <Property Name="PinType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="IsPinUsed" Type="Int32" />
+    <Property Name="PinCreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="Deleted" Type="Int32" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UserName" Type="String" MaxLength="7" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
+    <NavigationProperty Name="BankDetails" Relationship="ValleyDreamsIndiaDBModel.FK_BankDetails_UsersDetails" FromRole="UsersDetail" ToRole="BankDetail" />
+    <NavigationProperty Name="ContributionDetails" Relationship="ValleyDreamsIndiaDBModel.FK_ContributionDetails_UsersDetails" FromRole="UsersDetail" ToRole="ContributionDetail" />
+    <NavigationProperty Name="PersonalDetails" Relationship="ValleyDreamsIndiaDBModel.FK_PersonalDetails_UsersDetails" FromRole="UsersDetail" ToRole="PersonalDetail" />
+    <NavigationProperty Name="RenewalPinDetails" Relationship="ValleyDreamsIndiaDBModel.FK_RenewalPinDetails_RenewalPinDetails" FromRole="UsersDetail" ToRole="RenewalPinDetail" />
+    <NavigationProperty Name="RenewalPinDetails1" Relationship="ValleyDreamsIndiaDBModel.FK_RenewalPinDetails_UsersDetails" FromRole="UsersDetail" ToRole="RenewalPinDetail" />
+    <NavigationProperty Name="UsersDetails1" Relationship="ValleyDreamsIndiaDBModel.FK_UsersDetails_UsersDetails" FromRole="UsersDetail" ToRole="UsersDetail1" />
+    <NavigationProperty Name="UsersDetail1" Relationship="ValleyDreamsIndiaDBModel.FK_UsersDetails_UsersDetails" FromRole="UsersDetail1" ToRole="UsersDetail" />
+  </EntityType>
+  <Association Name="FK_BankDetails_UsersDetails">
+    <End Type="ValleyDreamsIndiaDBModel.UsersDetail" Role="UsersDetail" Multiplicity="0..1" />
+    <End Type="ValleyDreamsIndiaDBModel.BankDetail" Role="BankDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UsersDetail">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BankDetail">
+        <PropertyRef Name="UsersDetailsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ContributionDetails_UsersDetails">
+    <End Type="ValleyDreamsIndiaDBModel.UsersDetail" Role="UsersDetail" Multiplicity="0..1" />
+    <End Type="ValleyDreamsIndiaDBModel.ContributionDetail" Role="ContributionDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UsersDetail">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ContributionDetail">
+        <PropertyRef Name="UserDetailsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PersonalDetails_UsersDetails">
+    <End Type="ValleyDreamsIndiaDBModel.UsersDetail" Role="UsersDetail" Multiplicity="0..1" />
+    <End Type="ValleyDreamsIndiaDBModel.PersonalDetail" Role="PersonalDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UsersDetail">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PersonalDetail">
+        <PropertyRef Name="UsersDetailsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RenewalPinDetails_RenewalPinDetails">
+    <End Type="ValleyDreamsIndiaDBModel.UsersDetail" Role="UsersDetail" Multiplicity="0..1" />
+    <End Type="ValleyDreamsIndiaDBModel.RenewalPinDetail" Role="RenewalPinDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UsersDetail">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RenewalPinDetail">
+        <PropertyRef Name="SponsoredId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RenewalPinDetails_UsersDetails">
+    <End Type="ValleyDreamsIndiaDBModel.UsersDetail" Role="UsersDetail" Multiplicity="0..1" />
+    <End Type="ValleyDreamsIndiaDBModel.RenewalPinDetail" Role="RenewalPinDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UsersDetail">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RenewalPinDetail">
+        <PropertyRef Name="RecipientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsersDetails_UsersDetails">
+    <End Type="ValleyDreamsIndiaDBModel.UsersDetail" Role="UsersDetail" Multiplicity="0..1" />
+    <End Type="ValleyDreamsIndiaDBModel.UsersDetail" Role="UsersDetail1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UsersDetail">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UsersDetail1">
+        <PropertyRef Name="SponsoredId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="CountPlacementSide_Result">
+    <Property Type="Int32" Name="LeftNodes" Nullable="true" />
+    <Property Type="Int32" Name="RightNodes" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="CountPlacementSide_Result1">
+    <Property Type="Int32" Name="LeftNodes" Nullable="true" />
+    <Property Type="Int32" Name="RightNodes" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="CountPlacementSideSP_Result">
+    <Property Type="Int32" Name="LeftNodes" Nullable="true" />
+    <Property Type="Int32" Name="RightNodes" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="CountPlacementSideFunc_Result">
+    <Property Type="Int32" Name="LeftNodes" Nullable="true" />
+    <Property Type="Int32" Name="RightNodes" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="GetPlacementSideRecords_Result">
+    <Property Type="Int32" Name="UsersDetailsId" Nullable="true" />
+    <Property Type="Int32" Name="LegId" Nullable="true" />
+    <Property Type="String" Name="placementside" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="FirstName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Lastname" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Joinedon" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="phonenumber1" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="sponsoredid" Nullable="true" />
+  </ComplexType>
+</Schema>

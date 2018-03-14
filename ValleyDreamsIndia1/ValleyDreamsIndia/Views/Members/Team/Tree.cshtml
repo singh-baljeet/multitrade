@@ -1,0 +1,441 @@
+﻿@model ValleyDreamsIndia.Common.TreeStructure.Parent
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div id="contentHeader">
+    <h1>Binary Tree</h1>
+</div> <!-- #contentHeader -->
+
+<div class="container">
+    <div class="grid-12">
+        <div class="widget widget-table">
+
+            <div class="widget-header">
+                <span class="icon-list"></span>
+                <h3 class="icon chart">Search User</h3>
+            </div>
+
+            @using (Html.BeginForm("TreeByUserId", "Team"))
+            {
+                        <div class="widget-content">
+
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>User Id</th>
+                                        <th>
+                                            @Html.TextBox("userId", null, new { placeholder= "Enter User Id", required= "required" })
+                                        </th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div> <!-- .widget-content -->
+                        <p align="center" style="margin-top:40px;">
+                            <span> 
+                                <input type="submit" class="btn btn-large btn-blue" value="Search" />
+                             </span>
+
+                            <span style="margin-left:10px;"> 
+                             <button class="btn btn-large btn-gray" onclick="return treeCancelButton()">Cancel</button></span>
+                        </p>
+            }
+
+        </div>
+
+
+
+
+
+    </div>
+
+
+
+    <div class="grid-12">
+        <div class="widget widget-table">
+
+            <div class="widget-header">
+                <span class="icon-list"></span>
+                <h3 class="icon chart">Parent Member Info</h3>
+            </div>
+
+            <div class="widget-content">
+
+                <table class="table table-bordered table-striped">
+                    <thead>
+
+                        <tr>
+                            <th>Sponser Id</th>
+                            <th>@ViewBag.Sponsor</th>
+                        </tr>
+                        <tr>
+                            <th>Sponser Name</th>
+                            <th>@ViewBag.SponsorName</th>
+                        </tr>
+                        <tr>
+                            <th>User Id</th>
+                            <th>@ViewBag.UserName</th>
+
+
+                        </tr>
+                        <tr>
+                            <th>Member Name</th>
+                            <th>@ViewBag.FullName</th>
+
+
+                        </tr>
+
+                        <tr>
+                            <th>Left</th>
+                            <th>@ViewBag.LeftTeam</th>
+
+
+                        </tr>
+                        <tr>
+                            <th>Right</th>
+                            <th>@ViewBag.RightTeam</th>
+
+
+                        </tr>
+                        <tr>
+                            <th>Directs</th>
+                            <th>@ViewBag.DirectTeam</th>
+
+
+                        </tr>
+
+
+
+
+
+
+
+                    </thead>
+
+
+                </table>
+
+
+            </div> <!-- .widget-content -->
+
+
+
+
+
+        </div>
+    </div>
+
+    <div class="grid-24">
+        <div class="widget widget-table">
+
+            <div class="widget-header">
+                <span class="icon-compass"></span>
+                <h3>Team Binary Tree</h3>
+            </div> <!-- .widget-header -->
+
+
+            <div class="widget-content">
+                <center>
+                    <table >
+                        <tbody>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th>
+                                    
+                                    @if (Model.Detail != null)
+                                    {
+                                        <p align="center" style="margin-right:10px;">
+                                            <img src="~/Content/images/stream/defaultavatar_sm.png" />
+                                        </p>
+                                        <p align="center">
+                                                @Model.Detail.Name <br /> 
+                                            <span>User ID :</span>@Model.Detail.UserName <br />
+                                            <span>Sponser ID :</span>@Model.Detail.SponsorName
+                                        </p>
+                                        <p align="center">
+                                            <button class="btn btn-primary explore" 
+                                                    userId="@Model.Detail.UserName">
+                                            <span class="icon-loop"></span>Explore</button>
+                                        </p>
+                                    }
+                                    else
+                                    {
+                                        <p align="center" style="margin-right:10px;">
+                                            <img src="~/Content/images/stream/defaultavatar_sm.png" />
+                                        </p>
+                                        <p align="center">
+                                            <button class="btn btn-primary">
+                                                <span class="icon-loop"></span>Explore
+                                            </button>
+                                        </p>
+                                    }
+                                </th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <th>
+                                    <div style="float:left;">
+                                        
+                                        @if (Model.Detail != null)
+                                        {
+                                            if (Model.LeftChildren != null)
+                                            {
+                                                <img src="~/Content/images/stream/defaultavatar_sm.png" />
+                                                <br>
+                                                <span align="center">
+                                                    @Model.LeftChildren.Detail.Name <br />
+                                                    <span>User ID :</span>@Model.LeftChildren.Detail.UserName <br />
+                                                    <span>Sponser ID :</span>@Model.LeftChildren.Detail.SponsorName <br />
+                                                </span>
+                                                <button style="margin-left:5px;" class="btn btn-primary explore " 
+                                                        userId="@Model.LeftChildren.Detail.UserName">
+                                                    <span class="icon-loop"></span>Explore
+                                                </button>
+                                            }
+                                            else
+                                            {
+                                                <img src="~/Content/images/stream/defaultavatar_sm.png" />
+                                                <br>
+                                                <button style="margin-left:5px;" class="btn btn-primary">
+                                                    <span class="icon-loop"></span>Explore
+                                                </button>
+                                            }
+                                        }
+                                    </div>
+                                </th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th>
+                                    <div style="float:right;">
+                                        
+                                        @if (Model.Detail != null)
+                                        {
+                                            if (Model.RightChildren != null)
+                                            {
+                                                <img src="~/Content/images/stream/defaultavatar_sm.png" />
+                                                <br>
+                                                <span style="text-align:center">
+                                                    @Model.RightChildren.Detail.Name <br />
+                                                <span>User ID :</span>
+                                                @Model.RightChildren.Detail.UserName <br />
+                                                <span>Sponser ID :</span>
+                                                @Model.RightChildren.Detail.SponsorName  <br />
+                                                </span>
+                                                <button style="margin-left:5px;" class="btn btn-primary explore" 
+                                                        userId="@Model.RightChildren.Detail.UserName">
+                                                    <span class="icon-loop"></span>Explore
+                                                </button>
+                                            }
+                                            else
+                                            {
+                                                <img src="~/Content/images/stream/defaultavatar_sm.png" />
+                                                <br>
+                                                <button style="margin-left:5px;" class="btn btn-primary">
+                                                    <span class="icon-loop"></span>Explore
+                                                </button>
+                                            }
+                                        }
+                                    </div>
+                                </th>
+                                <th></th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <div style="float:left;">
+                                        
+                                        @if (Model.Detail != null)
+                                        {
+                                            if (Model.LeftChildren != null)
+                                            {
+                                                if (Model.LeftChildren.LeftSubChildren != null)
+                                                {
+                                                    <img src="~/Content/images/stream/defaultavatar_sm.png" />
+                                                    <br>
+                                                    <span align="center">
+                                                        @Model.LeftChildren.LeftSubChildren.Name <br />
+                                                     <span>User ID :</span>
+                                                        @Model.LeftChildren.LeftSubChildren.UserName <br />
+                                                     <span>Sponser ID :</span>                                   
+                                                        @Model.LeftChildren.LeftSubChildren.SponsorName <br />
+                                                    </span>
+                                                    <button style="margin-left:5px;" class="btn btn-primary explore"
+                                                            userId="@Model.LeftChildren.LeftSubChildren.UserName">
+                                                        <span class="icon-loop"></span>Explore
+                                                    </button>
+                                                }
+                                                else
+                                                {
+                                                    <img src="~/Content/images/stream/defaultavatar_sm.png" />
+                                                    <br>
+                                                    <button style="margin-left:5px;" class="btn btn-primary">
+                                                        <span class="icon-loop"></span>Explore
+                                                    </button>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <img src="~/Content/images/stream/defaultavatar_sm.png" />
+                                                <br>
+                                                <button style="margin-left:5px;" class="btn btn-primary">
+                                                    <span class="icon-loop"></span>Explore
+                                                </button>
+                                            }
+                                        }
+                                    </div>
+
+                                </th>
+                                <th></th>
+                                <th>
+                                    <div style="float:right;">
+                                        <br>
+                                        @if (Model.Detail != null)
+                                        {
+                                            if (Model.LeftChildren != null)
+                                            {
+                                                if (Model.LeftChildren.RightSubChildren != null)
+                                                {
+                                                    <img src="~/Content/images/stream/defaultavatar_sm.png" />
+                                                    <br>
+                                                    <span style="text-align:center">
+                                                        @Model.LeftChildren.RightSubChildren.Name <br />
+                                                    <span>User ID :</span>                                                       
+                                                        @Model.LeftChildren.RightSubChildren.UserName <br />
+                                                    <span>Sponser ID :</span>                                    
+                                                        @Model.LeftChildren.RightSubChildren.SponsorName  <br />
+                                                    </span>
+                                                    <button style="margin-left:5px;" class="btn btn-primary explore" 
+                                                            userId="@Model.LeftChildren.RightSubChildren.UserName">
+                                                        <span class="icon-loop"></span>Explore
+                                                    </button>
+                                                }
+                                                else
+                                                {
+                                                    <img src="~/Content/images/stream/defaultavatar_sm.png" />
+                                                    <br>
+                                                    <button style="margin-left:5px;" class="btn btn-primary">
+                                                        <span class="icon-loop"></span>Explore
+                                                    </button>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <img src="~/Content/images/stream/defaultavatar_sm.png" />
+                                                <br>
+                                                <button style="margin-left:5px;" class="btn btn-primary">
+                                                    <span class="icon-loop"></span>Explore
+                                                </button>
+                                            }
+                                        }
+                                    </div>
+                                </th>
+                                <th></th>
+                                <th>
+                                    <div style="float:left;">
+                                        <br>
+                                        @if (Model.Detail != null)
+                                        {
+                                            if (Model.RightChildren != null)
+                                            {
+                                                if (Model.RightChildren.LeftSubChildren != null)
+                                                {
+                                                    <img src="~/Content/images/stream/defaultavatar_sm.png" />
+                                                    <br>
+                                                    <span align="center">
+                                                        @Model.RightChildren.LeftSubChildren.Name <br />
+                                                    <span>User ID :</span>                                                        
+                                                        @Model.RightChildren.LeftSubChildren.UserName <br />
+                                                    <span>Sponser ID :</span>                                                        
+                                                        @Model.RightChildren.LeftSubChildren.SponsorName <br />
+                                                    </span>
+                                                    <button style="margin-left:5px;" class="btn btn-primary explore" 
+                                                            userId="@Model.RightChildren.LeftSubChildren.UserName">
+                                                        <span class="icon-loop"></span>Explore
+                                                    </button>
+                                                }
+                                                else
+                                                {
+                                                    <img src="~/Content/images/stream/defaultavatar_sm.png" />
+                                                    <br>
+                                                    <button style="margin-left:5px;" class="btn btn-primary">
+                                                        <span class="icon-loop"></span>Explore
+                                                    </button>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <img src="~/Content/images/stream/defaultavatar_sm.png" />
+                                                <br>
+                                                <button style="margin-left:5px;" class="btn btn-primary">
+                                                    <span class="icon-loop"></span>Explore
+                                                </button>
+                                            }
+
+                                        }
+                                    </div>
+                                </th>
+                                <th></th>
+                                <th>
+                                    <div style="float:left;">
+                                        <br>
+                                        @if (Model.Detail != null)
+                                        {
+                                            if (Model.RightChildren != null)
+                                            {
+                                                if (Model.RightChildren.RightSubChildren != null)
+                                                {
+                                                     <img src="~/Content/images/stream/defaultavatar_sm.png" />
+                                                     <br>
+                                                    <span align="center">
+                                                        @Model.RightChildren.RightSubChildren.Name <br />
+                                                    <span>User ID :</span>                                                        
+                                                        @Model.RightChildren.RightSubChildren.UserName <br />
+                                                    <span>Sponser ID :</span>                                                        
+                                                        @Model.RightChildren.RightSubChildren.SponsorName <br />
+                                                    </span>
+                                                    <button style="margin-left:5px;" class="btn btn-primary explore" 
+                                                            userId="@Model.RightChildren.RightSubChildren.UserName">
+                                                        <span class="icon-loop"></span>Explore
+                                                    </button>
+                                                }
+                                                else
+                                                {
+                                                    <img src="~/Content/images/stream/defaultavatar_sm.png" />
+                                                    <br>
+                                                    <button style="margin-left:5px;" class="btn btn-primary">
+                                                        <span class="icon-loop"></span>Explore
+                                                    </button>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <img src="~/Content/images/stream/defaultavatar_sm.png" />
+                                                <br>
+                                                <button style="margin-left:5px;" class="btn btn-primary">
+                                                    <span class="icon-loop"></span>Explore
+                                                </button>
+                                            }
+                                        }
+                                        
+                                    </div>
+
+                                </th>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </center>
+            </div> <!-- .widget-content -->
+
+        </div>
+
+
+    </div>
+
+
+</div>
+

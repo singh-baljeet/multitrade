@@ -1,0 +1,167 @@
+﻿@model Tuple<UsersDetail, PersonalDetail>
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div id="contentHeader">
+    <h1>Wallet</h1>
+</div> <!-- #contentHeader -->
+
+<div class="container">
+    <div class="grid-12">
+        <div class="widget widget-table">
+
+            <div class="widget-header">
+                <span class="icon-list"></span>
+                <h3 class="icon chart">Transaction Panel</h3>
+            </div>
+
+@using (Html.BeginForm("Transfer", "Wallet", FormMethod.Post))
+{
+            <div class="widget-content">
+                <table class="table table-bordered table-striped">
+                    <thead>
+
+                        <tr>
+                            <th>Type Of Pin</th>
+                            <th>
+                                @Html.DropDownList("pinType", new SelectList(
+ new List<Object>{
+                                                                           new { value = "NEW" , text = "NEW" },
+                                                                           new { value = "RENEW", text = "RENEW"}
+   },
+ "value",
+ "text",
+  2))
+
+                                @*<select id="plc" name="plc">
+                                    <option value="">--Select--</option>
+                                    <option value="">New Joining Pin </option>
+                                    <option value="">Renewal Pin</option>
+                                </select>*@
+                            </th>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <th>Transfer To</th>
+                            <th>@Html.TextBox("sponsoredId", null, new { placeholder="Enter Sponsored Id", required="required"})</th>
+
+                        </tr>
+                        <tr>
+                            <th>No. Of Pins</th>
+                            <th>@Html.TextBox("totalPin", null, new { placeholder = "Enter Total Pins", required = "required" })</th>
+
+                        </tr>
+
+
+                        <tr>
+                            <th>Transaction</th>
+                            <th>
+                            @Html.Password("transactionPassword", null, new { placeholder = "Enter Txn. Pass", required="required" })
+                            </th>
+                        </tr>
+
+                    </thead>
+
+
+                </table>
+            </div> <!-- .widget-content -->
+
+            <div style="margin-top:20px; margin-bottom:20px;" align="center">
+                <span><input type="submit" class="btn btn-primary" value="Transfer Pins"/></span>
+            </div>
+
+            <div style="margin-top:10px; margin-bottom:10px;" align="center">
+                @ViewBag.Message
+            </div>
+
+}
+
+
+
+        </div>
+
+    </div>
+
+    <div class="grid-12">
+        <div class="widget widget-table">
+
+            <div class="widget-header">
+                <span class="icon-list"></span>
+                <h3 class="icon chart">Available Pins</h3>
+            </div>
+
+            <div class="widget-content">
+
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Sponser Id</th>
+                            <th>@Model.Item1.UsersDetail1.UserName</th>
+                        </tr>
+                         <tr>
+                            <th>Sponser Name</th>
+                            <th>
+                                <span>@Model.Item1.UsersDetail1.PersonalDetails.FirstOrDefault().FirstName</span>
+                                <span>@Model.Item1.UsersDetail1.PersonalDetails.FirstOrDefault().LastName </span>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>User Id</th>
+                            <th>@Model.Item1.UserName</th>
+
+
+                        </tr>
+                        <tr>
+                            <th>Member Name</th>
+                            <th>@Model.Item2.FirstName @Model.Item2.LastName</th>
+
+
+                        </tr>
+                        <tr>
+                            <th>Joining Date</th>
+                            <th>@Convert.ToDateTime(Model.Item2.JoinedOn).ToShortDateString()</th>
+
+
+                        </tr>
+
+
+                        <tr>
+                            <th>New Joining Pins</th>
+                            <th>@ViewBag.TotalJoiningPins</th>
+
+                        </tr>
+                        <tr>
+                            <th>Renewal Pins</th>
+                            <th>@ViewBag.TotalRenewPins</th>
+
+                        </tr>
+
+
+
+
+
+
+
+                    </thead>
+
+
+                </table>
+
+
+            </div> <!-- .widget-content -->
+
+
+
+
+
+        </div>
+
+    </div>
+
+
+</div>
+
+

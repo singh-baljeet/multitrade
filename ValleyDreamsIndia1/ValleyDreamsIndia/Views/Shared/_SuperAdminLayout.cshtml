@@ -1,0 +1,234 @@
+﻿
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+ <!--<![endif]-->
+<head>
+
+    <title>@ViewBag.Title</title>
+
+    <meta charset="utf-8" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="image/png" href="~/Content/images/fav.png" rel="shortcut icon">
+    <link href="~/Content/stylesheets/all.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/stylesheets/sample_pages/people.css" type="text/css" />
+    <link rel="stylesheet" href="~/Content/stylesheets/sample_pages/stream.css" type="text/css" />
+    <link rel="stylesheet" href="~/Content/stylesheets/sample_pages/buttons-icons.css" type="text/css" />
+
+    
+    @*<link rel="stylesheet" href="stylesheets/all.css" type="text/css" />*@
+
+    <!--[if gte IE 9]>
+    <link rel="stylesheet" href="stylesheets/ie9.css" type="text/css" />
+    <![endif]-->
+    <!--[if gte IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie8.css" type="text/css" />
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <div id="header">
+            <h1><a href="">Administrator</a></h1>
+
+            <a href="javascript:;" id="reveal-nav">
+                <span class="reveal-bar"></span>
+                <span class="reveal-bar"></span>
+                <span class="reveal-bar"></span>
+            </a>
+        </div> <!-- #header -->
+
+        <div id="search">
+        </div> <!-- #search -->
+
+        <div id="sidebar">
+            <ul id="mainNav">
+                <li id="navDashboard" class="nav  @(ViewContext.RouteData.Values["action"].ToString() == "Dashboard" ? "active" : "") ">
+                    <span class="icon-home"></span>
+                    <a href="/SuperAdmin/Dashboard">Dashboard</a>
+                </li>
+
+                <li id="navPages" class="nav @((ViewContext.RouteData.Values["action"].ToString() == "ChangePassword") || (ViewContext.RouteData.Values["action"].ToString() == "EditProfile")) ? 'active' : '')">
+                    <span class="icon-document-alt-stroke"></span>
+                    <a href="javascript:;">Manage Account</a>
+
+                    <ul class="subNav">
+                        <li><a href="/SuperAdmin/ViewProfile">My Profile</a></li>
+                        <li><a href="/SuperAdmin/EditProfile">Profile Settings</a></li>
+                        <li><a href="/SuperAdmin/ChangePassword">Change Password</a></li>
+                    </ul>
+                </li>
+
+                <li id="navForms" class="nav  @((ViewContext.RouteData.Values["action"].ToString() == "GetAllUsers") || (ViewContext.RouteData.Values["action"].ToString() == "CreateMember")) ? 'active' : '')">
+                    <span class="icon-article"></span>
+                    <a href="javascript:;">Manage Team</a>
+
+                    <ul class="subNav">
+                        <li><a href="/SuperAdmin/GetAllUsers">Users List</a></li>
+                        <li><a href="/SuperAdmin/CreateMember">Add New Member</a></li>
+                    </ul>
+                </li>
+
+                <li id="navType" class="nav @(ViewContext.RouteData.Values["action"].ToString() == "Contribution" ? "active" : "") ">
+                    <span class="icon-equalizer"></span>
+                    <a href="/SuperAdmin/Contribution">Check Contributions</a>
+                </li>
+                
+                <li id="navType" class="nav @(ViewContext.RouteData.Values["action"].ToString() == "AssignPin" ? "active" : "") ">
+                    <span class="icon-equalizer"></span>
+                    <a href="/SuperAdmin/AssignPin">Assign Pins</a>
+                </li>
+
+                <li id="navType" class="nav @(ViewContext.RouteData.Values["action"].ToString() == "Tree" ? "active" : "") ">
+                    <span class="icon-equalizer"></span>
+                    <a href="/SuperAdmin/Tree">Tree</a>
+                </li>
+
+                <li id="navGrid" class="nav">
+                    <span class="icon-layers"></span>
+                    @using (Html.BeginForm("LogOut", "SuperAdmin", FormMethod.Post, new { id = "logoutForm" }))
+                    {
+                        <a href="javascript:document.getElementById('logoutForm').submit()">Logout</a>
+                    }
+                </li>
+
+            </ul>
+
+        </div> <!-- #sidebar -->
+        <div id="content">
+            @RenderBody()
+        </div> <!-- #content -->
+
+            <div id="topNav">
+                <ul>
+                    <li>
+                        <a href="#" class="menu" style="font-size:16px;">
+
+                        </a>
+
+
+                    </li>
+                    <li>
+                        @using (Html.BeginForm("LogOut", "Home", FormMethod.Post, new { id = "logoutForm1" }))
+                        {
+                            <a href="javascript:document.getElementById('logoutForm1').submit()" style="font-size:16px;">Logout</a>
+                        }
+                    </li>
+                </ul>
+            </div>
+
+
+            <!-- #topNav -->
+            <!-- .quickNav -->
+
+
+        </div> <!-- #wrapper -->
+
+    <div id="footer" style="font-size:14px;">
+        Copyright &copy; www.bethuelmultitrade.com 2018
+    </div>
+
+    @* @Scripts.Render("~/bundles/jquery")
+     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/javascripts/all")
+    @RenderSection("scripts", required: false)*@
+
+    <script src="~/Scripts/javascripts/all.js"></script>
+
+
+    @*<script src="javascripts/all.js"></script>*@
+    <script>
+
+        function cancelButton(){
+            $("#userId").val("");
+            return false;
+        }
+
+       function transactionCancelBtn(){
+            $("#OldTransactionPassword").val("");
+            $("#NewTransactionPassword").val("");
+            $("#ConfirmTransactionNewPassword").val("");
+            return false;
+       }
+
+       function passwordCancelBtn() {
+           $("#OldPassword").val("");
+           $("#NewPassword").val("");
+           $("#ConfirmNewPassword").val("");
+           return false;
+       }
+
+        $(function () {
+
+            $(".explore").click(function (e) {
+                var usrId = $(this).attr("userId");
+                $('<form action="/SuperAdmin/TreeByUserId" method="POST"/>')
+                        .append($('<input type="hidden" name="userId" value="' + usrId + '">'))
+                        .appendTo($(document.body))
+                .submit();
+            })
+
+            //$("#admintreecancelbtn").click(function (e) {
+            //    $("#userId").val("");
+            //    $("#userId").removeAttr('required');
+            //    e.preventdefault();
+            //    return false;
+            //})
+
+           
+
+    $("#datepicker").datepicker();
+    $("#datepicker1").datepicker();
+	$( "#datepicker_inline" ).datepicker();
+	$('#colorpickerHolder').ColorPicker({flat: true});
+	$('#timepicker').timepicker ({
+		showPeriod: true
+		, showNowButton: true
+		, showCloseButton: true
+	});
+
+	$('#timepicker_inline_div').timepicker({
+	   defaultTime: '9:20'
+	});
+
+	$('#colorSelector').ColorPicker({
+		color: '#FF9900',
+		onShow: function (colpkr) {
+			$(colpkr).fadeIn(500);
+			return false;
+		},
+		onHide: function (colpkr) {
+			$(colpkr).fadeOut(500);
+			return false;
+		},
+		onSubmit: function (hsb, hex, rgb, el) {
+			$(el).ColorPickerHide ();
+		},
+		onChange: function (hsb, hex, rgb) {
+			$('#colorSelector div').css({ 'background-color': '#' + hex });
+			$('#colorpickerField1').val ('#' + hex);
+		}
+	});
+
+	$('#colorpickerField1').live ('keyup', function (e) {
+		var val = $(this).val ();
+		val = val.replace ('#', '');
+		$('#colorSelector div').css({ 'background-color': '#' + val });
+		$('#colorSelector').ColorPickerSetColor(val);
+	});
+
+});
+
+    </script>
+
+    
+</body>
+</html>

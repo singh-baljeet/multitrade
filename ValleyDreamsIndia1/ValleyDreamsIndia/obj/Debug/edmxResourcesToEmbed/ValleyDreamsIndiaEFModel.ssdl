@@ -1,0 +1,206 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ValleyDreamsIndiaDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="BankDetails">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NomineeName" Type="varchar" MaxLength="50" />
+    <Property Name="NomineeRelation" Type="varchar" MaxLength="50" />
+    <Property Name="BankName" Type="varchar" MaxLength="100" />
+    <Property Name="AccountHolderName" Type="varchar" MaxLength="50" />
+    <Property Name="AccountNumber" Type="varchar" MaxLength="50" />
+    <Property Name="IFSCCode" Type="varchar" MaxLength="50" />
+    <Property Name="PANNumber" Type="varchar" MaxLength="50" />
+    <Property Name="TransactionPassword" Type="varchar" MaxLength="50" />
+    <Property Name="UsersDetailsId" Type="int" />
+    <Property Name="Deleted" Type="int" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="UpdatedOn" Type="datetime" />
+  </EntityType>
+  <EntityType Name="ContributionDetails">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ContribNumber" Type="int" />
+    <Property Name="ContribDate" Type="datetime" />
+    <Property Name="ContribAmount" Type="int" />
+    <Property Name="NextContribNumber" Type="int" />
+    <Property Name="NextContribDate" Type="datetime" />
+    <Property Name="RemainingContrib" Type="int" />
+    <Property Name="UserDetailsId" Type="int" />
+    <Property Name="SponsoredId" Type="int" />
+    <Property Name="PayedBy" Type="varchar" MaxLength="50" />
+    <Property Name="IsCompleted" Type="int" />
+  </EntityType>
+  <EntityType Name="PersonalDetails">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProfilePic" Type="varchar" MaxLength="100" />
+    <Property Name="SponsoredId" Type="int" />
+    <Property Name="JoinedOn" Type="varchar" MaxLength="50" />
+    <Property Name="LegId" Type="int" />
+    <Property Name="PlacementSide" Type="varchar" MaxLength="50" />
+    <Property Name="Gender" Type="varchar" MaxLength="10" />
+    <Property Name="FirstName" Type="varchar" MaxLength="50" />
+    <Property Name="LastName" Type="varchar" MaxLength="50" />
+    <Property Name="FatherName" Type="varchar" MaxLength="50" />
+    <Property Name="BirthDate" Type="varchar" MaxLength="50" />
+    <Property Name="PhoneNumber1" Type="varchar" MaxLength="50" />
+    <Property Name="PhoneNumber2" Type="varchar" MaxLength="50" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="Address" Type="varchar" MaxLength="1000" />
+    <Property Name="State" Type="varchar" MaxLength="50" />
+    <Property Name="District" Type="varchar" MaxLength="50" />
+    <Property Name="City" Type="varchar" MaxLength="50" />
+    <Property Name="PinCode" Type="varchar" MaxLength="10" />
+    <Property Name="UsersDetailsId" Type="int" />
+    <Property Name="Deleted" Type="int" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="UpdatedOn" Type="datetime" />
+  </EntityType>
+  <EntityType Name="RenewalPinDetails">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SponsoredId" Type="int" />
+    <Property Name="RecipientId" Type="int" />
+    <Property Name="IsPinUsed" Type="int" />
+    <Property Name="PinCreatedOn" Type="datetime" />
+    <Property Name="Deleted" Type="int" />
+  </EntityType>
+  <EntityType Name="UsersDetails">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="100" />
+    <Property Name="SponsoredId" Type="int" />
+    <Property Name="PinType" Type="varchar" MaxLength="50" />
+    <Property Name="IsPinUsed" Type="int" />
+    <Property Name="PinCreatedOn" Type="datetime" />
+    <Property Name="Deleted" Type="int" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="UserName" Type="varchar" MaxLength="7" StoreGeneratedPattern="Computed" />
+  </EntityType>
+  <Association Name="FK_BankDetails_UsersDetails">
+    <End Role="UsersDetails" Type="Self.UsersDetails" Multiplicity="0..1" />
+    <End Role="BankDetails" Type="Self.BankDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UsersDetails">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BankDetails">
+        <PropertyRef Name="UsersDetailsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ContributionDetails_UsersDetails">
+    <End Role="UsersDetails" Type="Self.UsersDetails" Multiplicity="0..1" />
+    <End Role="ContributionDetails" Type="Self.ContributionDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UsersDetails">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ContributionDetails">
+        <PropertyRef Name="UserDetailsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PersonalDetails_UsersDetails">
+    <End Role="UsersDetails" Type="Self.UsersDetails" Multiplicity="0..1" />
+    <End Role="PersonalDetails" Type="Self.PersonalDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UsersDetails">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PersonalDetails">
+        <PropertyRef Name="UsersDetailsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RenewalPinDetails_RenewalPinDetails">
+    <End Role="UsersDetails" Type="Self.UsersDetails" Multiplicity="0..1" />
+    <End Role="RenewalPinDetails" Type="Self.RenewalPinDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UsersDetails">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RenewalPinDetails">
+        <PropertyRef Name="SponsoredId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RenewalPinDetails_UsersDetails">
+    <End Role="UsersDetails" Type="Self.UsersDetails" Multiplicity="0..1" />
+    <End Role="RenewalPinDetails" Type="Self.RenewalPinDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UsersDetails">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RenewalPinDetails">
+        <PropertyRef Name="RecipientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsersDetails_UsersDetails">
+    <End Role="UsersDetails" Type="Self.UsersDetails" Multiplicity="0..1" />
+    <End Role="UsersDetails1" Type="Self.UsersDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UsersDetails">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UsersDetails1">
+        <PropertyRef Name="SponsoredId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="CountPlacementSide" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="USERSDETAILSID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="GetLastLeftPlacementSideRecords" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="USERSDETAILSID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="GetLastRightPlacementSideRecords" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="USERSDETAILSID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="GetPlacementSideRecords" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="USERSDETAILSID" Type="int" Mode="In" />
+  </Function>
+  <EntityContainer Name="ValleyDreamsIndiaDBModelStoreContainer">
+    <EntitySet Name="BankDetails" EntityType="Self.BankDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ContributionDetails" EntityType="Self.ContributionDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PersonalDetails" EntityType="Self.PersonalDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RenewalPinDetails" EntityType="Self.RenewalPinDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UsersDetails" EntityType="Self.UsersDetails" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_BankDetails_UsersDetails" Association="Self.FK_BankDetails_UsersDetails">
+      <End Role="UsersDetails" EntitySet="UsersDetails" />
+      <End Role="BankDetails" EntitySet="BankDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ContributionDetails_UsersDetails" Association="Self.FK_ContributionDetails_UsersDetails">
+      <End Role="UsersDetails" EntitySet="UsersDetails" />
+      <End Role="ContributionDetails" EntitySet="ContributionDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PersonalDetails_UsersDetails" Association="Self.FK_PersonalDetails_UsersDetails">
+      <End Role="UsersDetails" EntitySet="UsersDetails" />
+      <End Role="PersonalDetails" EntitySet="PersonalDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RenewalPinDetails_RenewalPinDetails" Association="Self.FK_RenewalPinDetails_RenewalPinDetails">
+      <End Role="UsersDetails" EntitySet="UsersDetails" />
+      <End Role="RenewalPinDetails" EntitySet="RenewalPinDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RenewalPinDetails_UsersDetails" Association="Self.FK_RenewalPinDetails_UsersDetails">
+      <End Role="UsersDetails" EntitySet="UsersDetails" />
+      <End Role="RenewalPinDetails" EntitySet="RenewalPinDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsersDetails_UsersDetails" Association="Self.FK_UsersDetails_UsersDetails">
+      <End Role="UsersDetails" EntitySet="UsersDetails" />
+      <End Role="UsersDetails1" EntitySet="UsersDetails" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
