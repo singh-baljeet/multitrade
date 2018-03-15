@@ -1,5 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="ValleyDreamsIndiaDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AchieverDetails">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Month" Type="varchar" MaxLength="50" />
+    <Property Name="Year" Type="varchar" MaxLength="50" />
+    <Property Name="AchieverImage" Type="varchar" MaxLength="100" />
+    <Property Name="Deleted" Type="int" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="UpdatedOn" Type="datetime" />
+  </EntityType>
   <EntityType Name="BankDetails">
     <Key>
       <PropertyRef Name="Id" />
@@ -173,6 +185,7 @@
     <Parameter Name="USERSDETAILSID" Type="int" Mode="In" />
   </Function>
   <EntityContainer Name="ValleyDreamsIndiaDBModelStoreContainer">
+    <EntitySet Name="AchieverDetails" EntityType="Self.AchieverDetails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BankDetails" EntityType="Self.BankDetails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ContributionDetails" EntityType="Self.ContributionDetails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PersonalDetails" EntityType="Self.PersonalDetails" Schema="dbo" store:Type="Tables" />

@@ -1121,6 +1121,56 @@ namespace ValleyDreamsIndia.Controllers
         }
 
 
+
+        [CustomAuthorize]
+        [HttpGet]
+        public ActionResult Achiever()
+        {
+            List<AchieverDetail> achieverList = _valleyDreamsIndiaDBEntities.AchieverDetails.OrderByDescending(x=>x.Id).Take(12).ToList();
+            return View(achieverList);
+        }
+
+        [CustomAuthorize]
+        [HttpPost]
+        public ActionResult Achiever(string drawDate, HttpPostedFileBase achieverImage)
+        {
+            AchieverDetail achieverDetail = new AchieverDetail();
+
+            if (achieverImage != null)
+            {
+                string randomImageName = Guid.NewGuid().ToString().Substring(0, 5) + achieverImage.FileName;
+                achieverDetail.AchieverImage = "/AchieverImages/" + randomImageName;
+                achieverImage.SaveAs(Server.MapPath("~/AchieverImages/") + randomImageName);
+            }
+            
+            achieverDetail.Month = Convert.ToDateTime(drawDate).Month.ToString();
+            achieverDetail.Year = Convert.ToDateTime(drawDate).Year.ToString();
+            achieverDetail.CreatedOn = Convert.ToDateTime(drawDate);
+            achieverDetail.Deleted = 0;
+
+            _valleyDreamsIndiaDBEntities.Entry(achieverDetail).State = EntityState.Added;
+            _valleyDreamsIndiaDBEntities.SaveChanges();
+
+            ViewBag.Message = "Achiever Detail Submitted Successfully";
+            List<AchieverDetail> achieverList = _valleyDreamsIndiaDBEntities.AchieverDetails.OrderByDescending(x => x.Id).Take(12).ToList();
+            return View(achieverList);
+        }
+
+
+        [CustomAuthorize]
+        [HttpGet]
+        public ActionResult DeleteAchiever(int achieverId)
+        {
+            AchieverDetail achieverDetail = _valleyDreamsIndiaDBEntities.AchieverDetails.Where(x => x.Id == achieverId).FirstOrDefault();
+            if(achieverDetail != null)
+            {
+                _valleyDreamsIndiaDBEntities.Entry(achieverDetail).State = EntityState.Deleted;
+                _valleyDreamsIndiaDBEntities.SaveChanges();
+            }
+
+            return RedirectToAction("Achiever");
+        }
+
         [HttpPost]
         public ActionResult LogOut()
         {

@@ -97,6 +97,11 @@
                     <a href="/SuperAdmin/Tree">Tree</a>
                 </li>
 
+                <li id="navType" class="nav @(ViewContext.RouteData.Values["action"].ToString() == "Achiever" ? "active" : "") ">
+                    <span class="icon-equalizer"></span>
+                    <a href="/SuperAdmin/Achiever">Manage Achiever</a>
+                </li>
+
                 <li id="navGrid" class="nav">
                     <span class="icon-layers"></span>
                     @using (Html.BeginForm("LogOut", "SuperAdmin", FormMethod.Post, new { id = "logoutForm" }))
@@ -157,6 +162,14 @@
             return false;
         }
 
+        function achieverCancelButton()
+        {
+            $("#myfile").val("")
+            $("#datepicker2").val("");
+            return false;
+
+        }
+
        function transactionCancelBtn(){
             $("#OldTransactionPassword").val("");
             $("#NewTransactionPassword").val("");
@@ -209,6 +222,7 @@
 
     $("#datepicker").datepicker();
     $("#datepicker1").datepicker();
+    $("#datepicker2").datepicker();
 	$( "#datepicker_inline" ).datepicker();
 	$('#colorpickerHolder').ColorPicker({flat: true});
 	$('#timepicker').timepicker ({

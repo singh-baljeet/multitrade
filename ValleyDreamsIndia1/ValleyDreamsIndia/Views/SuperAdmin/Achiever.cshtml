@@ -1,0 +1,120 @@
+﻿@model  IEnumerable<ValleyDreamsIndia.AchieverDetail>
+
+@{
+    Layout = "~/Views/Shared/_SuperAdminLayout.cshtml";
+}
+
+<div id="contentHeader">
+    <h1>Manage Achiever Details</h1>
+</div> <!-- #contentHeader -->
+
+
+    <div class="container">
+        <div class="grid-12">
+            <div class="widget widget-table">
+@using (Html.BeginForm("Achiever", "SuperAdmin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+                <div class="widget-header">
+                    <span class="icon-list"></span>
+                    <h3 class="icon chart">Required Info</h3>
+                </div>
+
+                <div class="widget-content">
+
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th style="vertical-align:middle;">
+                                    Achiever Image
+                                </th>
+                                <th style="vertical-align:middle;">
+                                    <div class="widget-content">
+                                        <div class="field-group inlineField">
+                                            <label for="myfile">Upload Image:</label>
+                                            <div class="uploader">
+                                                <input type="file" name="achieverImage" id="myfile" required />
+                                                <span class="filename" style="-moz-user-select: none;">No file selected</span>
+                                                <span class="action" style="-moz-user-select: none;">Choose File</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </th>
+                            </tr>
+
+                            <tr>
+                                <th>Draw  Date</th>
+                                <th>
+                                    @Html.TextBox("drawDate",null, new { id = "datepicker2", placeholder = "Select Draw Date", required="required"})
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div> <!-- .widget-content -->
+
+            
+
+                <p align="center" style="margin-top:30px;">
+                <span>  <input type="submit" class="btn btn-large btn-blue" value="Submit" />        </span>
+
+                <span style="margin-left:10px;">  <button class="btn btn-large btn-gray" onclick="return achieverCancelButton()">Cancel</button></span>
+
+                <br />
+                @ViewBag.Message
+            </p>
+
+        }
+            </div>
+        </div>
+    
+        <div class="grid-24">
+            <div class="widget widget-table">
+
+                <div class="widget-header">
+                    <span class="icon-list"></span>
+                    <h3 class="icon chart">Geneology</h3>
+                </div>
+
+                <div class="widget-content">
+
+                    <table class="table table-bordered table-striped data-table">
+                        <thead>
+                            <tr>
+                                <th>Sr.</th>
+                                <th>Achiever Month</th>
+                                <th>Achiever Year</th>
+                                <th>Image</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                var i = 1;
+                                foreach (var item in Model)
+                                {
+                                        <tr class="gradeA">
+                                            <td>@i</td>
+                                            <td>@Convert.ToDateTime(item.CreatedOn).ToString("MMMM")</td>
+                                            <td>@item.Year</td>
+                                            <td>
+                                            <img src="@item.AchieverImage"
+                                            alt="Profile Pic" style="width:50px;height:50px" />
+                                            </td>
+                                            <td>@Html.ActionLink("Delete", "DeleteAchiever", new { achieverId=item.Id})</td>
+                                        </tr>
+                                        i = i + 1;
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div> <!-- .widget-content -->
+
+            </div> <!-- .widget-content -->
+
+        </div>
+    
+    </div>
+
+    
+
+

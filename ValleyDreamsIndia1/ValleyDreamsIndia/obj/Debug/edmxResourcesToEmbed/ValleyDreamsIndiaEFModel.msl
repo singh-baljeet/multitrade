@@ -105,5 +105,18 @@
     <FunctionImportMapping FunctionImportName="GetPlacementSideRecords" FunctionName="ValleyDreamsIndiaDBModel.Store.GetPlacementSideRecords" />
     <FunctionImportMapping FunctionImportName="GetLastLeftPlacementSideRecords" FunctionName="ValleyDreamsIndiaDBModel.Store.GetLastLeftPlacementSideRecords" />
     <FunctionImportMapping FunctionImportName="GetLastRightPlacementSideRecords" FunctionName="ValleyDreamsIndiaDBModel.Store.GetLastRightPlacementSideRecords" />
+    <EntitySetMapping Name="AchieverDetails">
+      <EntityTypeMapping TypeName="ValleyDreamsIndiaDBModel.AchieverDetail">
+        <MappingFragment StoreEntitySet="AchieverDetails">
+          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+          <ScalarProperty Name="AchieverImage" ColumnName="AchieverImage" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="Month" ColumnName="Month" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

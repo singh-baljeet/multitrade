@@ -5,6 +5,18 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="ValleyDreamsIndiaDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AchieverDetails">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Month" Type="varchar" MaxLength="50" />
+          <Property Name="Year" Type="varchar" MaxLength="50" />
+          <Property Name="AchieverImage" Type="varchar" MaxLength="100" />
+          <Property Name="Deleted" Type="int" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="UpdatedOn" Type="datetime" />
+        </EntityType>
         <EntityType Name="BankDetails">
           <Key>
             <PropertyRef Name="Id" />
@@ -178,6 +190,7 @@
           <Parameter Name="USERSDETAILSID" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="ValleyDreamsIndiaDBModelStoreContainer">
+          <EntitySet Name="AchieverDetails" EntityType="Self.AchieverDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BankDetails" EntityType="Self.BankDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ContributionDetails" EntityType="Self.ContributionDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PersonalDetails" EntityType="Self.PersonalDetails" Schema="dbo" store:Type="Tables" />
@@ -249,11 +262,12 @@
           <Parameter Name="USERSDETAILSID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetLastLeftPlacementSideRecords" ReturnType="Collection(Int32)">
-            <Parameter Name="USERSDETAILSID" Mode="In" Type="Int32" />
+          <Parameter Name="USERSDETAILSID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetLastRightPlacementSideRecords" ReturnType="Collection(Int32)">
-            <Parameter Name="USERSDETAILSID" Mode="In" Type="Int32" />
+          <Parameter Name="USERSDETAILSID" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="AchieverDetails" EntityType="ValleyDreamsIndiaDBModel.AchieverDetail" />
           </EntityContainer>
         <EntityType Name="BankDetail">
           <Key>
@@ -453,6 +467,18 @@
           <Property Type="String" Name="phonenumber1" Nullable="true" MaxLength="50" />
           <Property Type="Int32" Name="sponsoredid" Nullable="true" />
         </ComplexType>
+        <EntityType Name="AchieverDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Month" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Year" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AchieverImage" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Deleted" Type="Int32" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -563,6 +589,19 @@
           <FunctionImportMapping FunctionImportName="GetPlacementSideRecords" FunctionName="ValleyDreamsIndiaDBModel.Store.GetPlacementSideRecords" />
           <FunctionImportMapping FunctionImportName="GetLastLeftPlacementSideRecords" FunctionName="ValleyDreamsIndiaDBModel.Store.GetLastLeftPlacementSideRecords" />
           <FunctionImportMapping FunctionImportName="GetLastRightPlacementSideRecords" FunctionName="ValleyDreamsIndiaDBModel.Store.GetLastRightPlacementSideRecords" />
+          <EntitySetMapping Name="AchieverDetails">
+            <EntityTypeMapping TypeName="ValleyDreamsIndiaDBModel.AchieverDetail">
+              <MappingFragment StoreEntitySet="AchieverDetails">
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="AchieverImage" ColumnName="AchieverImage" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

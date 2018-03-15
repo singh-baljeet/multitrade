@@ -192,6 +192,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AchieverDetail.cs">
+      <DependentUpon>ValleyDreamsIndiaEFModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
@@ -592,8 +595,10 @@
     <Content Include="Views\SuperAdmin\ViewProfile.cshtml" />
     <Content Include="Views\SuperAdmin\Contribution.cshtml" />
     <Content Include="Views\SuperAdmin\RenewalContribution.cshtml" />
+    <Content Include="Views\SuperAdmin\Achiever.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="AchieverImages\" />
     <Folder Include="App_Data\" />
     <Folder Include="Content\EndUser\images\items\" />
     <Folder Include="UploadedTeamImages\" />
