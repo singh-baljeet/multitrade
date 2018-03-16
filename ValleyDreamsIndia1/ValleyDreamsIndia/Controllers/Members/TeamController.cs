@@ -313,36 +313,40 @@ namespace ValleyDreamsIndia.Controllers.Members
             ViewBag.FullName = PersonalDetails.FirstName + " " + PersonalDetails.LastName;
             ViewBag.Sponsor = UserDetailsResults.UsersDetail1.UserName;
 
-            var myUserList = _valleyDreamsIndiaDBEntities.UsersDetails
-                .Where(x =>x.IsPinUsed == 1 && x.UserName == memberId).FirstOrDefault();
+            //var myUserList = _valleyDreamsIndiaDBEntities.UsersDetails
+            //    .Where(x =>x.IsPinUsed == 1 && x.UserName == memberId).FirstOrDefault();
 
 
-            List<IQueryable<PersonalDetail>> objList = new List<IQueryable<PersonalDetail>>();
+            List<PersonalDetail> objList = _valleyDreamsIndiaDBEntities.PersonalDetails.
+                Where(x => x.UsersDetail.UserName == memberId).ToList();
+
+
+            //List<IQueryable<PersonalDetail>> objList = new List<IQueryable<PersonalDetail>>();
             GetUserInfo(CurrentUser.CurrentUserId);
             //var ownObj = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.LegId == CurrentUser.CurrentUserId);
             //objList.Add(ownObj);
 
-            try
-            {
-                if (myUserList != null && myUserList.UsersDetail1.SponsoredId == CurrentUser.CurrentUserId || (myUserList.SponsoredId == CurrentUser.CurrentUserId && myUserList.UserName == memberId))
-                {
-                    var obj = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.UsersDetailsId == myUserList.Id);
-                    objList.Add(obj);
-                }
-                else
-                {
-                    var ownObject = _valleyDreamsIndiaDBEntities.UsersDetails.Where(x => x.UserName == memberId).FirstOrDefault();
-                    if (ownObject.Id == CurrentUser.CurrentUserId)
-                    {
-                        var obj = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.UsersDetailsId == ownObject.Id);
-                        objList.Add(obj);
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                objList = null;
-            }
+            //try
+            //{
+            //    if (myUserList != null && myUserList.UsersDetail1.SponsoredId == CurrentUser.CurrentUserId || (myUserList.SponsoredId == CurrentUser.CurrentUserId && myUserList.UserName == memberId))
+            //    {
+            //        var obj = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.UsersDetailsId == myUserList.Id);
+            //        objList.Add(obj);
+            //    }
+            //    else
+            //    {
+            //        var ownObject = _valleyDreamsIndiaDBEntities.UsersDetails.Where(x => x.UserName == memberId).FirstOrDefault();
+            //        if (ownObject.Id == CurrentUser.CurrentUserId)
+            //        {
+            //            var obj = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.UsersDetailsId == ownObject.Id);
+            //            objList.Add(obj);
+            //        }
+            //    }
+            //}
+            //catch (Exception e)
+            //{
+            //    objList = null;
+            //}
 
             return View("~/Views/Members/Team/Team.cshtml", objList);
         }

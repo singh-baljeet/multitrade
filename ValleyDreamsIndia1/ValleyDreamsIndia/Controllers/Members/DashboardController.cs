@@ -27,7 +27,7 @@ namespace ValleyDreamsIndia.Controllers.Members
             ViewBag.FullName = PersonalDetails.FirstName + " " + PersonalDetails.LastName;
             ViewBag.Status = (UserDetailsResults.Deleted ==0) ? "Active": "InActive";
             ViewBag.Sponsor = UserDetailsResults.UsersDetail1.UserName;
-            ViewBag.DOJ = Convert.ToDateTime(UserDetailsResults.CreatedOn).ToShortDateString();
+            ViewBag.DOJ = Convert.ToDateTime(UserDetailsResults.CreatedOn);
 
             ViewBag.DirectTeam = _valleyDreamsIndiaDBEntities.PersonalDetails
                 .Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.LegId != CurrentUser.CurrentUserId).Count();

@@ -240,6 +240,5 @@ E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\bin\Microsoft.Owin.Security.O
 E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\bin\Microsoft.Owin.Security.Google.xml
 E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\bin\Microsoft.Owin.Security.Twitter.xml
 E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\obj\Debug\ValleyDreamsIndia.csprojResolveAssemblyReference.cache
 E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\obj\Debug\ValleyDreamsIndia.dll
 E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\obj\Debug\ValleyDreamsIndia.pdb

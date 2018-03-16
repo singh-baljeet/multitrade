@@ -30,7 +30,8 @@ namespace ValleyDreamsIndia.Controllers
         [HttpGet]
         public ActionResult achievers()
         {
-            return View();
+            List<AchieverDetail> achieverDetailList = _valleyDreamsIndiaDBEntities.AchieverDetails.ToList();
+            return View(achieverDetailList);
         }
 
         [HttpGet]

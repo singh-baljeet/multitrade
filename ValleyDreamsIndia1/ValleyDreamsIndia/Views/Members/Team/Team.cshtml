@@ -192,10 +192,13 @@
                                         <td>@itm.PhoneNumber1</td>
                                         <td>@itm.UsersDetail.UsersDetail1.UserName</td>
                                         <td>
-                                            @itm.UsersDetail.ContributionDetails.Where(x => x.UserDetailsId == itm.UsersDetail.Id).OrderByDescending(y => y.ContribDate).FirstOrDefault().ContribNumber
+                                            @itm.UsersDetail.ContributionDetails.Where(x => x.UserDetailsId == itm.UsersDetail.Id)
+                                                .OrderByDescending(y => y.ContribDate).FirstOrDefault().ContribNumber
                                         </td>
                                         <td>
-                                            @Convert.ToDateTime(itm.UsersDetail.ContributionDetails.Where(x => x.UserDetailsId == itm.UsersDetail.Id).OrderByDescending(y => y.ContribDate).FirstOrDefault().ContribDate).ToString("dd/MM/yyyy")
+                                            @Convert.ToDateTime(itm.UsersDetail.ContributionDetails
+                                           .Where(x => x.UserDetailsId == itm.UsersDetail.Id)
+                                           .OrderByDescending(y => y.ContribDate).FirstOrDefault().ContribDate).ToString("dd/MM/yyyy")
                                         </td>
                                         <td class="center">
                                             <span>

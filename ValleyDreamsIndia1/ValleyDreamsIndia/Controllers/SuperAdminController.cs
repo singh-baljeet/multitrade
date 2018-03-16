@@ -688,7 +688,7 @@ namespace ValleyDreamsIndia.Controllers
             ViewBag.FullName = PersonalDetails.FirstName + " " + PersonalDetails.LastName;
             ViewBag.Status = (UserDetailsResults.Deleted == -1) ? "Active" : "InActive";
             ViewBag.Sponsor = UserDetailsResults.UsersDetail1.UserName;
-            ViewBag.DOJ = Convert.ToDateTime(UserDetailsResults.CreatedOn).ToShortDateString();
+            ViewBag.DOJ = Convert.ToDateTime(UserDetailsResults.CreatedOn).ToString("dd/MM/yyyy");
 
             ViewBag.DirectTeam = _valleyDreamsIndiaDBEntities.PersonalDetails
                 .Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.LegId != CurrentUser.CurrentUserId).Count();
@@ -853,20 +853,33 @@ namespace ValleyDreamsIndia.Controllers
         [HttpGet]
         public ActionResult Contribution()
         {
-            var myUserList1 = _valleyDreamsIndiaDBEntities.ContributionDetails
-                .Where(x => x.SponsoredId == CurrentUser.CurrentUserId);
+            List<int> personalIdList = new List<int>();
 
-            List<IQueryable<PersonalDetail>> objList = new List<IQueryable<PersonalDetail>>();
+            List<PersonalDetail> objList = new List<PersonalDetail>();
 
-            var ownObj = _valleyDreamsIndiaDBEntities.PersonalDetails
-                .Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.LegId == CurrentUser.CurrentUserId);
-            objList.Add(ownObj);
-
-            foreach (var usr in myUserList1)
+            var response = _valleyDreamsIndiaDBEntities.GetPlacementSideRecords((int)CurrentUser.CurrentUserId);
+            foreach (var res in response)
             {
-                var obj = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.UsersDetailsId == usr.UserDetailsId);
-                objList.Add(obj);
+                personalIdList.Add(res.Value);
             }
+
+            objList = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => personalIdList.Contains(x.Id)).ToList();
+
+
+            //var myUserList1 = _valleyDreamsIndiaDBEntities.ContributionDetails
+            //    .Where(x => x.SponsoredId == CurrentUser.CurrentUserId);
+
+            //List<IQueryable<PersonalDetail>> objList = new List<IQueryable<PersonalDetail>>();
+
+            //var ownObj = _valleyDreamsIndiaDBEntities.PersonalDetails
+            //    .Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.LegId == CurrentUser.CurrentUserId);
+            //objList.Add(ownObj);
+
+            //foreach (var usr in myUserList1)
+            //{
+            //    var obj = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.UsersDetailsId == usr.UserDetailsId);
+            //    objList.Add(obj);
+            //}
 
 
             GetUserInfo();
@@ -947,20 +960,25 @@ namespace ValleyDreamsIndia.Controllers
                 return RedirectToAction("Contribution");
             }
 
-            var userId = _valleyDreamsIndiaDBEntities.UsersDetails
-                .Where(x => x.IsPinUsed == 1 && x.UserName == memberId).FirstOrDefault().Id;
+            List<PersonalDetail> objList = _valleyDreamsIndiaDBEntities.PersonalDetails.
+               Where(x => x.UsersDetail.UserName == memberId).ToList();
 
-            var myUserList = _valleyDreamsIndiaDBEntities.ContributionDetails
-               .Where(x => x.UserDetailsId == userId);
 
-            List<IQueryable<PersonalDetail>> objList = new List<IQueryable<PersonalDetail>>();
+
+            //var userId = _valleyDreamsIndiaDBEntities.UsersDetails
+            //    .Where(x => x.IsPinUsed == 1 && x.UserName == memberId).FirstOrDefault().Id;
+
+            //var myUserList = _valleyDreamsIndiaDBEntities.ContributionDetails
+            //   .Where(x => x.UserDetailsId == userId);
+
+            //List<IQueryable<PersonalDetail>> objList = new List<IQueryable<PersonalDetail>>();
             GetUserInfo();
-            foreach (var usr in myUserList)
-            {
-                var obj = _valleyDreamsIndiaDBEntities.PersonalDetails
-                    .Where(x => x.UsersDetailsId == usr.UserDetailsId);
-                objList.Add(obj);
-            }
+            //foreach (var usr in myUserList)
+            //{
+            //    var obj = _valleyDreamsIndiaDBEntities.PersonalDetails
+            //        .Where(x => x.UsersDetailsId == usr.UserDetailsId);
+            //    objList.Add(obj);
+            //}
 
             //var ownObj = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.LegId == CurrentUser.CurrentUserId);
             //objList.Add(ownObj);

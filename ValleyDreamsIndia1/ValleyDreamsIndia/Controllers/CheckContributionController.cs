@@ -19,20 +19,34 @@ namespace ValleyDreamsIndia.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            var myUserList1 = _valleyDreamsIndiaDBEntities.ContributionDetails
-                .Where(x => x.SponsoredId == CurrentUser.CurrentUserId);
+            //var myUserList1 = _valleyDreamsIndiaDBEntities.ContributionDetails
+            //    .Where(x => x.SponsoredId == CurrentUser.CurrentUserId);
 
-            List<IQueryable<PersonalDetail>> objList = new List<IQueryable<PersonalDetail>>();
+            //List<IQueryable<PersonalDetail>> objList = new List<IQueryable<PersonalDetail>>();
 
-            var ownObj = _valleyDreamsIndiaDBEntities.PersonalDetails
-                .Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.LegId == CurrentUser.CurrentUserId);
-            objList.Add(ownObj);
+            //var ownObj = _valleyDreamsIndiaDBEntities.PersonalDetails
+            //    .Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.LegId == CurrentUser.CurrentUserId);
+            //objList.Add(ownObj);
 
-            foreach (var usr in myUserList1)
+            //foreach (var usr in myUserList1)
+            //{
+            //    var obj = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.UsersDetailsId == usr.UserDetailsId);
+            //    objList.Add(obj);
+            //}
+
+
+
+            List<int> personalIdList = new List<int>();
+
+            List<PersonalDetail> objList = new List<PersonalDetail>();
+
+            var response = _valleyDreamsIndiaDBEntities.GetPlacementSideRecords((int)CurrentUser.CurrentUserId);
+            foreach (var res in response)
             {
-                var obj = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.UsersDetailsId == usr.UserDetailsId);
-                objList.Add(obj);
+                personalIdList.Add(res.Value);
             }
+
+            objList = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => personalIdList.Contains(x.Id)).ToList();
 
 
             GetUserInfo();
@@ -107,61 +121,12 @@ namespace ValleyDreamsIndia.Controllers
                 return RedirectToAction("Index");
             }
 
-            var userId = _valleyDreamsIndiaDBEntities.UsersDetails
-                .Where(x => x.IsPinUsed == 1 && x.UserName == memberId).FirstOrDefault().Id;
+            List<PersonalDetail> objList = _valleyDreamsIndiaDBEntities.PersonalDetails.
+                Where(x => x.UsersDetail.UserName == memberId).ToList();
 
 
-            var myUserList = _valleyDreamsIndiaDBEntities.ContributionDetails
-               .Where(x => x.UserDetailsId == userId);
-
-
-            //int countDirect = _valleyDreamsIndiaDBEntities.PersonalDetails
-            //    .Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.LegId != myUserList.Id && x.UsersDetailsId != ).Count();
-
-
-            //var countDirectO = _valleyDreamsIndiaDBEntities.PersonalDetails
-            //    .Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.LegId != myUserList.Id);
-
-            //if (countDirect > 0)
-            //{
-            //    return View("Index", null);
-            //}
-
-
-            List<IQueryable<PersonalDetail>> objList = new List<IQueryable<PersonalDetail>>();
             GetUserInfo();
-            foreach (var usr in myUserList)
-            {
-                var obj = _valleyDreamsIndiaDBEntities.PersonalDetails
-                    .Where(x => x.UsersDetailsId == usr.UserDetailsId);
-                objList.Add(obj);
-            }
-
-            //var ownObj = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.LegId == CurrentUser.CurrentUserId);
-            //objList.Add(ownObj);
-
-            //try
-            //{
-            //    if (myUserList != null && (myUserList.UsersDetail1.SponsoredId == CurrentUser.CurrentUserId || (myUserList.SponsoredId == CurrentUser.CurrentUserId && myUserList.UserName == memberId)))
-            //    {
-            //        var obj = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.UsersDetailsId == myUserList.Id);
-            //        objList.Add(obj);
-            //    }
-            //    else
-            //    {
-            //        var ownObject  = _valleyDreamsIndiaDBEntities.UsersDetails.Where(x=>x.UserName == memberId).FirstOrDefault();
-            //        if(ownObject.Id == CurrentUser.CurrentUserId)
-            //        {
-            //            var obj = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.UsersDetailsId == ownObject.Id);
-            //            objList.Add(obj);
-            //        }
-            //    }
-            //}
-            //catch (Exception e)
-            //{
-            //    objList = null;
-            //}
-
+           
             return View("Index", objList);
         }
 
