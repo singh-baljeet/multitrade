@@ -33,6 +33,7 @@ namespace ValleyDreamsIndia
         public virtual DbSet<RenewalPinDetail> RenewalPinDetails { get; set; }
         public virtual DbSet<UsersDetail> UsersDetails { get; set; }
         public virtual DbSet<AchieverDetail> AchieverDetails { get; set; }
+        public virtual DbSet<GalleryDetail> GalleryDetails { get; set; }
     
         public virtual ObjectResult<CountPlacementSideFunc_Result> CountPlacementSideFunc(Nullable<int> uSERSDETAILSID)
         {

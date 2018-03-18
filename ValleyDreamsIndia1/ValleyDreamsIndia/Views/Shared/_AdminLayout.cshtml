@@ -101,6 +101,7 @@
                     <a href="/Reward/Index">Rewards</a>
                 </li>
 
+
                 <li id="navGrid" class="nav @(ViewContext.RouteData.Values["Action"].ToString() == "LogOut" ? "active" : "") ">
                     <span class="icon-layers"></span>
                     @using (Html.BeginForm("LogOut", "Home", FormMethod.Post, new { id = "logoutForm" }))

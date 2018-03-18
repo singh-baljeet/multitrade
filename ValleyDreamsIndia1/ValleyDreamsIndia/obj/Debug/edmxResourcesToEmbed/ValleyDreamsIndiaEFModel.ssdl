@@ -46,6 +46,16 @@
     <Property Name="PayedBy" Type="varchar" MaxLength="50" />
     <Property Name="IsCompleted" Type="int" />
   </EntityType>
+  <EntityType Name="GalleryDetails">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Pic" Type="varchar" MaxLength="50" />
+    <Property Name="Deleted" Type="int" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="UpdatedOn" Type="datetime" />
+  </EntityType>
   <EntityType Name="PersonalDetails">
     <Key>
       <PropertyRef Name="Id" />
@@ -54,7 +64,6 @@
     <Property Name="ProfilePic" Type="varchar" MaxLength="100" />
     <Property Name="SponsoredId" Type="int" />
     <Property Name="JoinedOn" Type="varchar" MaxLength="50" />
-    <Property Name="UsersDetailsId" Type="int" />
     <Property Name="LegId" Type="int" />
     <Property Name="PlacementSide" Type="varchar" MaxLength="50" />
     <Property Name="Gender" Type="varchar" MaxLength="10" />
@@ -70,6 +79,7 @@
     <Property Name="District" Type="varchar" MaxLength="50" />
     <Property Name="City" Type="varchar" MaxLength="50" />
     <Property Name="PinCode" Type="varchar" MaxLength="10" />
+    <Property Name="UsersDetailsId" Type="int" />
     <Property Name="Deleted" Type="int" />
     <Property Name="CreatedOn" Type="datetime" />
     <Property Name="UpdatedOn" Type="datetime" />
@@ -90,7 +100,6 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="SrNo" Type="int" />
     <Property Name="Password" Type="varchar" MaxLength="100" />
     <Property Name="SponsoredId" Type="int" />
     <Property Name="PinType" Type="varchar" MaxLength="50" />
@@ -100,6 +109,7 @@
     <Property Name="CreatedOn" Type="datetime" />
     <Property Name="UpdatedOn" Type="datetime" />
     <Property Name="UserName" Type="varchar" MaxLength="7" StoreGeneratedPattern="Computed" />
+    <Property Name="SrNo" Type="int" />
   </EntityType>
   <Association Name="FK_BankDetails_UsersDetails">
     <End Role="UsersDetails" Type="Self.UsersDetails" Multiplicity="0..1" />
@@ -189,6 +199,7 @@
     <EntitySet Name="AchieverDetails" EntityType="Self.AchieverDetails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BankDetails" EntityType="Self.BankDetails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ContributionDetails" EntityType="Self.ContributionDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GalleryDetails" EntityType="Self.GalleryDetails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PersonalDetails" EntityType="Self.PersonalDetails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="RenewalPinDetails" EntityType="Self.RenewalPinDetails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UsersDetails" EntityType="Self.UsersDetails" Schema="dbo" store:Type="Tables" />

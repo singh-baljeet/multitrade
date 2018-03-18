@@ -232,6 +232,9 @@
     <Compile Include="CountPlacementSide_Result1.cs">
       <DependentUpon>ValleyDreamsIndiaEFModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="GalleryDetail.cs">
+      <DependentUpon>ValleyDreamsIndiaEFModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="GetPlacementSideRecords_Result.cs">
       <DependentUpon>ValleyDreamsIndiaEFModel.tt</DependentUpon>
     </Compile>
@@ -328,6 +331,64 @@
     <Content Include="Content\EndUser\images\winners\Nov-2018-Coming-Soon.png" />
     <Content Include="Content\EndUser\images\winners\Oct-2018-Coming-Soon.png" />
     <Content Include="Content\EndUser\images\winners\Sep-2018-Coming-Soon.png" />
+    <Content Include="Content\EndUser\index_files\vlb_engine\jquery.min.js" />
+    <Content Include="Content\EndUser\index_files\vlb_engine\thumbscript1.js" />
+    <Content Include="Content\EndUser\index_files\vlb_engine\visuallightbox.js" />
+    <Content Include="Content\EndUser\index_files\vlb_engine\vlbdata1.js" />
+    <Content Include="Content\EndUser\index_files\vlb_files1\back_cb.png" />
+    <Content Include="Content\EndUser\index_files\vlb_files1\back_corvers.png" />
+    <Content Include="Content\EndUser\index_files\vlb_files1\back_ct.png" />
+    <Content Include="Content\EndUser\index_files\vlb_files1\back_info.png" />
+    <Content Include="Content\EndUser\index_files\vlb_files1\back_lb.png" />
+    <Content Include="Content\EndUser\index_files\vlb_files1\back_lc.png" />
+    <Content Include="Content\EndUser\index_files\vlb_files1\back_lr.png" />
+    <Content Include="Content\EndUser\index_files\vlb_files1\back_lt.png" />
+    <Content Include="Content\EndUser\index_files\vlb_files1\back_rb.png" />
+    <Content Include="Content\EndUser\index_files\vlb_files1\back_rc.png" />
+    <Content Include="Content\EndUser\index_files\vlb_files1\back_rt.png" />
+    <Content Include="Content\EndUser\index_files\vlb_files1\back_tb.png" />
+    <Content Include="Content\EndUser\index_files\vlb_files1\cancel48color.png" />
+    <Content Include="Content\EndUser\index_files\vlb_files1\cancel48grey.png" />
+    <Content Include="Content\EndUser\index_files\vlb_files1\close.png" />
+    <Content Include="Content\EndUser\index_files\vlb_files1\loading.gif" />
+    <Content Include="Content\EndUser\index_files\vlb_files1\navigation.png" />
+    <Content Include="Content\EndUser\index_files\vlb_files1\next.png" />
+    <Content Include="Content\EndUser\index_files\vlb_files1\next32-color.png" />
+    <Content Include="Content\EndUser\index_files\vlb_files1\next32-grey.png" />
+    <Content Include="Content\EndUser\index_files\vlb_files1\pause32color.png" />
+    <Content Include="Content\EndUser\index_files\vlb_files1\pause32grey.png" />
+    <Content Include="Content\EndUser\index_files\vlb_files1\prev-32color.png" />
+    <Content Include="Content\EndUser\index_files\vlb_files1\prev-32grey.png" />
+    <Content Include="Content\EndUser\index_files\vlb_files1\prev.png" />
+    <Content Include="Content\EndUser\index_files\vlb_files1\start32color.png" />
+    <Content Include="Content\EndUser\index_files\vlb_files1\start32grey.png" />
+    <Content Include="Content\EndUser\index_files\vlb_files1\visuallightbox.css" />
+    <Content Include="Content\EndUser\index_files\vlb_files1\vlightbox1.css" />
+    <Content Include="Content\EndUser\index_files\vlb_files1\zoom-in.png" />
+    <Content Include="Content\EndUser\index_files\vlb_images1\112.jpg" />
+    <Content Include="Content\EndUser\index_files\vlb_images1\118.jpg" />
+    <Content Include="Content\EndUser\index_files\vlb_images1\135.jpg" />
+    <Content Include="Content\EndUser\index_files\vlb_images1\145.jpg" />
+    <Content Include="Content\EndUser\index_files\vlb_images1\63.jpg" />
+    <Content Include="Content\EndUser\index_files\vlb_images1\64.jpg" />
+    <Content Include="Content\EndUser\index_files\vlb_images1\75.jpg" />
+    <Content Include="Content\EndUser\index_files\vlb_images1\76.jpg" />
+    <Content Include="Content\EndUser\index_files\vlb_images1\78.jpg" />
+    <Content Include="Content\EndUser\index_files\vlb_images1\89.jpg" />
+    <Content Include="Content\EndUser\index_files\vlb_images1\93.jpg" />
+    <Content Include="Content\EndUser\index_files\vlb_images1\99.jpg" />
+    <Content Include="Content\EndUser\index_files\vlb_thumbnails1\112.jpg" />
+    <Content Include="Content\EndUser\index_files\vlb_thumbnails1\118.jpg" />
+    <Content Include="Content\EndUser\index_files\vlb_thumbnails1\135.jpg" />
+    <Content Include="Content\EndUser\index_files\vlb_thumbnails1\145.jpg" />
+    <Content Include="Content\EndUser\index_files\vlb_thumbnails1\63.jpg" />
+    <Content Include="Content\EndUser\index_files\vlb_thumbnails1\64.jpg" />
+    <Content Include="Content\EndUser\index_files\vlb_thumbnails1\75.jpg" />
+    <Content Include="Content\EndUser\index_files\vlb_thumbnails1\76.jpg" />
+    <Content Include="Content\EndUser\index_files\vlb_thumbnails1\78.jpg" />
+    <Content Include="Content\EndUser\index_files\vlb_thumbnails1\89.jpg" />
+    <Content Include="Content\EndUser\index_files\vlb_thumbnails1\93.jpg" />
+    <Content Include="Content\EndUser\index_files\vlb_thumbnails1\99.jpg" />
     <Content Include="Content\EndUser\javascripts\all.js" />
     <Content Include="Content\EndUser\js\cbpAnimatedHeader.js" />
     <Content Include="Content\EndUser\js\classie.js" />
@@ -465,6 +526,11 @@
     <Content Include="Content\images\uniform\sprite.png" />
     <Content Include="Content\javascripts\jquery.growl.js" />
     <Content Include="Content\stylesheets\jquery.growl.css" />
+    <Content Include="GalleryImages\59ed0Penguins.jpg" />
+    <Content Include="GalleryImages\8d2aaDesert.jpg" />
+    <Content Include="GalleryImages\9a184Hydrangeas.jpg" />
+    <Content Include="GalleryImages\b9572Tulips.jpg" />
+    <Content Include="GalleryImages\f9d2dLighthouse.jpg" />
     <Content Include="Scripts\javascripts\all.js" />
     <Content Include="Content\stylesheets\all.css" />
     <Content Include="Content\stylesheets\buttons.css" />
@@ -597,6 +663,9 @@
     <Content Include="Views\SuperAdmin\RenewalContribution.cshtml" />
     <Content Include="Views\SuperAdmin\Achiever.cshtml" />
     <Content Include="Views\SuperAdmin\MemberEditProfile.cshtml" />
+    <Content Include="Views\Home\gallery.cshtml" />
+    <Content Include="Views\SuperAdmin\Gallery.cshtml" />
+    <Content Include="Views\SuperAdmin\Print.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AchieverImages\" />

@@ -39,6 +39,14 @@ namespace ValleyDreamsIndia.Controllers
 
 
         [HttpGet]
+        public ActionResult gallery()
+        {
+            List<GalleryDetail> galleryDetailList = _valleyDreamsIndiaDBEntities.GalleryDetails.ToList();
+            return View(galleryDetailList);
+        }
+
+
+        [HttpGet]
         public ActionResult plan()
         {
             return View();

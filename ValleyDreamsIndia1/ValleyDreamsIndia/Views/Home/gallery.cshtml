@@ -1,0 +1,265 @@
+﻿@model List < ValleyDreamsIndia.GalleryDetail>
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Bethuelmutitrade.com</title>
+
+    <link type="image/png" href="~/Content/EndUser/images/parallax/fav.png" rel="shortcut icon">
+
+
+    <!-- Bootstrap Core CSS -->
+    <link href="~/Content/EndUser/asset/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome CSS -->
+    <link href="~/Content/EndUser/css/font-awesome.min.css" rel="stylesheet">
+
+
+    <!-- Animate CSS -->
+    <link href="~/Content/EndUser/css/animate.css" rel="stylesheet">
+
+    <!-- Owl-Carousel -->
+    <link rel="stylesheet" href="~/Content/EndUser/css/owl.carousel.css">
+    <link rel="stylesheet" href="~/Content/EndUser/css/owl.theme.css">
+    <link rel="stylesheet" href="~/Content/EndUser/css/owl.transitions.css">
+
+    <!-- Custom CSS -->
+    <link href="~/Content/EndUser/css/style.css" rel="stylesheet">
+    <link href="~/Content/EndUser/css/responsive.css" rel="stylesheet">
+
+    <!-- Colors CSS -->
+
+    <link rel="stylesheet" type="text/css" href="~/Content/EndUser/css/color/green.css">
+
+
+
+    <!-- Colors CSS -->
+    <link rel="stylesheet" type="text/css" href="~/Content/EndUser/css/color/green.css" title="green">
+    <link rel="stylesheet" type="text/css" href="~/Content/EndUser/css/color/light-red.css" title="light-red">
+    <link rel="stylesheet" type="text/css" href="~/Content/EndUser/css/color/blue.css" title="blue">
+    <link rel="stylesheet" type="text/css" href="~/Content/EndUser/css/color/light-blue.css" title="light-blue">
+    <link rel="stylesheet" type="text/css" href="~/Content/EndUser/css/color/yellow.css" title="yellow">
+    <link rel="stylesheet" type="text/css" href="~/Content/EndUser/css/color/light-green.css" title="light-green">
+
+
+
+    <!-- Colors CSS -->
+    <!-- Custom Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' 
+          type='text/css'>
+
+
+    <!-- Modernizer js -->
+
+    <script src="~/Content/EndUser/js/modernizr.custom.js"></script>
+    <link rel="stylesheet" href="~/Content/EndUser/index_files/vlb_files1/vlightbox1.css" type="text/css" />
+    <link rel="stylesheet" href="~/Content/EndUser/index_files/vlb_files1/visuallightbox.css" type="text/css" media="screen" />
+    <script src="~/Content/EndUser/index_files/vlb_engine/jquery.min.js" type="text/javascript"></script>
+    <script src="~/Content/EndUser/index_files/vlb_engine/visuallightbox.js" type="text/javascript"></script>
+
+
+
+
+</head>
+
+<body class="index" style="background:#f7f7f7;">
+
+
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand page-scroll" href="index.aspx">Bethuel</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="/">Home</a>
+                    </li>
+
+                    <li>
+                        <a class="page-scroll" href="#team">Team</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#pricing">Pricing</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="/Home/gallery">Gallery</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#">Legal</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="/Home/achievers">Achievers</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="/Home/plan">Business Plan</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#Login">Login</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#about-us">About</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+
+
+
+
+
+
+    <!-- Start Feature Section -->
+    <section id="portfolio" class="portfolio-section-1">
+        <div class="container" style="margin-top:5%;">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-title text-center">
+                        <h3>Our Gallery</h3>
+                        <p>Bethuel Multi Trade Pvt. Ltd.</p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="vlightbox1" style="margin-left:18px;">
+                    @if (Model != null)
+                    {
+                        var i = 1;
+                        foreach (var gallery in Model)
+                        {
+                                    <a class="vlightbox1" href="@gallery.Pic">
+                                        <img src="@gallery.Pic" alt="image" style="width:250px;height:200px;" />
+                                    </a>
+                            i = i + 1;
+                        }
+                    }
+
+    @*<a class="vlightbox1" href="~/Content/EndUser/index_files/vlb_images1/63.jpg" title="(63)">
+    <img src="~/Content/EndUser/index_files/vlb_thumbnails1/63.jpg" alt="(63)" /></a>
+    <a class="vlightbox1" href="~/Content/EndUser/index_files/vlb_images1/64.jpg" title="(64)">
+    <img src="~/Content/EndUser/index_files/vlb_thumbnails1/64.jpg" alt="(64)" /></a>
+    <a class="vlightbox1" href="~/Content/EndUser/index_files/vlb_images1/75.jpg" title="(75)">
+    <img src="~/Content/EndUser/index_files/vlb_thumbnails1/75.jpg" alt="(75)" /></a>
+    <a class="vlightbox1" href="~/Content/EndUser/index_files/vlb_images1/76.jpg" title="(76)">
+    <img src="~/Content/EndUser/index_files/vlb_thumbnails1/76.jpg" alt="(76)" /></a>*@
+
+                @*
+    <a class="vlightbox1" href="~/Content/EndUser/index_files/vlb_images1/78.jpg" title="(78)">
+    <img src="~/Content/EndUser/index_files/vlb_thumbnails1/78.jpg" alt="(78)" /></a>
+    <a class="vlightbox1" href="~/Content/EndUser/index_files/vlb_images1/89.jpg" title="(89)">
+    <img src="~/Content/EndUser/index_files/vlb_thumbnails1/89.jpg" alt="(89)" /></a>
+    <a class="vlightbox1" href="~/Content/EndUser/index_files/vlb_images1/93.jpg" title="(93)">
+    <img src="~/Content/EndUser/index_files/vlb_thumbnails1/93.jpg" alt="(93)" /></a>
+    <a class="vlightbox1" href="~/Content/EndUser/index_files/vlb_images1/99.jpg" title="(99)">
+    <img src="~/Content/EndUser/index_files/vlb_thumbnails1/99.jpg" alt="(99)" /></a>
+    <a class="vlightbox1" href="~/Content/EndUser/index_files/vlb_images1/112.jpg" title="(112)">
+    <img src="~/Content/EndUser/index_files/vlb_thumbnails1/112.jpg" alt="(112)" /></a>
+    <a class="vlightbox1" href="~/Content/EndUser/index_files/vlb_images1/118.jpg" title="(118)">
+    <img src="~/Content/EndUser/index_files/vlb_thumbnails1/118.jpg" alt="(118)" /></a>
+    <a class="vlightbox1" href="~/Content/EndUser/index_files/vlb_images1/135.jpg" title="(135)">
+    <img src="~/Content/EndUser/index_files/vlb_thumbnails1/135.jpg" alt="(135)" /></a>
+    <a class="vlightbox1" href="~/Content/EndUser/index_files/vlb_images1/145.jpg" title="(145)">
+    <img src="~/Content/EndUser/index_files/vlb_thumbnails1/145.jpg" alt="(145)" /></a>*@
+
+            </div>
+
+
+
+
+        </div>
+    </section>
+    <!-- End Feature Section -->
+
+
+
+
+
+
+    <footer class="style-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-xs-12">
+                    <span class="copyright">Copyright &copy; 2018 <a href="#">Bethuel Multi Trade Pvt. Ltd.</a> </span>
+                </div>
+                <div class="col-md-4 col-xs-12">
+                    <div class="footer-social text-center">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4 col-xs-12">
+                    <div class="footer-link">
+                        <ul class="pull-right">
+                            <li>
+                                <a href="#">Privacy Policy</a>
+                            </li>
+                            <li>
+                                <a href="#">Terms of Use</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <div id="loader">
+        <div class="spinner">
+            <div class="dot1"></div>
+            <div class="dot2"></div>
+        </div>
+    </div>
+
+
+
+
+    <!-- jQuery Version 2.1.1 -->
+    <!-- Bootstrap Core JavaScript -->
+
+    <script src="~/Content/EndUser/js/script.js"></script>
+
+    <script src="~/Content/EndUser/index_files/vlb_engine/thumbscript1.js" type="text/javascript"></script>
+    <script src="~/Content/EndUser/index_files/vlb_engine/vlbdata1.js" type="text/javascript"></script>
+
+</body>
+
+</html>

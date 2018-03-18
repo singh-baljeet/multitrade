@@ -51,6 +51,7 @@
       <Parameter Name="USERSDETAILSID" Mode="In" Type="Int32" />
     </FunctionImport>
     <EntitySet Name="AchieverDetails" EntityType="ValleyDreamsIndiaDBModel.AchieverDetail" />
+    <EntitySet Name="GalleryDetails" EntityType="ValleyDreamsIndiaDBModel.GalleryDetail" />
   </EntityContainer>
   <EntityType Name="BankDetail">
     <Key>
@@ -259,6 +260,16 @@
     <Property Name="Month" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="Year" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="AchieverImage" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Deleted" Type="Int32" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="GalleryDetail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Pic" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="Deleted" Type="Int32" />
     <Property Name="CreatedOn" Type="DateTime" Precision="3" />
     <Property Name="UpdatedOn" Type="DateTime" Precision="3" />

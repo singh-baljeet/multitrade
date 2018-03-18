@@ -332,6 +332,7 @@ namespace ValleyDreamsIndia.Controllers
         [HttpGet]
         public ActionResult GetAllUsers()
         {
+            ViewBag.Searched = "ALL";
             UserPersonalListModelView userPersonalListModelView = new UserPersonalListModelView();
             List<PersonalDetail> personalDetailList = _valleyDreamsIndiaDBEntities.PersonalDetails.ToList();
             userPersonalListModelView.PersonalDetails = personalDetailList;
@@ -375,7 +376,7 @@ namespace ValleyDreamsIndia.Controllers
             List<PersonalDetail> personalDetailList = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x=>x.PlacementSide == placementSide).ToList();
             userPersonalListModelView.PersonalDetails = personalDetailList;
 
-
+            ViewBag.Searched = placementSide;
             return View("GetAllUsers", userPersonalListModelView);
         }
 
@@ -392,6 +393,7 @@ namespace ValleyDreamsIndia.Controllers
             List<PersonalDetail> personalDetailList = _valleyDreamsIndiaDBEntities.PersonalDetails.
                 Where(x=>x.UsersDetail.UserName == memberId).ToList();
             userPersonalListModelView.PersonalDetails = personalDetailList;
+            ViewBag.Searched = memberId;
             return View("GetAllUsers",userPersonalListModelView);
         }
 
@@ -790,6 +792,17 @@ namespace ValleyDreamsIndia.Controllers
                                                && x.IsPinUsed == 0).Count();
             
             return View();
+        }
+
+
+        [CustomAuthorize]
+        [HttpPost]
+        public ActionResult Print(string hdnSearched)
+        {
+            UserPersonalListModelView userPersonalListModelView = new UserPersonalListModelView();
+            List<PersonalDetail> personalDetailList = _valleyDreamsIndiaDBEntities.PersonalDetails.ToList();
+            userPersonalListModelView.PersonalDetails = personalDetailList;
+            return View(userPersonalListModelView);
         }
 
         [CustomAuthorize]
@@ -1213,7 +1226,53 @@ namespace ValleyDreamsIndia.Controllers
         }
 
 
-       
+        [CustomAuthorize]
+        [HttpGet]
+        public ActionResult Gallery()
+        {
+            List<GalleryDetail> galleryList = _valleyDreamsIndiaDBEntities.GalleryDetails.ToList();
+            return View(galleryList);
+        }
+
+
+        [CustomAuthorize]
+        [HttpPost]
+        public ActionResult Gallery(HttpPostedFileBase galleryImage)
+        {
+            GalleryDetail galleryDetail = new GalleryDetail();
+
+            if (galleryImage != null)
+            {
+                string randomImageName = Guid.NewGuid().ToString().Substring(0, 5) + galleryImage.FileName;
+                galleryDetail.Pic = "/GalleryImages/" + randomImageName;
+                galleryImage.SaveAs(Server.MapPath("~/GalleryImages/") + randomImageName);
+            }
+
+            galleryDetail.CreatedOn = DateTime.Now;
+            galleryDetail.Deleted = 0;
+
+            _valleyDreamsIndiaDBEntities.Entry(galleryDetail).State = EntityState.Added;
+            _valleyDreamsIndiaDBEntities.SaveChanges();
+
+            ViewBag.Message = "Gallery Detail Submitted Successfully";
+            List<GalleryDetail> galleryDetailList = _valleyDreamsIndiaDBEntities.GalleryDetails.ToList();
+            return View(galleryDetailList);
+        }
+
+
+        [CustomAuthorize]
+        [HttpGet]
+        public ActionResult DeleteGallery(int galleryId)
+        {
+            GalleryDetail galleryDetail = _valleyDreamsIndiaDBEntities.GalleryDetails.Where(x => x.Id == galleryId).FirstOrDefault();
+            if (galleryDetail != null)
+            {
+                _valleyDreamsIndiaDBEntities.Entry(galleryDetail).State = EntityState.Deleted;
+                _valleyDreamsIndiaDBEntities.SaveChanges();
+            }
+
+            return RedirectToAction("Gallery");
+        }
 
 
         [CustomAuthorize]
