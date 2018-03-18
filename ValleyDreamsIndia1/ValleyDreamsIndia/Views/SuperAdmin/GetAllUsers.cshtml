@@ -85,13 +85,13 @@
             <div class="widget-header">
                 <span class="icon-list"></span>
                 <h3 class="icon chart">Geneology</h3>
-                <span style="float:right;">
-                    
-                        @using (Html.BeginForm("Print", "SuperAdmin", FormMethod.Post, new { id = "printForm" }))
+                <span style="float:right;display:none;" >
+                        @using (Html.BeginForm("Print", "SuperAdmin", FormMethod.Post, new { id = "printForm", target = "_blank" }))
                         {
                             <input type="hidden" value="@ViewBag.Searched" name="hdnSearched" />
                             <h3>
-                                <a href="javascript:document.getElementById('printForm').submit()">Print Result</a>
+                                <a href="javascript:document.getElementById('printForm').submit()" target="_blank" 
+                                   style="cursor:pointer;">Print Result</a>
                             </h3>
                         }
                  </span>

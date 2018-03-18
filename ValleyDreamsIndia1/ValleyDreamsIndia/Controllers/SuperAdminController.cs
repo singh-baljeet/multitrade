@@ -800,7 +800,27 @@ namespace ValleyDreamsIndia.Controllers
         public ActionResult Print(string hdnSearched)
         {
             UserPersonalListModelView userPersonalListModelView = new UserPersonalListModelView();
-            List<PersonalDetail> personalDetailList = _valleyDreamsIndiaDBEntities.PersonalDetails.ToList();
+            List<PersonalDetail> personalDetailList = new List<PersonalDetail>();
+            if (hdnSearched == "ALL")
+            {
+                personalDetailList = _valleyDreamsIndiaDBEntities.PersonalDetails.ToList();
+            }
+            else if(hdnSearched == "LEFT")
+            {
+                personalDetailList = _valleyDreamsIndiaDBEntities.PersonalDetails
+                    .Where(x => x.PlacementSide == "LEFT").ToList();
+            }
+            else if (hdnSearched == "RIGHT")
+            {
+                personalDetailList = _valleyDreamsIndiaDBEntities.PersonalDetails
+                    .Where(x => x.PlacementSide == "RIGHT").ToList();
+            }
+            else
+            {
+                personalDetailList = _valleyDreamsIndiaDBEntities.PersonalDetails.
+                Where(x => x.UsersDetail.UserName == hdnSearched).ToList();
+            }
+
             userPersonalListModelView.PersonalDetails = personalDetailList;
             return View(userPersonalListModelView);
         }
