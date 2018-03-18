@@ -596,6 +596,7 @@
     <Content Include="Views\SuperAdmin\Contribution.cshtml" />
     <Content Include="Views\SuperAdmin\RenewalContribution.cshtml" />
     <Content Include="Views\SuperAdmin\Achiever.cshtml" />
+    <Content Include="Views\SuperAdmin\MemberEditProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AchieverImages\" />

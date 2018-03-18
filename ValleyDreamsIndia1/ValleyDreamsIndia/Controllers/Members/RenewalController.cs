@@ -17,6 +17,8 @@ namespace ValleyDreamsIndia.Controllers.Members
             _valleyDreamsIndiaDBEntities = new ValleyDreamsIndiaDBEntities();
         }
 
+        [CustomAuthorize]
+        [HttpGet]
         public ActionResult Index()
         {
             return View();
@@ -49,6 +51,7 @@ namespace ValleyDreamsIndia.Controllers.Members
             return usersPersonalModelView;
         }
 
+        [CustomAuthorize]
         [HttpGet]
         public ActionResult Contribution(string memberid="")
         {
@@ -65,6 +68,7 @@ namespace ValleyDreamsIndia.Controllers.Members
             }
         }
 
+        [CustomAuthorize]
         [HttpPost]
         public ActionResult ContributionPost(string transactionPassword)
         {
@@ -118,6 +122,7 @@ namespace ValleyDreamsIndia.Controllers.Members
             }
         }
 
+        [CustomAuthorize]
         [HttpPost]
         public ActionResult OtherContribution(string transactionPassword, string memberid)
         {
@@ -174,6 +179,7 @@ namespace ValleyDreamsIndia.Controllers.Members
             }
         }
 
+        [CustomAuthorize]
         [HttpGet]
         public JsonResult RenewalCheckPins()
         {
@@ -191,7 +197,7 @@ namespace ValleyDreamsIndia.Controllers.Members
             }
         }
 
-
+        [CustomAuthorize]
         [HttpGet]
         public JsonResult GetMemberDetailsById(string memberId)
         {

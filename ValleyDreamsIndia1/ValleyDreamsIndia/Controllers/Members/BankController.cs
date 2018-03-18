@@ -19,6 +19,7 @@ namespace ValleyDreamsIndia.Controllers.Members
             _valleyDreamsIndiaDBEntities = new ValleyDreamsIndiaDBEntities();
         }
 
+        [CustomAuthorize]
         [HttpGet]
         public ActionResult Edit()
         {
@@ -35,6 +36,8 @@ namespace ValleyDreamsIndia.Controllers.Members
             }
         }
 
+
+        [CustomAuthorize]
         [HttpPost]
         public ActionResult Edit(BankDetail bankDetail)
         {

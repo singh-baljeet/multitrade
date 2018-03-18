@@ -69,5 +69,31 @@ namespace ValleyDreamsIndia
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("GetLastRightPlacementSideRecords", uSERSDETAILSIDParameter);
         }
+    
+        public virtual ObjectResult<Nullable<int>> GetLeftSidePlacementRecords(Nullable<int> lEFTLEGUSERSDETAILSID, Nullable<int> uSERSDETAILSID)
+        {
+            var lEFTLEGUSERSDETAILSIDParameter = lEFTLEGUSERSDETAILSID.HasValue ?
+                new ObjectParameter("LEFTLEGUSERSDETAILSID", lEFTLEGUSERSDETAILSID) :
+                new ObjectParameter("LEFTLEGUSERSDETAILSID", typeof(int));
+    
+            var uSERSDETAILSIDParameter = uSERSDETAILSID.HasValue ?
+                new ObjectParameter("USERSDETAILSID", uSERSDETAILSID) :
+                new ObjectParameter("USERSDETAILSID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("GetLeftSidePlacementRecords", lEFTLEGUSERSDETAILSIDParameter, uSERSDETAILSIDParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> GetRightSidePlacementRecords(Nullable<int> rIGHTLEGUSERSDETAILSID, Nullable<int> uSERSDETAILSID)
+        {
+            var rIGHTLEGUSERSDETAILSIDParameter = rIGHTLEGUSERSDETAILSID.HasValue ?
+                new ObjectParameter("RIGHTLEGUSERSDETAILSID", rIGHTLEGUSERSDETAILSID) :
+                new ObjectParameter("RIGHTLEGUSERSDETAILSID", typeof(int));
+    
+            var uSERSDETAILSIDParameter = uSERSDETAILSID.HasValue ?
+                new ObjectParameter("USERSDETAILSID", uSERSDETAILSID) :
+                new ObjectParameter("USERSDETAILSID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("GetRightSidePlacementRecords", rIGHTLEGUSERSDETAILSIDParameter, uSERSDETAILSIDParameter);
+        }
     }
 }

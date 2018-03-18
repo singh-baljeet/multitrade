@@ -42,6 +42,14 @@
     <FunctionImport Name="GetLastRightPlacementSideRecords" ReturnType="Collection(Int32)">
       <Parameter Name="USERSDETAILSID" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="GetLeftSidePlacementRecords" ReturnType="Collection(Int32)">
+      <Parameter Name="LEFTLEGUSERSDETAILSID" Mode="In" Type="Int32" />
+      <Parameter Name="USERSDETAILSID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetRightSidePlacementRecords" ReturnType="Collection(Int32)">
+      <Parameter Name="RIGHTLEGUSERSDETAILSID" Mode="In" Type="Int32" />
+      <Parameter Name="USERSDETAILSID" Mode="In" Type="Int32" />
+    </FunctionImport>
     <EntitySet Name="AchieverDetails" EntityType="ValleyDreamsIndiaDBModel.AchieverDetail" />
   </EntityContainer>
   <EntityType Name="BankDetail">
@@ -143,6 +151,7 @@
     <NavigationProperty Name="RenewalPinDetails1" Relationship="ValleyDreamsIndiaDBModel.FK_RenewalPinDetails_UsersDetails" FromRole="UsersDetail" ToRole="RenewalPinDetail" />
     <NavigationProperty Name="UsersDetails1" Relationship="ValleyDreamsIndiaDBModel.FK_UsersDetails_UsersDetails" FromRole="UsersDetail" ToRole="UsersDetail1" />
     <NavigationProperty Name="UsersDetail1" Relationship="ValleyDreamsIndiaDBModel.FK_UsersDetails_UsersDetails" FromRole="UsersDetail1" ToRole="UsersDetail" />
+    <Property Name="SrNo" Type="Int32" />
   </EntityType>
   <Association Name="FK_BankDetails_UsersDetails">
     <End Type="ValleyDreamsIndiaDBModel.UsersDetail" Role="UsersDetail" Multiplicity="0..1" />

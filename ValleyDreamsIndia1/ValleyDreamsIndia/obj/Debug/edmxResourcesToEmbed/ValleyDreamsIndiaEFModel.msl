@@ -81,6 +81,7 @@
     <EntitySetMapping Name="UsersDetails">
       <EntityTypeMapping TypeName="ValleyDreamsIndiaDBModel.UsersDetail">
         <MappingFragment StoreEntitySet="UsersDetails">
+          <ScalarProperty Name="SrNo" ColumnName="SrNo" />
           <ScalarProperty Name="UserName" ColumnName="UserName" />
           <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
           <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />

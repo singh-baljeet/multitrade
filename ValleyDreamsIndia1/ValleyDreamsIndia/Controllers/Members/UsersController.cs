@@ -19,7 +19,7 @@ namespace ValleyDreamsIndia.Controllers.Members
             _valleyDreamsIndiaDBEntities = new ValleyDreamsIndiaDBEntities();
         }
 
-
+        [CustomAuthorize]
         [HttpGet]
         public ActionResult EditPassword()
         {
@@ -36,6 +36,7 @@ namespace ValleyDreamsIndia.Controllers.Members
             }
         }
 
+        [CustomAuthorize]
         [HttpPost]
         public ActionResult EditPassword(string OldPassword, string NewPassword, string ConfirmNewPassword)
         {
@@ -90,7 +91,7 @@ namespace ValleyDreamsIndia.Controllers.Members
             }
         }
 
-
+        [CustomAuthorize]
         [HttpPost]
         public ActionResult EditTransactionPassword(string OldTransactionPassword, string NewTransactionPassword, string ConfirmTransactionNewPassword)
         {

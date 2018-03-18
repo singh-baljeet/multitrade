@@ -136,12 +136,16 @@ namespace ValleyDreamsIndia.Controllers
         [HttpPost]
         public ActionResult CreateMember(UsersPersonalModelView usersPersonalModelView)
         {
+
+            int serialNumber = Convert.ToInt32(_valleyDreamsIndiaDBEntities.UsersDetails.Max(x => x.SrNo).Value);
+
             UsersDetail userDetail = new UsersDetail();
             userDetail.SponsoredId = CurrentUser.CurrentUserId;
             userDetail.IsPinUsed = 1;
             userDetail.Password = Guid.NewGuid().ToString().Substring(0, 6);
             userDetail.Deleted = 0;
             userDetail.CreatedOn = DateTime.Now;
+            userDetail.SrNo = serialNumber;
 
             _valleyDreamsIndiaDBEntities.Entry(userDetail).State = EntityState.Added;
             _valleyDreamsIndiaDBEntities.SaveChanges();
@@ -223,7 +227,7 @@ namespace ValleyDreamsIndia.Controllers
             ViewBag.TransactionPassword = transactionpassword = usersPersonalModelView.BankDetails.TransactionPassword;
             string fullname = usersPersonalModelView.PersonalDetails.FirstName + " " + usersPersonalModelView.PersonalDetails.LastName;
             string sponsorId = usersPersonalModelView.UserDetails.UserName;
-            string srno = usersPersonalModelView.UserDetails.Id.ToString();
+            string srno = serialNumber.ToString();
 
             string textMessage = String.Format("Welcome to Bethuel Multi Trade Pvt. Ltd. \n\n Dear ({0}), \n Sr. No : {1} \n Sponsor ID : {2} \n User ID : {3} \n Password : {4} \n Txn Password : {5}",
                 fullname, srno, sponsorId, username, password, transactionpassword);
@@ -436,6 +440,76 @@ namespace ValleyDreamsIndia.Controllers
                 throw new Exception(ex.Message);
             }
         }
+
+        [CustomAuthorize]
+        [HttpGet]
+        public ActionResult MemberEditProfile(int memberId)
+        {
+            ViewBag.Message = "";
+            return View(GetPersonalAndUserDetails(memberId));
+        }
+
+        [CustomAuthorize]
+        [HttpPost]
+        public ActionResult MemberEditProfile(UsersPersonalModelView usersPersonalModelView, HttpPostedFileBase memberImage)
+        {
+            ViewBag.Title = "SuperAdmin: Profile Settings";
+            try
+            {
+                PersonalDetail personalDetails = _valleyDreamsIndiaDBEntities.PersonalDetails
+                    .Where(x => x.UsersDetailsId == usersPersonalModelView.UserDetails.Id).FirstOrDefault();
+
+                BankDetail bankDetails = _valleyDreamsIndiaDBEntities.BankDetails
+                    .Where(x => x.UsersDetailsId == usersPersonalModelView.UserDetails.Id).FirstOrDefault();
+
+                if (memberImage != null)
+                {
+                    string randomImageName = Guid.NewGuid().ToString().Substring(0, 5) + memberImage.FileName;
+                    personalDetails.ProfilePic = "/UploadedTeamImages/" + randomImageName;
+                    memberImage.SaveAs(Server.MapPath("~/UploadedTeamImages/") + randomImageName);
+                }
+
+                personalDetails.Gender = usersPersonalModelView.PersonalDetails.Gender;
+                personalDetails.FirstName = usersPersonalModelView.PersonalDetails.FirstName;
+                personalDetails.LastName = usersPersonalModelView.PersonalDetails.LastName;
+                personalDetails.FatherName = usersPersonalModelView.PersonalDetails.FatherName;
+                personalDetails.PhoneNumber1 = usersPersonalModelView.PersonalDetails.PhoneNumber1;
+                personalDetails.BirthDate = usersPersonalModelView.PersonalDetails.BirthDate;
+                personalDetails.PhoneNumber2 = usersPersonalModelView.PersonalDetails.PhoneNumber2;
+                personalDetails.Email = usersPersonalModelView.PersonalDetails.Email;
+
+                personalDetails.Address = usersPersonalModelView.PersonalDetails.Address;
+                personalDetails.State = usersPersonalModelView.PersonalDetails.State;
+                personalDetails.District = usersPersonalModelView.PersonalDetails.District;
+                personalDetails.City = usersPersonalModelView.PersonalDetails.City;
+                personalDetails.PinCode = usersPersonalModelView.PersonalDetails.PinCode;
+                personalDetails.UpdatedOn = DateTime.Now;
+
+                _valleyDreamsIndiaDBEntities.Entry(personalDetails).State = EntityState.Modified;
+
+
+                bankDetails.NomineeName = usersPersonalModelView.BankDetails.NomineeName;
+                bankDetails.NomineeRelation = usersPersonalModelView.BankDetails.NomineeRelation;
+                bankDetails.BankName = usersPersonalModelView.BankDetails.BankName;
+                bankDetails.AccountHolderName = usersPersonalModelView.BankDetails.AccountHolderName;
+                bankDetails.AccountNumber = usersPersonalModelView.BankDetails.AccountNumber;
+                bankDetails.IFSCCode = usersPersonalModelView.BankDetails.IFSCCode;
+                bankDetails.PANNumber = usersPersonalModelView.BankDetails.PANNumber;
+                bankDetails.UpdatedOn = DateTime.Now;
+                _valleyDreamsIndiaDBEntities.Entry(bankDetails).State = EntityState.Modified;
+
+                _valleyDreamsIndiaDBEntities.SaveChanges();
+
+                ViewBag.Message = "Record Updated Successfully";
+                return View(GetPersonalAndUserDetails(Convert.ToInt32(personalDetails.UsersDetailsId)));
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+
 
         [CustomAuthorize]
         [HttpPost]
@@ -1138,6 +1212,8 @@ namespace ValleyDreamsIndia.Controllers
             }
         }
 
+
+       
 
 
         [CustomAuthorize]

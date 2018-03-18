@@ -16,6 +16,7 @@ namespace ValleyDreamsIndia.Controllers
             _valleyDreamsIndiaDBEntities = new ValleyDreamsIndiaDBEntities();
         }
 
+        [CustomAuthorize]
         [HttpGet]
         public ActionResult Index()
         {
@@ -85,6 +86,7 @@ namespace ValleyDreamsIndia.Controllers
 
         }
 
+        [CustomAuthorize]
         [HttpPost]
         public ActionResult SearchByPlacementSide(string placementSide)
         {
@@ -92,27 +94,57 @@ namespace ValleyDreamsIndia.Controllers
             {
                 return RedirectToAction("Index");
             }
-            var myUserList = _valleyDreamsIndiaDBEntities.ContributionDetails
-                .Where(x => x.SponsoredId == CurrentUser.CurrentUserId);
+            //var myUserList = _valleyDreamsIndiaDBEntities.ContributionDetails
+            //    .Where(x => x.SponsoredId == CurrentUser.CurrentUserId);
 
-            List<IQueryable<PersonalDetail>> objList = new List<IQueryable<PersonalDetail>>();
+            //List<IQueryable<PersonalDetail>> objList = new List<IQueryable<PersonalDetail>>();
 
-            var ownObj = _valleyDreamsIndiaDBEntities.PersonalDetails
-                .Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.LegId == CurrentUser.CurrentUserId && x.PlacementSide== placementSide);
-            objList.Add(ownObj);
+            //var ownObj = _valleyDreamsIndiaDBEntities.PersonalDetails
+            //    .Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.LegId == CurrentUser.CurrentUserId && x.PlacementSide== placementSide);
+            //objList.Add(ownObj);
 
-            foreach (var usr in myUserList)
-            {
-                var obj = _valleyDreamsIndiaDBEntities.PersonalDetails
-                    .Where(x => x.UsersDetailsId == usr.UserDetailsId  && x.PlacementSide == placementSide );
-                objList.Add(obj);
-            }
+            //foreach (var usr in myUserList)
+            //{
+            //    var obj = _valleyDreamsIndiaDBEntities.PersonalDetails
+            //        .Where(x => x.UsersDetailsId == usr.UserDetailsId  && x.PlacementSide == placementSide );
+            //    objList.Add(obj);
+            //}
 
             GetUserInfo();
+
+            var count = _valleyDreamsIndiaDBEntities.PersonalDetails
+                .Where(x => x.LegId == CurrentUser.CurrentUserId
+                && x.PlacementSide == placementSide).FirstOrDefault();
+
+            List<int> personalIdList = new List<int>();
+            List<PersonalDetail> objList = new List<PersonalDetail>();
+
+            if (count != null)
+            {
+                if (placementSide == "LEFT")
+                {
+                    var response = _valleyDreamsIndiaDBEntities.GetLeftSidePlacementRecords(count.UsersDetailsId, (int)CurrentUser.CurrentUserId);
+                    foreach (var res in response)
+                    {
+                        personalIdList.Add(res.Value);
+                    }
+                    objList = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => personalIdList.Contains(x.Id)).ToList();
+                }
+                if (placementSide == "RIGHT")
+                {
+                    var response = _valleyDreamsIndiaDBEntities.GetLeftSidePlacementRecords(count.UsersDetailsId, (int)CurrentUser.CurrentUserId);
+                    foreach (var res in response)
+                    {
+                        personalIdList.Add(res.Value);
+                    }
+                    objList = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => personalIdList.Contains(x.Id)).ToList();
+                }
+            }
 
             return View("Index", objList);
         }
 
+        [CustomAuthorize]
         [HttpPost]
         public ActionResult SearchByMemberId(string memberId)
         {

@@ -21,6 +21,7 @@ namespace ValleyDreamsIndia.Controllers.Members
             _valleyDreamsIndiaDBEntities = new ValleyDreamsIndiaDBEntities();
         }
 
+        [CustomAuthorize]
         [HttpGet]
         public ActionResult ViewProfile(int currentId = 0)
         {
@@ -45,6 +46,7 @@ namespace ValleyDreamsIndia.Controllers.Members
             }
         }
 
+        [CustomAuthorize]
         [HttpGet]
         public ActionResult Edit(int currentId = 0)
         {
@@ -67,6 +69,7 @@ namespace ValleyDreamsIndia.Controllers.Members
             }
         }
 
+        [CustomAuthorize]
         [HttpPost]
         public ActionResult Edit(UsersPersonalModelView usersPersonalModelView,HttpPostedFileBase memberImage)
         {

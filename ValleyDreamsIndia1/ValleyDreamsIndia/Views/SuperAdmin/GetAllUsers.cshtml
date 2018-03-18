@@ -100,7 +100,7 @@
                             <th>Sponser Id</th>
                             <th>Last Contri.</th>
                             <th>Paid On</th>
-                            @*<th>Actions</th>*@
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -165,14 +165,14 @@
                                         }
                                         
                                     </td>
-                                    @*<td class="center">
+                                    <td class="center">
                                         <span>
-                                            @Html.ActionLink("Edit", "Edit", "Profile", new { currentId = item.UsersDetailsId }, null)
+                                            @Html.ActionLink("Edit", "MemberEditProfile", "SuperAdmin", new { memberId = item.UsersDetailsId }, null)
                                         </span>
-                                        <span style="margin-left:10px;">
+                                        @*<span style="margin-left:10px;">
                                             <a href="#">Cancel</a>
-                                        </span>
-                                    </td>*@
+                                        </span>*@
+                                    </td>
                                 </tr>
                                 i = i + 1;
                             }

@@ -21,6 +21,7 @@ namespace ValleyDreamsIndia.Controllers.Members
             _valleyDreamsIndiaDBEntities = new ValleyDreamsIndiaDBEntities();
         }
 
+        
         private ActionResult TransferPinsData()
         {
             UsersDetail userDetail = _valleyDreamsIndiaDBEntities.UsersDetails.Where(x => x.Id == CurrentUser.CurrentUserId && x.Deleted == 0).FirstOrDefault();
@@ -36,6 +37,7 @@ namespace ValleyDreamsIndia.Controllers.Members
             return View("~/Views/Members/Wallet/Transfer.cshtml", new Tuple<UsersDetail, PersonalDetail>(userDetail, personalDetail));
         }
 
+        [CustomAuthorize]
         [HttpGet]
         public ActionResult Transfer()
         {
@@ -50,6 +52,7 @@ namespace ValleyDreamsIndia.Controllers.Members
             }
         }
 
+        [CustomAuthorize]
         [HttpPost]
         public ActionResult Transfer(string sponsoredId, int totalPin, string pinType, string transactionPassword)
         {
@@ -137,7 +140,8 @@ namespace ValleyDreamsIndia.Controllers.Members
             }
             return TransferPinsData();
         }
-        
+
+        [CustomAuthorize]
         [HttpGet]
         public JsonResult WalletCheckPins()
         {

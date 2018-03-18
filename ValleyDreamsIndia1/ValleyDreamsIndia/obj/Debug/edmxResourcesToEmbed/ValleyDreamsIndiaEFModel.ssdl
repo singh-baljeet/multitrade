@@ -54,6 +54,7 @@
     <Property Name="ProfilePic" Type="varchar" MaxLength="100" />
     <Property Name="SponsoredId" Type="int" />
     <Property Name="JoinedOn" Type="varchar" MaxLength="50" />
+    <Property Name="UsersDetailsId" Type="int" />
     <Property Name="LegId" Type="int" />
     <Property Name="PlacementSide" Type="varchar" MaxLength="50" />
     <Property Name="Gender" Type="varchar" MaxLength="10" />
@@ -69,7 +70,6 @@
     <Property Name="District" Type="varchar" MaxLength="50" />
     <Property Name="City" Type="varchar" MaxLength="50" />
     <Property Name="PinCode" Type="varchar" MaxLength="10" />
-    <Property Name="UsersDetailsId" Type="int" />
     <Property Name="Deleted" Type="int" />
     <Property Name="CreatedOn" Type="datetime" />
     <Property Name="UpdatedOn" Type="datetime" />
@@ -90,6 +90,7 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SrNo" Type="int" />
     <Property Name="Password" Type="varchar" MaxLength="100" />
     <Property Name="SponsoredId" Type="int" />
     <Property Name="PinType" Type="varchar" MaxLength="50" />

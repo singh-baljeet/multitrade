@@ -8,6 +8,7 @@ using ValleyDreamsIndia.Common;
 
 namespace ValleyDreamsIndia.Controllers
 {
+    
     public class HomeController : Controller
     {
         ValleyDreamsIndiaDBEntities _valleyDreamsIndiaDBEntities = null;
@@ -17,6 +18,7 @@ namespace ValleyDreamsIndia.Controllers
             _valleyDreamsIndiaDBEntities = new ValleyDreamsIndiaDBEntities();
         }
 
+        
         [HttpGet]
         public ActionResult Index()
         {
@@ -27,12 +29,14 @@ namespace ValleyDreamsIndia.Controllers
             return View();
         }
 
+        
         [HttpGet]
         public ActionResult achievers()
         {
             List<AchieverDetail> achieverDetailList = _valleyDreamsIndiaDBEntities.AchieverDetails.ToList();
             return View(achieverDetailList);
         }
+
 
         [HttpGet]
         public ActionResult plan()
