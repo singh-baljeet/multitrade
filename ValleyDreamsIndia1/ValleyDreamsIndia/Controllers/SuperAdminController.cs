@@ -348,7 +348,7 @@ namespace ValleyDreamsIndia.Controllers
                 return RedirectToAction("GetAllUsers");
             }
 
-            ViewBag.Title = "Admin: View Team";
+            ViewBag.Title = "SuperAdmin: View Team";
 
             //var UserDetailsResults = _valleyDreamsIndiaDBEntities.UsersDetails.First(x => x.Id == CurrentUser.CurrentUserId);
             //ViewBag.UserName = UserDetailsResults.UserName;
@@ -372,9 +372,38 @@ namespace ValleyDreamsIndia.Controllers
             //    Where(x => personalIdList.Contains(x.Id) && x.PlacementSide == placementSide
             //    && x.SponsoredId != CurrentUser.CurrentUserId).ToList();
 
+            var count = _valleyDreamsIndiaDBEntities.PersonalDetails
+                .Where(x => x.LegId == CurrentUser.CurrentUserId
+                && x.PlacementSide == placementSide).FirstOrDefault();
+
+            List<int> personalIdList = new List<int>();
+            List<PersonalDetail> objList = new List<PersonalDetail>();
+
+            if (count != null)
+            {
+                if (placementSide == "LEFT")
+                {
+                    var response = _valleyDreamsIndiaDBEntities.GetLeftSidePlacementRecords(count.UsersDetailsId, (int)CurrentUser.CurrentUserId);
+                    foreach (var res in response)
+                    {
+                        personalIdList.Add(res.Value);
+                    }
+                    objList = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => personalIdList.Contains(x.Id)).ToList();
+                }
+                if (placementSide == "RIGHT")
+                {
+                    var response = _valleyDreamsIndiaDBEntities.GetLeftSidePlacementRecords(count.UsersDetailsId, (int)CurrentUser.CurrentUserId);
+                    foreach (var res in response)
+                    {
+                        personalIdList.Add(res.Value);
+                    }
+                    objList = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => personalIdList.Contains(x.Id)).ToList();
+                }
+            }
+
             UserPersonalListModelView userPersonalListModelView = new UserPersonalListModelView();
-            List<PersonalDetail> personalDetailList = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x=>x.PlacementSide == placementSide).ToList();
-            userPersonalListModelView.PersonalDetails = personalDetailList;
+            //List<PersonalDetail> personalDetailList = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x=>x.PlacementSide == placementSide).ToList();
+            userPersonalListModelView.PersonalDetails = objList;
 
             ViewBag.Searched = placementSide;
             return View("GetAllUsers", userPersonalListModelView);
@@ -533,9 +562,14 @@ namespace ValleyDreamsIndia.Controllers
                     memberImage.SaveAs(Server.MapPath("~/UploadedTeamImages/") + randomImageName);
                 }
 
+                personalDetails.FirstName = usersPersonalModelView.PersonalDetails.FirstName;
+                personalDetails.LastName = usersPersonalModelView.PersonalDetails.LastName;
+                personalDetails.FatherName = usersPersonalModelView.PersonalDetails.FatherName;
                 personalDetails.BirthDate = usersPersonalModelView.PersonalDetails.BirthDate;
+                personalDetails.PhoneNumber1 = usersPersonalModelView.PersonalDetails.PhoneNumber1;
                 personalDetails.PhoneNumber2 = usersPersonalModelView.PersonalDetails.PhoneNumber2;
                 personalDetails.Email = usersPersonalModelView.PersonalDetails.Email;
+                personalDetails.Address = usersPersonalModelView.PersonalDetails.Address;
                 personalDetails.State = usersPersonalModelView.PersonalDetails.State;
                 personalDetails.District = usersPersonalModelView.PersonalDetails.District;
                 personalDetails.City = usersPersonalModelView.PersonalDetails.City;
@@ -760,7 +794,8 @@ namespace ValleyDreamsIndia.Controllers
             ViewBag.Title = "SuperAdmin: Dashboard";
             var UserDetailsResults = _valleyDreamsIndiaDBEntities.UsersDetails.First(x => x.Id == CurrentUser.CurrentUserId);
             ViewBag.UserName = UserDetailsResults.UserName;
-            var PersonalDetails = UserDetailsResults.PersonalDetails.Where(x => x.UsersDetailsId == CurrentUser.CurrentUserId).FirstOrDefault();
+            var PersonalDetails = UserDetailsResults.PersonalDetails
+                .Where(x => x.UsersDetailsId == CurrentUser.CurrentUserId).FirstOrDefault();
             ViewBag.FullName = PersonalDetails.FirstName + " " + PersonalDetails.LastName;
             ViewBag.Status = (UserDetailsResults.Deleted == -1) ? "Active" : "InActive";
             ViewBag.Sponsor = UserDetailsResults.UsersDetail1.UserName;
@@ -769,7 +804,8 @@ namespace ValleyDreamsIndia.Controllers
             ViewBag.DirectTeam = _valleyDreamsIndiaDBEntities.PersonalDetails
                 .Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.LegId != CurrentUser.CurrentUserId).Count();
 
-            var myUserList = _valleyDreamsIndiaDBEntities.UsersDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.IsPinUsed == 1);
+            var myUserList = _valleyDreamsIndiaDBEntities.UsersDetails
+                .Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.IsPinUsed == 1);
 
             int countLeftTeam = 0, countRightTeam = 0;
 
@@ -973,6 +1009,8 @@ namespace ValleyDreamsIndia.Controllers
             objList = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => personalIdList.Contains(x.Id)).ToList();
 
 
+            
+
             //var myUserList1 = _valleyDreamsIndiaDBEntities.ContributionDetails
             //    .Where(x => x.SponsoredId == CurrentUser.CurrentUserId);
 
@@ -1163,7 +1201,7 @@ namespace ValleyDreamsIndia.Controllers
             if (userDetail != null)
             {
                 int renewPins = userDetail.RenewalPinDetails.Where(x => x.IsPinUsed == 0).Count();
-                if (renewPins > 0)
+                if (renewPins >= 0)
                 {
                     var otherMemberContributionDetails = _valleyDreamsIndiaDBEntities.ContributionDetails
                         .Where(x => x.UserDetailsId == userDetail.Id)
@@ -1178,10 +1216,6 @@ namespace ValleyDreamsIndia.Controllers
                     };
 
                     return Json(jsonResult, JsonRequestBehavior.AllowGet);
-                }
-                else
-                {
-                    return Json("False", JsonRequestBehavior.AllowGet);
                 }
             }
             return Json("False", JsonRequestBehavior.AllowGet);

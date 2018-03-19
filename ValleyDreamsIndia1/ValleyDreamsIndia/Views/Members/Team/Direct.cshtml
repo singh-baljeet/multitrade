@@ -150,18 +150,22 @@
                                     <td>@item.PhoneNumber1</td>
                                     <td>@item.UsersDetail.UsersDetail1.UserName</td>
                                     <td>
-                                        @item.UsersDetail.UsersDetail1.ContributionDetails.Where(x => x.UserDetailsId == item.UsersDetail.UsersDetail1.Id).OrderByDescending(y => y.ContribDate).FirstOrDefault().ContribNumber
+                                        @item.UsersDetail.ContributionDetails
+                                            .Where(x => x.UserDetailsId == item.UsersDetail.Id)
+                                        .OrderByDescending(y => y.ContribDate).FirstOrDefault().ContribNumber
                                     </td>
                                     <td>
-                                        @Convert.ToDateTime(item.UsersDetail.UsersDetail1.ContributionDetails.Where(x => x.UserDetailsId == item.UsersDetail.UsersDetail1.Id).OrderByDescending(y => y.ContribDate).FirstOrDefault().ContribDate).ToString("dd/MM/yyyy")
+                                      @Convert.ToDateTime(item.UsersDetail.ContributionDetails
+                                       .Where(x => x.UserDetailsId == item.UsersDetail.Id)
+                                       .OrderByDescending(y => y.ContribDate).FirstOrDefault().ContribDate).ToString("dd/MM/yyyy")
                                     </td>
                                     <td class="center">
                                     <span>
                                         @Html.ActionLink("Edit","Edit","Profile", new { currentId=item.UsersDetailsId },null)
                                         </span>
-                                    <span style="margin-left:10px;">
+                                    @*<span style="margin-left:10px;">
                                         <a href="#">Cancel</a>
-                                        </span>
+                                        </span>*@
                                     </td>
                                 </tr>
                                 i = i + 1;

@@ -229,30 +229,36 @@
              //       });
              //   })
 
-            $("#memberid").blur(function () {
-                var memberId = $(this).val();
-                $.ajax({
-                    url: '/Renewal/GetMemberDetailsById?memberId=' + memberId,
-                    dataType: "json",
-                    type: "GET",
-                    success: function (data) {
-                        if (data == "False") {
-                            alert("No data found");
-                        }
-                        else {
-                            $("#sOtherContributionNumber").text(data.ContributionNo);
-                            $("#sOtherContributionDate").text(data.ContributionDate);
-                            $("#sOtherSponsoredId").text(data.SponsoredId);
-                            $("#sRenewalPinAvailable").text(data.AvailableRenewalPins);
-                        }
-                    },
-                    error: function (xhr) {
-                        debugger;
-                        alert('error');
-                    }
-                });
-            });
+             $("#memberid").bind('blur', function (e) {
+                 if (e.type === 'blur') {
+                     var memberId = $(this).val();
+                     $.ajax({
+                         url: '/Renewal/GetMemberDetailsById?memberId=' + memberId,
+                         dataType: "json",
+                         type: "GET",
+                         success: function (data) {
+                             if (data == "False") {
+                                 $("#sOtherContributionNumber").text("");
+                                 $("#sOtherContributionDate").text("");
+                                 $("#sOtherSponsoredId").text("");
+                                 $("#sRenewalPinAvailable").text("");
+                                 $("#renewalPinStatus").text("No Record Found");
+                             }
+                             else {
+                                 $("#renewalPinStatus").text("");
+                                 $("#sOtherContributionNumber").text(data.ContributionNo);
+                                 $("#sOtherContributionDate").text(data.ContributionDate);
+                                 $("#sOtherSponsoredId").text(data.SponsoredId);
+                                 $("#sRenewalPinAvailable").text(data.AvailableRenewalPins);
+                             }
+                         },
+                         error: function (xhr) {
+                             $("#renewalPinStatus").text("Error while getting the searched record");
+                         }
 
+                     });
+                 }
+             });
 
     $("#datepicker").datepicker();
     $("#datepicker1").datepicker();
