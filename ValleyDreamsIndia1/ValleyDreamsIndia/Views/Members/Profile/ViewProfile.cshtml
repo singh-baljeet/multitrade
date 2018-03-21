@@ -32,7 +32,7 @@
                                         Id: @Model.UserDetails.UserName
                                     </li>
                                     <li style="font-size:14px;">
-                                        Joined On: @Convert.ToDateTime(Model.PersonalDetails.JoinedOn).ToShortDateString()
+                                        Joined On: @Convert.ToDateTime(Model.PersonalDetails.JoinedOn).ToString("dd/MM/yyyy")
                                     </li>
                                     <li style="font-size:14px;">
                                         Status: @if (Model.UserDetails.Deleted == 0)
@@ -255,7 +255,7 @@
 
                                         <div class="dashboard_report first activeState">
                                             <div class="pad">
-                                                <span class="value" style="font-size:20px;">@Convert.ToDateTime(Model.ContributionDetails.ContribDate).ToShortDateString()</span>Date of Current Contribution
+                                                <span class="value" style="font-size:20px;">@Convert.ToDateTime(Model.ContributionDetails.ContribDate).ToString("dd/MM/yyyy")</span>Date of Current Contribution
                                             </div> <!-- .pad -->
                                         </div>
 
@@ -320,7 +320,7 @@
 
                                         <div class="dashboard_report first activeState">
                                             <div class="pad">
-                                                <span class="value" style="font-size:20px;">@Convert.ToDateTime(Model.ContributionDetails.NextContribDate).ToShortDateString()</span>Contribution Till Date
+                                                <span class="value" style="font-size:20px;">@Convert.ToDateTime(Model.ContributionDetails.NextContribDate).ToString("dd/MM/yyyy")</span>Contribution Till Date
                                             </div> <!-- .pad -->
                                         </div>
 
@@ -330,10 +330,6 @@
                                             </div> <!-- .pad -->
 
                                         </div>
-
-
-
-
 
                                     </div> <!-- .widget-content -->
 

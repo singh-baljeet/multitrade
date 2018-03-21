@@ -150,9 +150,9 @@
                                     <td>@item.PhoneNumber1</td>
                                     <td>@item.UsersDetail.UsersDetail1.UserName</td>
                                     <td>
-                                        @item.UsersDetail.ContributionDetails
+                                        @Convert.ToInt32(item.UsersDetail.ContributionDetails
                                             .Where(x => x.UserDetailsId == item.UsersDetail.Id)
-                                        .OrderByDescending(y => y.ContribDate).FirstOrDefault().ContribNumber
+                                        .OrderByDescending(y => y.ContribDate).FirstOrDefault().ContribNumber)
                                     </td>
                                     <td>
                                       @Convert.ToDateTime(item.UsersDetail.ContributionDetails

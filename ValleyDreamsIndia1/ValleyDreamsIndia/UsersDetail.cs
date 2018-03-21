@@ -23,6 +23,7 @@ namespace ValleyDreamsIndia
             this.RenewalPinDetails = new HashSet<RenewalPinDetail>();
             this.RenewalPinDetails1 = new HashSet<RenewalPinDetail>();
             this.UsersDetails1 = new HashSet<UsersDetail>();
+            this.MemberRewardDetails = new HashSet<MemberRewardDetail>();
         }
     
         public int Id { get; set; }
@@ -50,5 +51,7 @@ namespace ValleyDreamsIndia
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UsersDetail> UsersDetails1 { get; set; }
         public virtual UsersDetail UsersDetail1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MemberRewardDetail> MemberRewardDetails { get; set; }
     }
 }

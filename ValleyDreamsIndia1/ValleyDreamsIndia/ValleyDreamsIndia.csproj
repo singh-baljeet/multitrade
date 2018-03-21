@@ -241,9 +241,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="MemberRewardDetail.cs">
+      <DependentUpon>ValleyDreamsIndiaEFModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MemberRewardModel.cs" />
     <Compile Include="Models\UserPersonalListModelView.cs" />
     <Compile Include="Models\UsersPersonalModelView.cs" />
     <Compile Include="PersonalDetail.cs">
@@ -251,6 +255,9 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RenewalPinDetail.cs">
+      <DependentUpon>ValleyDreamsIndiaEFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RewardDetail.cs">
       <DependentUpon>ValleyDreamsIndiaEFModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
@@ -306,6 +313,7 @@
     <Content Include="Content\EndUser\images\broc\3.png" />
     <Content Include="Content\EndUser\images\broc\4.png" />
     <Content Include="Content\EndUser\images\galaxy.jpg" />
+    <Content Include="Content\EndUser\images\giphy.gif" />
     <Content Include="Content\EndUser\images\header-back.jpg" />
     <Content Include="Content\EndUser\images\header-bg-1.jpg" />
     <Content Include="Content\EndUser\images\parallax\bg-01.jpg" />
@@ -666,6 +674,7 @@
     <Content Include="Views\Home\gallery.cshtml" />
     <Content Include="Views\SuperAdmin\Gallery.cshtml" />
     <Content Include="Views\SuperAdmin\Print.cshtml" />
+    <Content Include="Views\SuperAdmin\ViewReward.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AchieverImages\" />

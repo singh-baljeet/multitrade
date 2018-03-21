@@ -125,7 +125,19 @@
                                         @item.FirstName  @item.LastName
                                     </td>
                                     <td>
-                                        @item.PlacementSide
+                                        @if (Convert.ToString(ViewBag.Searched) == "LEFT")
+                                        {
+                                            <span>LEFT</span>
+                                        }
+                                        else if (Convert.ToString(ViewBag.Searched) == "RIGHT")
+                                        {
+                                            <span>RIGHT</span>
+                                        }
+                                        else
+                                        {
+                                            <span>@item.PlacementSide</span>
+                                        }
+
                                     </td>
                                     <td>
                                         @item.UsersDetail.UserName
@@ -137,11 +149,11 @@
                                     <td>@item.UsersDetail.UsersDetail1.UserName</td>
                                     <td>
                                         @{
-                                            if (item.UsersDetail.UsersDetail1.ContributionDetails != null)
+                                            if (item.UsersDetail.ContributionDetails != null)
                                             {
                                                 try
                                                 {
-                                                    @item.UsersDetail.UsersDetail1.ContributionDetails.Where(x => x.UserDetailsId == item.UsersDetail.UsersDetail1.Id).OrderByDescending(y => y.ContribDate).FirstOrDefault().ContribNumber
+                                                    @item.UsersDetail.ContributionDetails.Where(x => x.UserDetailsId == item.UsersDetail.Id).OrderByDescending(y => y.ContribDate).FirstOrDefault().ContribNumber
                                                 }
                                                 catch
                                                 {
@@ -156,11 +168,11 @@
                                     </td>
                                     <td>
                                         @{
-                                            if (item.UsersDetail.UsersDetail1.ContributionDetails != null)
+                                            if (item.UsersDetail.ContributionDetails != null)
                                             {
                                                 try
                                                 {
-                                                    @Convert.ToDateTime(item.UsersDetail.UsersDetail1.ContributionDetails.Where(x => x.UserDetailsId == item.UsersDetail.UsersDetail1.Id).OrderByDescending(y => y.ContribDate).FirstOrDefault().ContribDate).ToShortDateString()
+                                                    @Convert.ToDateTime(item.UsersDetail.ContributionDetails.Where(x => x.UserDetailsId == item.UsersDetail.Id).OrderByDescending(y => y.ContribDate).FirstOrDefault().ContribDate).ToString("dd/MM/yyyy")
                                                 }
                                                 catch
                                                 {
@@ -179,9 +191,9 @@
                                         <span>
                                             @Html.ActionLink("Edit", "MemberEditProfile", "SuperAdmin", new { memberId = item.UsersDetailsId }, null)
                                         </span>
-                                        @*<span style="margin-left:10px;">
-                                            <a href="#">Cancel</a>
-                                        </span>*@
+                                        <span>
+                                            @Html.ActionLink("ViewReward", "ViewReward", "SuperAdmin", new { memberId = item.UsersDetailsId }, null)
+                                        </span>
                                     </td>
                                 </tr>
                                 i = i + 1;

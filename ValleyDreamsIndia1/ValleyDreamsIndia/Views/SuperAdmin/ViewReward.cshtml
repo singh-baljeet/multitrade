@@ -1,0 +1,92 @@
+﻿@model IEnumerable<ValleyDreamsIndia.Models.MemberRewardModel>
+@{
+    Layout = "~/Views/Shared/_SuperAdminLayout.cshtml";
+}
+
+<div id="contentHeader">
+    <h1>My Rewards</h1>
+</div> <!-- #contentHeader -->
+
+<div class="container">
+
+
+
+
+
+    <div class="grid-24">
+
+
+        <div class="widget widget-table">
+
+            <div class="widget-header">
+                <span class="icon-list"></span>
+                <h3 class="icon chart">Rewards & Achievements</h3>
+            </div>
+
+            <div class="widget-content">
+
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Sr.</th>
+                            @*<th>Item Name</th>
+                            <th>Recognition</th>*@
+                            <th>Pairs</th>
+                            <th>Level</th>
+                            <th>Item Cost</th>
+                            <th>Status</th>
+                            <th>Paid Status</th>
+                            <th>Paid Date</th>
+                            <th>Paid Remarks</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            var i = 1;
+                            foreach (var reward in Model)
+                            {
+                                <tr class="gradeA">
+                                    <td>@i</td>
+                                    @*<td>@reward.RewardDetails.ItemName</td>
+                                    <td>@reward.RewardDetails.Recognition</td>*@
+                                    <td>@reward.RewardDetails.Pairs</td>
+                                    <td>@reward.RewardDetails.Level</td>
+                                    <td>Rs.@reward.RewardDetails.ItemCost</td> 
+                                    <td>@reward.MemberRewardDetails.Status</td>
+                                    <td>
+                                        @Html.DropDownListFor(r => reward.MemberRewardDetails.PaidStatus,
+                                                                                    new List<SelectListItem>
+                                                                                    {
+                                                                                        new SelectListItem{Text="Not Paid", Value="Not Paid"  , Selected = reward.MemberRewardDetails.PaidStatus == "Not Paid" ? true : false},
+                                                                                        new SelectListItem{Text="Paid", Value="Paid" , Selected = reward.MemberRewardDetails.PaidStatus == "Paid" ? true : false}
+                                                                                    },new { id= "paidstatus_"+reward.RewardDetails.Pairs })
+                                    </td>
+                                    <td>
+                                            <span>
+                                                @Html.TextBoxFor(m => reward.MemberRewardDetails.PaidDate,
+                                               new { @class = "datepickerpaid", placeholder = "Select Paid Date", id="paiddate_"+ reward.RewardDetails.Pairs })
+                                            </span>
+                                    </td>
+                                    <td>@Html.TextAreaFor(m=>reward.MemberRewardDetails.PaidRemarks, new { id="paidremarks_"+ reward.RewardDetails.Pairs })</td>
+                                    <td><a href="#" class="ancPayment" 
+                                           pairs="@reward.MemberRewardDetails.Pairs" 
+                                           userid="@reward.MemberRewardDetails.UserDetailsId" style="cursor:pointer">Payment</a>
+                                    </td>
+                                </tr>
+                                i = i + 1;
+                            }
+                        }
+
+
+                    </tbody>
+                </table>
+            </div> <!-- .widget-content -->
+
+        </div> <!-- .widget-content -->
+
+    </div>
+
+
+
+</div>

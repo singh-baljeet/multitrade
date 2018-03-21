@@ -130,5 +130,40 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="GetLeftSidePlacementRecords" FunctionName="ValleyDreamsIndiaDBModel.Store.GetLeftSidePlacementRecords" />
+    <FunctionImportMapping FunctionImportName="GetRightSidePlacementRecords" FunctionName="ValleyDreamsIndiaDBModel.Store.GetRightSidePlacementRecords" />
+    <EntitySetMapping Name="RewardDetails">
+      <EntityTypeMapping TypeName="ValleyDreamsIndiaDBModel.RewardDetail">
+        <MappingFragment StoreEntitySet="RewardDetails">
+          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+          <ScalarProperty Name="ItemCost" ColumnName="ItemCost" />
+          <ScalarProperty Name="Level" ColumnName="Level" />
+          <ScalarProperty Name="Pairs" ColumnName="Pairs" />
+          <ScalarProperty Name="Recognition" ColumnName="Recognition" />
+          <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MemberRewardDetails">
+      <EntityTypeMapping TypeName="ValleyDreamsIndiaDBModel.MemberRewardDetail">
+        <MappingFragment StoreEntitySet="MemberRewardDetails">
+          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+          <ScalarProperty Name="UserDetailsId" ColumnName="UserDetailsId" />
+          <ScalarProperty Name="PaidRemarks" ColumnName="PaidRemarks" />
+          <ScalarProperty Name="PaidDate" ColumnName="PaidDate" />
+          <ScalarProperty Name="PaidStatus" ColumnName="PaidStatus" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Pairs" ColumnName="Pairs" />
+          <ScalarProperty Name="RightTeamCount" ColumnName="RightTeamCount" />
+          <ScalarProperty Name="LeftTeamCount" ColumnName="LeftTeamCount" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

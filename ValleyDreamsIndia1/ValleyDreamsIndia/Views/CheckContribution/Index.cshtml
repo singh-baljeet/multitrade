@@ -189,7 +189,20 @@
                                 <tr class="gradeA">
                                     <td>@i</td>
                                     <td>@itm.FirstName @itm.LastName</td>
-                                    <td>@itm.PlacementSide</td>
+                                    <td>
+                                       @if (Convert.ToString(ViewBag.ContributionPlacementSide) == "LEFT")
+                                       {
+                                        <span>LEFT</span>
+                                       }
+                                       else if (Convert.ToString(ViewBag.ContributionPlacementSide) == "RIGHT")
+                                       {
+                                        <span>RIGHT</span>
+                                       }
+                                       else
+                                       {
+                                        <span>@itm.PlacementSide</span>
+                                       }
+                                    </td>
                                     <td>@itm.UsersDetail.UserName</td>
                                     <td>@Convert.ToDateTime(itm.JoinedOn).ToString("dd/MM/yyyy")</td>
                                     <td>@itm.PhoneNumber1</td>

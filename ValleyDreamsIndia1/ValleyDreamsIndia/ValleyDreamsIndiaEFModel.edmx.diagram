@@ -18,6 +18,9 @@
         <AssociationConnector Association="ValleyDreamsIndiaDBModel.FK_UsersDetails_UsersDetails" />
         <EntityTypeShape EntityType="ValleyDreamsIndiaDBModel.AchieverDetail" Width="1.5" PointX="5.375" PointY="0.75" />
         <EntityTypeShape EntityType="ValleyDreamsIndiaDBModel.GalleryDetail" Width="1.5" PointX="5.375" PointY="4.75" />
+        <EntityTypeShape EntityType="ValleyDreamsIndiaDBModel.RewardDetail" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="ValleyDreamsIndiaDBModel.MemberRewardDetail" Width="1.5" PointX="3.25" PointY="20.375" />
+        <AssociationConnector Association="ValleyDreamsIndiaDBModel.FK_MemberRewardDetails_UsersDetails" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

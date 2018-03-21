@@ -70,7 +70,7 @@
                             <tr>
                                 <th>Joined On</th>
                                 <th>
-                                    @Model.PersonalDetails.JoinedOn
+                                    @Convert.ToDateTime(Model.PersonalDetails.JoinedOn).ToString("dd/MM/yyyy")
                                 </th>
                             </tr>
 

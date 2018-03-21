@@ -27,7 +27,6 @@
                             <tr>
                                 <th>Placement</th>
                                 <th>
-
                                     @Html.DropDownList("placementSide", new SelectList(
                  new List<Object>{
                                                                                            new { value = "" , text = "--Select--" },
@@ -190,16 +189,27 @@
                                     <tr class="gradeA">
                                         <td>@i</td>
                                         <td>@itm.FirstName @itm.LastName</td>
-                                        <td>@itm.PlacementSide</td>
+                                        <td>
+                                            @if (Convert.ToString(ViewBag.ContributionSearchedPlacementSide) == "LEFT")
+                                            {
+                                                <span>LEFT</span>
+                                            }
+                                            else if (Convert.ToString(ViewBag.ContributionSearchedPlacementSide) == "RIGHT")
+                                            {
+                                                <span>RIGHT</span>
+                                            }
+                                            else
+                                            {
+                                                <span>@itm.PlacementSide</span>
+                                            }
+                                           
+                                        </td>
                                         <td>@itm.UsersDetail.UserName</td>
                                         <td>@Convert.ToDateTime(itm.JoinedOn).ToString("dd/MM/yyyy")</td>
                                         <td>@itm.PhoneNumber1</td>
                                         <td>@itm.UsersDetail.UsersDetail1.UserName</td>
                                         <td>
                                             @itm.UsersDetail.ContributionDetails.Where(x => x.UserDetailsId == itm.UsersDetail.Id).OrderByDescending(y => y.ContribDate).FirstOrDefault().ContribNumber
-
-                                            @*@itm.UsersDetail.ContributionDetails.Where(x => x.UserDetailsId == itm.UsersDetail.Id)
-                                .OrderByDescending(y => y.ContribDate).FirstOrDefault().ContribNumber*@
                                         </td>
                                         <td class="center">
                                             @Convert.ToDateTime(itm.UsersDetail.ContributionDetails

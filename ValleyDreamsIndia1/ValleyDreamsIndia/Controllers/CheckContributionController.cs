@@ -52,6 +52,7 @@ namespace ValleyDreamsIndia.Controllers
 
             GetUserInfo();
 
+            ViewBag.ContributionPlacementSide = "";
 
             return View(objList);
         }
@@ -141,6 +142,8 @@ namespace ValleyDreamsIndia.Controllers
                 }
             }
 
+            ViewBag.ContributionPlacementSide = placementSide;
+
             return View("Index", objList);
         }
 
@@ -158,7 +161,8 @@ namespace ValleyDreamsIndia.Controllers
 
 
             GetUserInfo();
-           
+
+            ViewBag.ContributionPlacementSide = "";
             return View("Index", objList);
         }
 

@@ -191,6 +191,25 @@
 
         $(function () {
 
+            $(".ancPayment").on('click', function () {
+                var pairs = $(this).attr("pairs");
+                var userid = $(this).attr("userid");
+                var paidstatus = $("#paidstatus_" + pairs).val();
+                var paiddate = $("#paiddate_" + pairs).val();
+                var paidremarks = $("#paidremarks_" + pairs).val();
+
+                var fullurl  = '/SuperAdmin/ClearPayment?userid='+userid+'&pairs=' + pairs + '&paidstatus=' + paidstatus + '&paiddate=' + paiddate + '&paidremarks=' + paidremarks;
+                $.ajax({
+                    url: fullurl,
+                    type: "GET",
+                    success: function (data) {
+                        window.location = "/SuperAdmin/ViewReward?memberId=" + userid;
+                    },
+                    error: function (xhr) {
+                        alert("Error while updating record");
+                    }
+                });
+            })
 
             $(".reset").click(function () {
                 debugger;
@@ -243,6 +262,7 @@
     $("#datepicker").datepicker();
     $("#datepicker1").datepicker();
     $("#datepicker2").datepicker();
+    $(".datepickerpaid").datepicker();
 	$( "#datepicker_inline" ).datepicker();
 	$('#colorpickerHolder').ColorPicker({flat: true});
 	$('#timepicker').timepicker ({

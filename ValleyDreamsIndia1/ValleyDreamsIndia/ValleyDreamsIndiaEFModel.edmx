@@ -61,6 +61,23 @@
           <Property Name="CreatedOn" Type="datetime" />
           <Property Name="UpdatedOn" Type="datetime" />
         </EntityType>
+        <EntityType Name="MemberRewardDetails">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LeftTeamCount" Type="int" />
+          <Property Name="RightTeamCount" Type="int" />
+          <Property Name="Pairs" Type="int" />
+          <Property Name="Status" Type="varchar" MaxLength="100" />
+          <Property Name="PaidStatus" Type="varchar" MaxLength="100" />
+          <Property Name="PaidDate" Type="datetime" />
+          <Property Name="PaidRemarks" Type="varchar" MaxLength="500" />
+          <Property Name="UserDetailsId" Type="int" />
+          <Property Name="Deleted" Type="int" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="UpdatedOn" Type="datetime" />
+        </EntityType>
         <EntityType Name="PersonalDetails">
           <Key>
             <PropertyRef Name="Id" />
@@ -100,6 +117,20 @@
           <Property Name="PinCreatedOn" Type="datetime" />
           <Property Name="Deleted" Type="int" />
         </EntityType>
+        <EntityType Name="RewardDetails">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemName" Type="varchar" MaxLength="500" />
+          <Property Name="Recognition" Type="varchar" MaxLength="100" />
+          <Property Name="Pairs" Type="int" />
+          <Property Name="Level" Type="varchar" MaxLength="100" />
+          <Property Name="ItemCost" Type="varchar" MaxLength="50" />
+          <Property Name="Deleted" Type="int" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="UpdatedOn" Type="datetime" />
+        </EntityType>
         <EntityType Name="UsersDetails">
           <Key>
             <PropertyRef Name="Id" />
@@ -136,6 +167,18 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="ContributionDetails">
+              <PropertyRef Name="UserDetailsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MemberRewardDetails_UsersDetails">
+          <End Role="UsersDetails" Type="Self.UsersDetails" Multiplicity="0..1" />
+          <End Role="MemberRewardDetails" Type="Self.MemberRewardDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsersDetails">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MemberRewardDetails">
               <PropertyRef Name="UserDetailsId" />
             </Dependent>
           </ReferentialConstraint>
@@ -197,7 +240,15 @@
         <Function Name="GetLastRightPlacementSideRecords" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="USERSDETAILSID" Type="int" Mode="In" />
         </Function>
+        <Function Name="GetLeftSidePlacementRecords" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="LEFTLEGUSERSDETAILSID" Type="int" Mode="In" />
+          <Parameter Name="USERSDETAILSID" Type="int" Mode="In" />
+        </Function>
         <Function Name="GetPlacementSideRecords" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="USERSDETAILSID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetRightSidePlacementRecords" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="RIGHTLEGUSERSDETAILSID" Type="int" Mode="In" />
           <Parameter Name="USERSDETAILSID" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="ValleyDreamsIndiaDBModelStoreContainer">
@@ -205,8 +256,10 @@
           <EntitySet Name="BankDetails" EntityType="Self.BankDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ContributionDetails" EntityType="Self.ContributionDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GalleryDetails" EntityType="Self.GalleryDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MemberRewardDetails" EntityType="Self.MemberRewardDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PersonalDetails" EntityType="Self.PersonalDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RenewalPinDetails" EntityType="Self.RenewalPinDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RewardDetails" EntityType="Self.RewardDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UsersDetails" EntityType="Self.UsersDetails" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_BankDetails_UsersDetails" Association="Self.FK_BankDetails_UsersDetails">
             <End Role="UsersDetails" EntitySet="UsersDetails" />
@@ -215,6 +268,10 @@
           <AssociationSet Name="FK_ContributionDetails_UsersDetails" Association="Self.FK_ContributionDetails_UsersDetails">
             <End Role="UsersDetails" EntitySet="UsersDetails" />
             <End Role="ContributionDetails" EntitySet="ContributionDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MemberRewardDetails_UsersDetails" Association="Self.FK_MemberRewardDetails_UsersDetails">
+            <End Role="UsersDetails" EntitySet="UsersDetails" />
+            <End Role="MemberRewardDetails" EntitySet="MemberRewardDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_PersonalDetails_UsersDetails" Association="Self.FK_PersonalDetails_UsersDetails">
             <End Role="UsersDetails" EntitySet="UsersDetails" />
@@ -289,6 +346,12 @@
           </FunctionImport>
           <EntitySet Name="AchieverDetails" EntityType="ValleyDreamsIndiaDBModel.AchieverDetail" />
           <EntitySet Name="GalleryDetails" EntityType="ValleyDreamsIndiaDBModel.GalleryDetail" />
+          <EntitySet Name="RewardDetails" EntityType="ValleyDreamsIndiaDBModel.RewardDetail" />
+          <EntitySet Name="MemberRewardDetails" EntityType="ValleyDreamsIndiaDBModel.MemberRewardDetail" />
+          <AssociationSet Name="FK_MemberRewardDetails_UsersDetails" Association="ValleyDreamsIndiaDBModel.FK_MemberRewardDetails_UsersDetails">
+            <End Role="UsersDetail" EntitySet="UsersDetails" />
+            <End Role="MemberRewardDetail" EntitySet="MemberRewardDetails" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="BankDetail">
           <Key>
@@ -390,6 +453,7 @@
           <NavigationProperty Name="UsersDetails1" Relationship="ValleyDreamsIndiaDBModel.FK_UsersDetails_UsersDetails" FromRole="UsersDetail" ToRole="UsersDetail1" />
           <NavigationProperty Name="UsersDetail1" Relationship="ValleyDreamsIndiaDBModel.FK_UsersDetails_UsersDetails" FromRole="UsersDetail1" ToRole="UsersDetail" />
           <Property Name="SrNo" Type="Int32" />
+          <NavigationProperty Name="MemberRewardDetails" Relationship="ValleyDreamsIndiaDBModel.FK_MemberRewardDetails_UsersDetails" FromRole="UsersDetail" ToRole="MemberRewardDetail" />
         </EntityType>
         <Association Name="FK_BankDetails_UsersDetails">
           <End Type="ValleyDreamsIndiaDBModel.UsersDetail" Role="UsersDetail" Multiplicity="0..1" />
@@ -511,6 +575,50 @@
           <Property Name="CreatedOn" Type="DateTime" Precision="3" />
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="RewardDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Recognition" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Pairs" Type="Int32" />
+          <Property Name="Level" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ItemCost" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Deleted" Type="Int32" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="MemberRewardDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LeftTeamCount" Type="Int32" />
+          <Property Name="RightTeamCount" Type="Int32" />
+          <Property Name="Pairs" Type="Int32" />
+          <Property Name="Status" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PaidStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PaidDate" Type="DateTime" Precision="3" />
+          <Property Name="PaidRemarks" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="UserDetailsId" Type="Int32" />
+          <Property Name="Deleted" Type="Int32" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="UsersDetail" Relationship="ValleyDreamsIndiaDBModel.FK_MemberRewardDetails_UsersDetails" FromRole="MemberRewardDetail" ToRole="UsersDetail" />
+        </EntityType>
+        <Association Name="FK_MemberRewardDetails_UsersDetails">
+          <End Type="ValleyDreamsIndiaDBModel.UsersDetail" Role="UsersDetail" Multiplicity="0..1" />
+          <End Type="ValleyDreamsIndiaDBModel.MemberRewardDetail" Role="MemberRewardDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsersDetail">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MemberRewardDetail">
+              <PropertyRef Name="UserDetailsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -642,6 +750,41 @@
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="Deleted" ColumnName="Deleted" />
                 <ScalarProperty Name="Pic" ColumnName="Pic" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetLeftSidePlacementRecords" FunctionName="ValleyDreamsIndiaDBModel.Store.GetLeftSidePlacementRecords" />
+          <FunctionImportMapping FunctionImportName="GetRightSidePlacementRecords" FunctionName="ValleyDreamsIndiaDBModel.Store.GetRightSidePlacementRecords" />
+          <EntitySetMapping Name="RewardDetails">
+            <EntityTypeMapping TypeName="ValleyDreamsIndiaDBModel.RewardDetail">
+              <MappingFragment StoreEntitySet="RewardDetails">
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="ItemCost" ColumnName="ItemCost" />
+                <ScalarProperty Name="Level" ColumnName="Level" />
+                <ScalarProperty Name="Pairs" ColumnName="Pairs" />
+                <ScalarProperty Name="Recognition" ColumnName="Recognition" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MemberRewardDetails">
+            <EntityTypeMapping TypeName="ValleyDreamsIndiaDBModel.MemberRewardDetail">
+              <MappingFragment StoreEntitySet="MemberRewardDetails">
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="UserDetailsId" ColumnName="UserDetailsId" />
+                <ScalarProperty Name="PaidRemarks" ColumnName="PaidRemarks" />
+                <ScalarProperty Name="PaidDate" ColumnName="PaidDate" />
+                <ScalarProperty Name="PaidStatus" ColumnName="PaidStatus" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Pairs" ColumnName="Pairs" />
+                <ScalarProperty Name="RightTeamCount" ColumnName="RightTeamCount" />
+                <ScalarProperty Name="LeftTeamCount" ColumnName="LeftTeamCount" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
