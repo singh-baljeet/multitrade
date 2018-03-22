@@ -137,7 +137,7 @@ namespace ValleyDreamsIndia.Controllers
         public ActionResult CreateMember(UsersPersonalModelView usersPersonalModelView)
         {
 
-            int serialNumber = Convert.ToInt32(_valleyDreamsIndiaDBEntities.UsersDetails.Max(x => x.SrNo).Value);
+            //int serialNumber = Convert.ToInt32(_valleyDreamsIndiaDBEntities.UsersDetails.Max(x => x.SrNo).Value);
 
             UsersDetail userDetail = new UsersDetail();
             userDetail.SponsoredId = CurrentUser.CurrentUserId;
@@ -145,8 +145,9 @@ namespace ValleyDreamsIndia.Controllers
             userDetail.Password = Guid.NewGuid().ToString().Substring(0, 6);
             userDetail.Deleted = 0;
             userDetail.CreatedOn = DateTime.Now;
-            userDetail.SrNo = serialNumber;
+            userDetail.SrNo = 0;
 
+            
             _valleyDreamsIndiaDBEntities.Entry(userDetail).State = EntityState.Added;
             _valleyDreamsIndiaDBEntities.SaveChanges();
 
@@ -188,6 +189,7 @@ namespace ValleyDreamsIndia.Controllers
                     }
                 }
             }
+            
 
             usersPersonalModelView.PersonalDetails.UsersDetailsId = userDetail.Id;
             usersPersonalModelView.PersonalDetails.JoinedOn = DateTime.Now.ToString();
@@ -198,6 +200,7 @@ namespace ValleyDreamsIndia.Controllers
             usersPersonalModelView.PersonalDetails.ProfilePic = "/UploadedTeamImages/default1_avatar_small.png";
             _valleyDreamsIndiaDBEntities.PersonalDetails.Add(usersPersonalModelView.PersonalDetails);
             _valleyDreamsIndiaDBEntities.SaveChanges();
+
 
             usersPersonalModelView.BankDetails.UsersDetailsId = userDetail.Id;
             usersPersonalModelView.BankDetails.CreatedOn = DateTime.Now;
@@ -227,19 +230,19 @@ namespace ValleyDreamsIndia.Controllers
             ViewBag.TransactionPassword = transactionpassword = usersPersonalModelView.BankDetails.TransactionPassword;
             string fullname = usersPersonalModelView.PersonalDetails.FirstName + " " + usersPersonalModelView.PersonalDetails.LastName;
             string sponsorId = usersPersonalModelView.UserDetails.UserName;
-            string srno = serialNumber.ToString();
+            string srno = usersPersonalModelView.PersonalDetails.Id.ToString();
 
             string textMessage = String.Format("Welcome to Bethuel Multi Trade Pvt. Ltd. \n\n Dear ({0}), \n Sr. No : {1} \n Sponsor ID : {2} \n User ID : {3} \n Password : {4} \n Txn Password : {5}",
                 fullname, srno, sponsorId, username, password, transactionpassword);
 
             string phoneNumber1 = usersPersonalModelView.PersonalDetails.PhoneNumber1;
             string phoneNumber2 = "919888540973,919646744247";
-            string smsStatus = SmsProvider.SendSms(phoneNumber1, textMessage, phoneNumber2);
-            if (smsStatus == "Success")
-            {
-                smsstatus = "Credentials Sent To Your Registered Mobile Number Successfully";
-            }
-            ViewBag.SmsStatus = smsstatus;
+            //string smsStatus = SmsProvider.SendSms(phoneNumber1, textMessage, phoneNumber2);
+            //if (smsStatus == "Success")
+            //{
+            //    smsstatus = "Credentials Sent To Your Registered Mobile Number Successfully";
+            //}
+            //ViewBag.SmsStatus = smsstatus;
 
             UsersPersonalModelView usersPersonalModelView1 = new UsersPersonalModelView();
             return View("~/Views/SuperAdmin/CreateMember.cshtml", usersPersonalModelView1);

@@ -24,7 +24,7 @@
                         <tr>
                             <th>Current Password</th>
                             <th>
-                                @Html.Password("OldPassword", null, new { placeholder = "Enter Current Pass" }))
+                                @Html.Password("OldPassword", null, new { placeholder = "Enter Current Pass", required="required" })
                             </th>
 
                         </tr>
@@ -32,13 +32,13 @@
                         <tr>
                             <th>New Password</th>
                             <th>
-                                @Html.Password("NewPassword", null, new { placeholder = "Enter New Pass" })
+                                @Html.Password("NewPassword", null, new { placeholder = "Enter New Pass", required = "required" })
                             </th>
 
                         </tr>
                         <tr>
                             <th>Confirm Password</th>
-                            <th>@Html.Password("ConfirmNewPassword", null, new { placeholder = "Confirm New Pass" })
+                            <th>@Html.Password("ConfirmNewPassword", null, new { placeholder = "Confirm New Pass", required = "required" })
                             </th>
 
                         </tr>
@@ -54,7 +54,9 @@
             <div style="margin-top:20px; margin-bottom:20px;" align="center">
                 <span><input type="submit" class="btn btn-primary" value="Submit"/></span>
 
-                <span style="margin-left:50px;"><button class="btn btn-quaternary">Cancel</button></span>
+                <span style="margin-left:50px;"><button class="btn btn-quaternary"
+                                                         onclick="return passwordCancelBtn()"
+                                                        >Cancel</button></span>
             </div>
 
             <div style="margin-top:10px; margin-bottom:10px;" align="center">
@@ -89,7 +91,7 @@
                         <tr>
                             <th>Current Txn. Pass</th>
                             <th>
-                                @Html.Password("OldTransactionPassword", null, new { placeholder = "Enter Current Txn. Pass" })
+                                @Html.Password("OldTransactionPassword", null, new { placeholder = "Enter Current Txn. Pass", required = "required" })
                             @*<input type="password" name="ecp" id="ecp" size="20" class="" placeholder="Enter Current Txn. Pass" />*@
                             </th>
 
@@ -98,7 +100,7 @@
                         <tr>
                             <th>New Txn. Pass</th>
                             <th>
-                                @Html.Password("NewTransactionPassword", null, new { placeholder = "Enter New Txn. Pass" })
+                                @Html.Password("NewTransactionPassword", null, new { placeholder = "Enter New Txn. Pass", required = "required" })
                             @*<input type="password" name="enp" id="enp" size="20" class="" placeholder="Enter New Txn. Pass" />*@
                             </th>
 
@@ -106,7 +108,7 @@
                         <tr>
                             <th>Confirm Txn. Pass</th>
                             <th>
-                                @Html.Password("ConfirmTransactionNewPassword", null, new { placeholder = "Confirm New Txn. Pass" })
+                                @Html.Password("ConfirmTransactionNewPassword", null, new { placeholder = "Confirm New Txn. Pass", required = "required" })
                             @*<input type="password" name="cp" id="cp" size="20" class="" placeholder="Confirm New Txn. Pass" />*@
                             </th>
 
@@ -123,7 +125,8 @@
             <div style="margin-top:20px; margin-bottom:20px;" align="center">
                 <span><input type="submit" class="btn btn-primary" value="Submit" /></span>
 
-                <span style="margin-left:50px;"><button class="btn btn-quaternary">Cancel</button></span>
+                <span style="margin-left:50px;"><button class="btn btn-quaternary"
+                                                        onclick="return transactionCancelBtn()">Cancel</button></span>
             </div>
 
             <div style="margin-top:10px; margin-bottom:10px;" align="center">
@@ -135,10 +138,17 @@
                 </span>
             </div>
 
+            <div style="margin-top:10px; margin-bottom:10px;" align="center">
+                <a href="#" id="forgettransactionpassword" style="cursor:pointer;font-size:16px;">Recover Transaction</a>
+            </div>
+
+            <div style="margin-top:10px; margin-bottom:10px;" align="center">
+                <span id="transactionpasswordstatus" style="font-size:16px"></span>
+            </div>
 }
 
 
-        </div>
+            </div>
 
     </div>
 
@@ -146,3 +156,9 @@
 
 </div>
 
+<script type="text/javascript">
+
+    $(function () {
+        $("#transactionpasswordstatus").text("");
+    });
+</script>

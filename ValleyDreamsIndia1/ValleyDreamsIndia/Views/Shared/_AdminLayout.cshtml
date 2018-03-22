@@ -157,7 +157,41 @@
             return false;
         }
 
+        function transactionCancelBtn() {
+            $("#OldTransactionPassword").val("");
+            $("#NewTransactionPassword").val("");
+            $("#ConfirmTransactionNewPassword").val("");
+            return false;
+        }
+
+        function passwordCancelBtn() {
+            $("#OldPassword").val("");
+            $("#NewPassword").val("");
+            $("#ConfirmNewPassword").val("");
+            return false;
+        }
+
         $(function () {
+
+            $('#forgettransactionpassword').click(function () {
+
+                $.ajax({
+                    url: '/Users/SendTransactionPassword',
+                    type: "GET",
+                    success: function (response, textStatus, xhr) {
+                        console.log(textStatus)
+                        //response = response.replace(/\"/g, "");
+                        if (textStatus == "success") {
+                            var resp = "Your transaction password is : " + response;
+                            $("#transactionpasswordstatus").text(resp);
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        $("#transactionpasswordstatus").text("Error while recover password.");
+                    }
+                });
+            })
+
 
             $(".explore").click(function (e) {
                 var usrId = $(this).attr("userId");

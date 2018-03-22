@@ -82,7 +82,7 @@
             <div class="widget-header">
                 <span class="icon-list"></span>
                 <h3 class="icon chart">Geneology</h3>
-                <span style="float:right;display:none;" >
+                <span style="float:right;" >
                         @using (Html.BeginForm("Print", "SuperAdmin", FormMethod.Post, new { id = "printForm", target = "_blank" }))
                         {
                             <input type="hidden" value="@ViewBag.Searched" name="hdnSearched" />
@@ -190,9 +190,9 @@
                                     <td class="center">
                                         <span>
                                             @Html.ActionLink("Edit", "MemberEditProfile", "SuperAdmin", new { memberId = item.UsersDetailsId }, null)
-                                        </span>
+                                        </span> | 
                                         <span>
-                                            @Html.ActionLink("ViewReward", "ViewReward", "SuperAdmin", new { memberId = item.UsersDetailsId }, null)
+                                            @Html.ActionLink("Rewards", "ViewReward", "SuperAdmin", new { memberId = item.UsersDetailsId }, null)
                                         </span>
                                     </td>
                                 </tr>

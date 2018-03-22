@@ -75,7 +75,7 @@ namespace ValleyDreamsIndia.Controllers.Members
                     {
                         ViewBag.ErrorMessage = true;
                         ViewBag.Error = "Old Password Mismatched";
-                        return View("~/Views/Members/User/Edit.cshtml"); 
+                        return View("~/Views/Members/User/Edit.cshtml");
                     }
                 }
                 else
@@ -148,5 +148,28 @@ namespace ValleyDreamsIndia.Controllers.Members
             }
         }
 
+
+        [HttpGet]
+        public JsonResult SendTransactionPassword()
+        {
+            BankDetail bankDetail = _valleyDreamsIndiaDBEntities.BankDetails
+                                        .Where(x => x.UsersDetailsId == CurrentUser.CurrentUserId && x.Deleted == 0).FirstOrDefault();
+
+            PersonalDetail personalDetail = _valleyDreamsIndiaDBEntities.PersonalDetails
+                    .Where(x => x.UsersDetailsId == CurrentUser.CurrentUserId).FirstOrDefault();
+
+            string fullName = personalDetail.FirstName + " " + personalDetail.LastName;
+            string recoveredPassword = bankDetail.TransactionPassword;
+            string textMessage = String.Format("Dear ({0}), Your transaction password  is {1}", fullName, recoveredPassword);
+            try
+            {
+                SmsProvider.SendSms(personalDetail.PhoneNumber1, textMessage);
+                return Json(bankDetail.TransactionPassword.ToString(), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json("Failed", JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

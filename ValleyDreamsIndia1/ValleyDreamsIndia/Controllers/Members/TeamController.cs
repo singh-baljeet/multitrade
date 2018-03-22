@@ -64,7 +64,7 @@ namespace ValleyDreamsIndia.Controllers.Members
             {
                 ViewBag.Title = "Admin: Add New Member";
 
-                int serialNumber = Convert.ToInt32(_valleyDreamsIndiaDBEntities.UsersDetails.Max(x => x.SrNo).Value);
+                //int serialNumber = Convert.ToInt32(_valleyDreamsIndiaDBEntities.UsersDetails.Max(x => x.SrNo).Value);
 
 
                 UsersDetail userDetail = _valleyDreamsIndiaDBEntities.UsersDetails
@@ -75,7 +75,7 @@ namespace ValleyDreamsIndia.Controllers.Members
 
                 userDetail.Deleted = 0;
                 userDetail.CreatedOn = DateTime.Now;
-                userDetail.SrNo = serialNumber;
+                userDetail.SrNo = 0;
                 _valleyDreamsIndiaDBEntities.Entry(userDetail).State = EntityState.Modified;
                 _valleyDreamsIndiaDBEntities.SaveChanges();
 
@@ -161,7 +161,7 @@ namespace ValleyDreamsIndia.Controllers.Members
                 ViewBag.TransactionPassword = transactionpassword = usersPersonalModelView.BankDetails.TransactionPassword;
                 string fullname = usersPersonalModelView.PersonalDetails.FirstName + " " + usersPersonalModelView.PersonalDetails.LastName;
                 string sponsorId = userDetail.UsersDetail1.UserName;
-                string srno = serialNumber.ToString();
+                string srno = usersPersonalModelView.PersonalDetails.Id.ToString();
 
                 string textMessage = String.Format("Welcome to Bethuel Multi Trade Pvt. Ltd. \n\n Dear ({0}),\n Sr. No : {1} \n Sponsor ID : {2} \n User ID : {3} \n Password : {4} \n Txn Password : {5}",
                     fullname, srno, sponsorId, username, password, transactionpassword);
