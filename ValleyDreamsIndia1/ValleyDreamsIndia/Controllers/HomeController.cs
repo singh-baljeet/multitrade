@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SendGrid;
+using SendGrid.Helpers.Mail;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -26,6 +28,20 @@ namespace ValleyDreamsIndia.Controllers
             ViewBag.SmsStatusMessage = false;
             ViewBag.MobileErrorMessage = false;
             ViewBag.SuccessMessage = false;
+            int countLeftTeam = 0, countRightTeam = 0;
+
+            var response = _valleyDreamsIndiaDBEntities.CountPlacementSideFunc(1);
+            foreach (var res in response)
+            {
+                countLeftTeam = Convert.ToInt32(res.LeftNodes);
+                countRightTeam = Convert.ToInt32(res.RightNodes);
+            }
+
+            ViewBag.UserConnected = countLeftTeam + countRightTeam;
+            ViewBag.ProfileCompleted = Convert.ToInt32(ViewBag.UserConnected) - 30;
+            ViewBag.OnlineUsers = Convert.ToInt32(ViewBag.UserConnected) - 50;
+            ViewBag.HappyClients = Convert.ToInt32(ViewBag.UserConnected) - 20;
+
             return View();
         }
 
@@ -135,6 +151,21 @@ namespace ValleyDreamsIndia.Controllers
             }
         }
 
+        [HttpPost]
+        public JsonResult ContactUs(string name,string email,string phone,string message)
+        {
+            var apiKey = "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";
+            var client = new SendGridClient(apiKey);
+            var from = new EmailAddress(email, name);
+            var subject = "Contact Us";
+            var to = new EmailAddress("bethuelinfo@gmail.com", "Administrator");
+            var plainTextContent = message + ". My phone number is " +  phone;
+            var htmlContent = "";
+            var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+            var response = client.SendEmailAsync(msg);
+            var res = response.Result;
+            return Json("Message  Sent Successfully", JsonRequestBehavior.AllowGet);
+        }
 
         [HttpPost]
         public ActionResult LogOut()

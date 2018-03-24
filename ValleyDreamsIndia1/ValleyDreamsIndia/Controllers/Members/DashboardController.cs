@@ -32,7 +32,7 @@ namespace ValleyDreamsIndia.Controllers.Members
             ViewBag.DOJ = Convert.ToDateTime(UserDetailsResults.CreatedOn);
 
             ViewBag.DirectTeam = _valleyDreamsIndiaDBEntities.PersonalDetails
-                .Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.LegId != CurrentUser.CurrentUserId).Count();
+                .Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.LegId != CurrentUser.CurrentUserId && x.Deleted == 0).Count();
 
             var myUserList = _valleyDreamsIndiaDBEntities.UsersDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.IsPinUsed == 1);
 

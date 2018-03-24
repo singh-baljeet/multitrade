@@ -68,7 +68,7 @@
                             <tr>
                                 <th>Sponser Id</th>
                                 <th>
-                                    @Model.UserDetails.UsersDetail1.UserName
+                                    @Html.TextBoxFor(m => m.UserDetails.UserName)
                                 </th>
 
                             </tr>
@@ -76,7 +76,7 @@
                             <tr>
                                 <th>Joined On</th>
                                 <th>
-                                    @Model.PersonalDetails.JoinedOn
+                                    @DateTime.Now.ToString("dd/MM/yyyy")
                                 </th>
                             </tr>
 
@@ -84,7 +84,14 @@
                             <tr>
                                 <th>Placed On</th>
                                 <th>
-                                    @Model.PersonalDetails.PlacementSide
+                                    @Html.DropDownListFor(m => m.PersonalDetails.PlacementSide, new SelectList(
+                 new List<Object>{
+                                                                                           new { value = "LEFT" , text = "LEFT" },
+                                                                                           new { value = "RIGHT", text = "RIGHT"}
+                   },
+                 "value",
+                 "text",
+                  2))
                                 </th>
 
                             </tr>

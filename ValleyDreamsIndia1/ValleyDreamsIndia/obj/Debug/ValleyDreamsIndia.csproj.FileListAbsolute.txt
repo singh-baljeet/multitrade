@@ -243,3 +243,6 @@ E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\bin\Microsoft.Owin.Security.M
 E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\obj\Debug\ValleyDreamsIndia.dll
 E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\obj\Debug\ValleyDreamsIndia.pdb
 E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\obj\Debug\ValleyDreamsIndia.csprojResolveAssemblyReference.cache
+E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\bin\SendGrid.dll
+E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\bin\SendGrid.pdb
+E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\bin\SendGrid.xml

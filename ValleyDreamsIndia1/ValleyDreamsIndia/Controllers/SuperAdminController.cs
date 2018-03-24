@@ -782,7 +782,7 @@ namespace ValleyDreamsIndia.Controllers
             ViewBag.DOJ = Convert.ToDateTime(UserDetailsResults.CreatedOn).ToString("dd/MM/yyyy");
 
             ViewBag.DirectTeam = _valleyDreamsIndiaDBEntities.PersonalDetails
-                .Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.LegId != CurrentUser.CurrentUserId).Count();
+                .Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.LegId != CurrentUser.CurrentUserId && x.Deleted == 0).Count();
 
             var myUserList = _valleyDreamsIndiaDBEntities.UsersDetails
                 .Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.IsPinUsed == 1);
@@ -1619,11 +1619,53 @@ namespace ValleyDreamsIndia.Controllers
             ViewBag.Title = "SuperAdmin: Profile Settings";
             try
             {
+                string sponserId = usersPersonalModelView.UserDetails.UserName;
+                int legId = CurrentUser.CurrentUserId;
+
+                if (sponserId != "" || sponserId.Length > 0)
+                {
+                    legId = _valleyDreamsIndiaDBEntities.UsersDetails
+                    .Where(x => x.UserName == sponserId).FirstOrDefault().Id;
+                }
+
+                int lastleg = legId;
+                if (usersPersonalModelView.PersonalDetails.PlacementSide == "LEFT")
+                {
+                    var leftLegRes = _valleyDreamsIndiaDBEntities.GetLastLeftPlacementSideRecords(legId);
+                    if (leftLegRes != null)
+                    {
+                        foreach (var left in leftLegRes)
+                        {
+                            if (left != null)
+                            {
+                                lastleg = left.Value;
+                            }
+                        }
+                    }
+                }
+                if (usersPersonalModelView.PersonalDetails.PlacementSide == "RIGHT")
+                {
+                    var rightLegRes = _valleyDreamsIndiaDBEntities.GetLastRightPlacementSideRecords(legId);
+                    if (rightLegRes != null)
+                    {
+                        foreach (var right in rightLegRes)
+                        {
+                            if (right != null)
+                            {
+                                lastleg = right.Value;
+                            }
+                        }
+                    }
+                }
 
                 UsersDetail userDetail = _valleyDreamsIndiaDBEntities.UsersDetails
                     .Where(x => x.Id == usersPersonalModelView.UserDetails.Id).FirstOrDefault();
 
-                userDetail.Password =  Guid.NewGuid().ToString().Substring(0, 6);
+                userDetail.Password = Guid.NewGuid().ToString().Substring(0, 6);
+                userDetail.SponsoredId = CurrentUser.CurrentUserId;
+                userDetail.PinType = null;
+                userDetail.IsPinUsed = 1;
+                userDetail.CreatedOn = DateTime.UtcNow;
                 _valleyDreamsIndiaDBEntities.Entry(userDetail).State = EntityState.Modified;
                 _valleyDreamsIndiaDBEntities.SaveChanges();
 
@@ -1638,20 +1680,25 @@ namespace ValleyDreamsIndia.Controllers
                     memberImage.SaveAs(Server.MapPath("~/UploadedTeamImages/") + randomImageName);
                 }
 
+                personalDetails.SponsoredId = CurrentUser.CurrentUserId;
+                personalDetails.JoinedOn = DateTime.Now.ToString();
+                personalDetails.LegId = lastleg;
+                personalDetails.PlacementSide = usersPersonalModelView.PersonalDetails.PlacementSide;
                 personalDetails.Gender = usersPersonalModelView.PersonalDetails.Gender;
                 personalDetails.FirstName = usersPersonalModelView.PersonalDetails.FirstName;
                 personalDetails.LastName = usersPersonalModelView.PersonalDetails.LastName;
                 personalDetails.FatherName = usersPersonalModelView.PersonalDetails.FatherName;
-                personalDetails.PhoneNumber1 = usersPersonalModelView.PersonalDetails.PhoneNumber1;
                 personalDetails.BirthDate = usersPersonalModelView.PersonalDetails.BirthDate;
+                personalDetails.PhoneNumber1 = usersPersonalModelView.PersonalDetails.PhoneNumber1;
                 personalDetails.PhoneNumber2 = usersPersonalModelView.PersonalDetails.PhoneNumber2;
                 personalDetails.Email = usersPersonalModelView.PersonalDetails.Email;
-
                 personalDetails.Address = usersPersonalModelView.PersonalDetails.Address;
                 personalDetails.State = usersPersonalModelView.PersonalDetails.State;
                 personalDetails.District = usersPersonalModelView.PersonalDetails.District;
                 personalDetails.City = usersPersonalModelView.PersonalDetails.City;
                 personalDetails.PinCode = usersPersonalModelView.PersonalDetails.PinCode;
+                personalDetails.Deleted = 0;
+                personalDetails.CreatedOn = DateTime.Now;
                 personalDetails.UpdatedOn = DateTime.Now;
 
                 _valleyDreamsIndiaDBEntities.Entry(personalDetails).State = EntityState.Modified;
@@ -1685,13 +1732,13 @@ namespace ValleyDreamsIndia.Controllers
                 ViewBag.TransactionPassword = transactionpassword = usersPersonalModelView.BankDetails.TransactionPassword;
                 string fullname = usersPersonalModelView.PersonalDetails.FirstName + " " + usersPersonalModelView.PersonalDetails.LastName;
                 string sponsorId = usersPersonalModelView.UserDetails.UserName;
-                string srno = usersPersonalModelView.PersonalDetails.Id.ToString();
+                string srno = personalDetails.Id.ToString();
 
                 string textMessage = String.Format("Welcome to Bethuel Multi Trade Pvt. Ltd. \n\n Dear ({0}), \n Sr. No : {1} \n Sponsor ID : {2} \n User ID : {3} \n Password : {4} \n Txn Password : {5}",
                     fullname, srno, sponsorId, username, password, transactionpassword);
 
                 string phoneNumber1 = usersPersonalModelView.PersonalDetails.PhoneNumber1;
-                //string phoneNumber2 = "919888540973,919646744247";
+                string phoneNumber2 = "919888540973,919646744247";
                 string smsStatus = SmsProvider.SendSms(phoneNumber1, textMessage);
                 if (smsStatus == "Success")
                 {

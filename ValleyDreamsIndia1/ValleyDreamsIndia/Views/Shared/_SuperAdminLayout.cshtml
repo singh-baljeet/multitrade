@@ -102,6 +102,13 @@
                     <a href="/SuperAdmin/Achiever">Manage Achiever</a>
                 </li>
 
+                <li id="navType" class="nav @(ViewContext.RouteData.Values["action"].ToString() == "GetAllDeletedUsers" ? "active" : "") ">
+                    <span class="icon-equalizer"></span>
+                    <a href="/SuperAdmin/GetAllDeletedUsers">Manage Deleted Profiles</a>
+                </li>
+
+                
+
                 <li id="navType" class="nav @(ViewContext.RouteData.Values["action"].ToString() == "Gallery" ? "active" : "") ">
                     <span class="icon-equalizer"></span>
                     <a href="/SuperAdmin/Gallery">Manage Gallery</a>
