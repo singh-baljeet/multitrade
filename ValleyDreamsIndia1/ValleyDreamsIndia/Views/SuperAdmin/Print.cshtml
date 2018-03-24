@@ -27,33 +27,58 @@
                         </thead>
                         <tbody>
                             @if (Model.PersonalDetails != null)
-                        {
-                            var i = 1;
-                            foreach (var item in Model.PersonalDetails)
                             {
+                                var i = 1;
+                                foreach (var item in Model.PersonalDetails)
+                                {
                                     <tr class="gradeA">
                                         <td>@i</td>
                                         <td>
                                             @item.FirstName  @item.LastName
                                         </td>
                                         <td>
-                                            @item.PlacementSide
+                                            @if (Convert.ToString(ViewBag.PlacementSidePrint) == "LEFT")
+                                            {
+                                                <span>LEFT</span>
+                                            }
+                                            else if (Convert.ToString(ViewBag.PlacementSidePrint) == "RIGHT")
+                                            {
+                                                <span>RIGHT</span>
+                                            }
+                                            else
+                                            {
+                                                <span>@item.PlacementSide</span>
+                                            }
                                         </td>
                                         <td>
-                                            @item.UsersDetail.UserName
+                                            
+                                                        @item.UsersDetail.UserName
+                                                    
                                         </td>
                                         <td class="center">
                                             @Convert.ToDateTime(item.JoinedOn).ToString("dd/MM/yyyy")
                                         </td>
                                         <td>@item.PhoneNumber1</td>
-                                        <td>@item.UsersDetail.UsersDetail1.UserName</td>
+                                        <td>@{
+                                            if (item.UsersDetail.UsersDetail1 != null)
+                                            {
+                                                try
+                                                {@item.UsersDetail.UsersDetail1.UserName
+                                                }
+                                                catch
+                                                {
+                                                    <span>NA</span>
+                                                    }
+                                                }
+                                            }
+                                        </td>
                                         <td>
                                             @{
-                                            if (item.UsersDetail.UsersDetail1.ContributionDetails != null)
+                                            if (item.UsersDetail.ContributionDetails != null)
                                             {
                                                 try
                                                 {
-                                                        @item.UsersDetail.UsersDetail1.ContributionDetails.Where(x => x.UserDetailsId == item.UsersDetail.UsersDetail1.Id).OrderByDescending(y => y.ContribDate).FirstOrDefault().ContribNumber
+                                                        @item.UsersDetail.ContributionDetails.Where(x => x.UserDetailsId == item.UsersDetail.Id).OrderByDescending(y => y.ContribDate).FirstOrDefault().ContribNumber
                                                 }
                                                 catch
                                                 {
@@ -68,11 +93,11 @@
                                         </td>
                                         <td>
                                             @{
-                                            if (item.UsersDetail.UsersDetail1.ContributionDetails != null)
+                                            if (item.UsersDetail.ContributionDetails != null)
                                             {
                                                 try
                                                 {
-                                                        @Convert.ToDateTime(item.UsersDetail.UsersDetail1.ContributionDetails.Where(x => x.UserDetailsId == item.UsersDetail.UsersDetail1.Id).OrderByDescending(y => y.ContribDate).FirstOrDefault().ContribDate).ToShortDateString()
+                                                        @Convert.ToDateTime(item.UsersDetail.ContributionDetails.Where(x => x.UserDetailsId == item.UsersDetail.Id).OrderByDescending(y => y.ContribDate).FirstOrDefault().ContribDate).ToString("dd/MM/yyyy")
                                                 }
                                                 catch
                                                 {

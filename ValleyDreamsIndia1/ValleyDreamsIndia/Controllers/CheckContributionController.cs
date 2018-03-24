@@ -20,22 +20,6 @@ namespace ValleyDreamsIndia.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            //var myUserList1 = _valleyDreamsIndiaDBEntities.ContributionDetails
-            //    .Where(x => x.SponsoredId == CurrentUser.CurrentUserId);
-
-            //List<IQueryable<PersonalDetail>> objList = new List<IQueryable<PersonalDetail>>();
-
-            //var ownObj = _valleyDreamsIndiaDBEntities.PersonalDetails
-            //    .Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.LegId == CurrentUser.CurrentUserId);
-            //objList.Add(ownObj);
-
-            //foreach (var usr in myUserList1)
-            //{
-            //    var obj = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.UsersDetailsId == usr.UserDetailsId);
-            //    objList.Add(obj);
-            //}
-
-
 
             List<int> personalIdList = new List<int>();
 
@@ -54,10 +38,11 @@ namespace ValleyDreamsIndia.Controllers
 
             ViewBag.ContributionPlacementSide = "";
 
+            ViewBag.MemberContributionSearched = "ALL";
             return View(objList);
         }
 
-        private void  GetUserInfo()
+        private void GetUserInfo()
         {
 
             var UserDetailsResults = _valleyDreamsIndiaDBEntities.UsersDetails.First(x => x.Id == CurrentUser.CurrentUserId);
@@ -91,26 +76,10 @@ namespace ValleyDreamsIndia.Controllers
         [HttpPost]
         public ActionResult SearchByPlacementSide(string placementSide)
         {
-            if(placementSide == "")
+            if (placementSide == "")
             {
                 return RedirectToAction("Index");
             }
-            //var myUserList = _valleyDreamsIndiaDBEntities.ContributionDetails
-            //    .Where(x => x.SponsoredId == CurrentUser.CurrentUserId);
-
-            //List<IQueryable<PersonalDetail>> objList = new List<IQueryable<PersonalDetail>>();
-
-            //var ownObj = _valleyDreamsIndiaDBEntities.PersonalDetails
-            //    .Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.LegId == CurrentUser.CurrentUserId && x.PlacementSide== placementSide);
-            //objList.Add(ownObj);
-
-            //foreach (var usr in myUserList)
-            //{
-            //    var obj = _valleyDreamsIndiaDBEntities.PersonalDetails
-            //        .Where(x => x.UsersDetailsId == usr.UserDetailsId  && x.PlacementSide == placementSide );
-            //    objList.Add(obj);
-            //}
-
             GetUserInfo();
 
             var count = _valleyDreamsIndiaDBEntities.PersonalDetails
@@ -144,6 +113,7 @@ namespace ValleyDreamsIndia.Controllers
 
             ViewBag.ContributionPlacementSide = placementSide;
 
+            ViewBag.MemberContributionSearched = placementSide;
             return View("Index", objList);
         }
 
@@ -163,8 +133,74 @@ namespace ValleyDreamsIndia.Controllers
             GetUserInfo();
 
             ViewBag.ContributionPlacementSide = "";
+            ViewBag.MemberContributionSearched = memberId;
+
             return View("Index", objList);
         }
 
+        [CustomAuthorize]
+        [HttpPost]
+        public ActionResult MemberContributionPrint(string hdnMemberContributionSearched)
+        {
+            List<PersonalDetail> personalDetailList = new List<PersonalDetail>();
+            if (hdnMemberContributionSearched == "ALL")
+            {
+                List<int> personalIdList = new List<int>();
+                List<PersonalDetail> objList = new List<PersonalDetail>();
+                var response = _valleyDreamsIndiaDBEntities.GetPlacementSideRecords((int)CurrentUser.CurrentUserId);
+                foreach (var res in response)
+                {
+                    personalIdList.Add(res.Value);
+                }
+
+                objList = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => personalIdList.Contains(x.Id)).ToList();
+
+                ViewBag.PlacementSideMemberContributionPrint = "";
+                personalDetailList = objList;
+            }
+            else if (hdnMemberContributionSearched == "LEFT" || hdnMemberContributionSearched == "RIGHT")
+            {
+                var count = _valleyDreamsIndiaDBEntities.PersonalDetails
+                .Where(x => x.LegId == CurrentUser.CurrentUserId
+                && x.PlacementSide == hdnMemberContributionSearched).FirstOrDefault();
+
+                List<int> personalIdList = new List<int>();
+                List<PersonalDetail> objList = new List<PersonalDetail>();
+
+                if (count != null)
+                {
+                    if (hdnMemberContributionSearched == "LEFT")
+                    {
+                        var response = _valleyDreamsIndiaDBEntities.GetLeftSidePlacementRecords(count.UsersDetailsId, (int)CurrentUser.CurrentUserId);
+                        foreach (var res in response)
+                        {
+                            personalIdList.Add(res.Value);
+                        }
+                        ViewBag.PlacementSideMemberContributionPrint = "LEFT";
+                        objList = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => personalIdList.Contains(x.Id)).ToList();
+                    }
+                    if (hdnMemberContributionSearched == "RIGHT")
+                    {
+                        var response = _valleyDreamsIndiaDBEntities.GetLeftSidePlacementRecords(count.UsersDetailsId, (int)CurrentUser.CurrentUserId);
+                        foreach (var res in response)
+                        {
+                            personalIdList.Add(res.Value);
+                        }
+                        ViewBag.PlacementSideMemberContributionPrint = "RIGHT";
+                        objList = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => personalIdList.Contains(x.Id)).ToList();
+                    }
+                    personalDetailList = objList;
+                }
+            }
+            else
+            {
+                List<PersonalDetail> objList = _valleyDreamsIndiaDBEntities.PersonalDetails.
+                Where(x => x.UsersDetail.UserName == hdnMemberContributionSearched).ToList();
+                ViewBag.PlacementSideMemberContributionPrint = "";
+                personalDetailList = objList;
+            }
+
+            return View(personalDetailList);
+        }
     }
 }

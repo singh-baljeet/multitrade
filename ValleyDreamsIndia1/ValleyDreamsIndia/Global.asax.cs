@@ -39,17 +39,17 @@ namespace ValleyDreamsIndia
             }
         }
 
-        protected void Application_Error(object sender , EventArgs e)
-        {
-            Exception exception = Server.GetLastError();
-            if (exception is CryptographicException)
-            {
-                Response.Cookies[".ASPXAUTH"].Expires = DateTime.Now.AddDays(-1);
-                FormsAuthentication.SignOut();
-                Response.Redirect("/Home/Index");
+        //protected void Application_Error(object sender , EventArgs e)
+        //{
+        //    Exception exception = Server.GetLastError();
+        //    if (exception is CryptographicException)
+        //    {
+        //        Response.Cookies[".ASPXAUTH"].Expires = DateTime.Now.AddDays(-1);
+        //        FormsAuthentication.SignOut();
+        //        Response.Redirect("/Home/Index");
 
-            }
-        }
+        //    }
+        //}
 
         protected void Application_BeginRequest()
         {

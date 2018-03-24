@@ -146,7 +146,22 @@
                                         @Convert.ToDateTime(item.JoinedOn).ToString("dd/MM/yyyy")
                                     </td>
                                     <td>@item.PhoneNumber1</td>
-                                    <td>@item.UsersDetail.UsersDetail1.UserName</td>
+                                    <td>
+
+                                    @{
+                                        if (item.UsersDetail.UsersDetail1 != null)
+                                        {
+                                            try
+                                            {
+                                                @item.UsersDetail.UsersDetail1.UserName
+                                            }
+                                            catch
+                                            {
+                                                <span>NA</span>
+                                                }
+                                            }
+                                        }
+                                    </td>
                                     <td>
                                         @{
                                             if (item.UsersDetail.ContributionDetails != null)

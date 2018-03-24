@@ -675,6 +675,10 @@
     <Content Include="Views\SuperAdmin\Gallery.cshtml" />
     <Content Include="Views\SuperAdmin\Print.cshtml" />
     <Content Include="Views\SuperAdmin\ViewReward.cshtml" />
+    <Content Include="Views\SuperAdmin\ContributionPrint.cshtml" />
+    <Content Include="Views\Members\Team\Print.cshtml" />
+    <Content Include="Views\Members\Team\DirectPrint.cshtml" />
+    <Content Include="Views\CheckContribution\MemberContributionPrint.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AchieverImages\" />

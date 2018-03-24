@@ -179,12 +179,12 @@
                     url: '/Users/SendTransactionPassword',
                     type: "GET",
                     success: function (response, textStatus, xhr) {
-                        console.log(textStatus)
+                        //console.log(textStatus)
                         //response = response.replace(/\"/g, "");
-                        if (textStatus == "success") {
-                            var resp = "Your transaction password is : " + response;
-                            $("#transactionpasswordstatus").text(resp);
-                        }
+                        //if (textStatus == "success") {
+                        //    var resp = "Your transaction password is : " + response;
+                        //    $("#transactionpasswordstatus").text(resp);
+                        //}
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         $("#transactionpasswordstatus").text("Error while recover password.");

@@ -158,6 +158,17 @@
             <div class="widget-header">
                 <span class="icon-list"></span>
                 <h3 class="icon chart">Geneology</h3>
+                <span style="float:right;">
+                    @using (Html.BeginForm("ContributionPrint", "SuperAdmin", FormMethod.Post, new { id = "printForm", target = "_blank" }))
+                    {
+                        <input type="hidden" value="@ViewBag.ContributionSearchedPlacementSide" name="hdnContributionSearched" />
+                            <h3>
+                                <a href="javascript:document.getElementById('printForm').submit()" target="_blank"
+                                   style="cursor:pointer;">Print Result</a>
+                            </h3>
+                    }
+                </span>
+
             </div>
 
             <div class="widget-content">
@@ -207,14 +218,60 @@
                                         <td>@itm.UsersDetail.UserName</td>
                                         <td>@Convert.ToDateTime(itm.JoinedOn).ToString("dd/MM/yyyy")</td>
                                         <td>@itm.PhoneNumber1</td>
-                                        <td>@itm.UsersDetail.UsersDetail1.UserName</td>
                                         <td>
-                                            @itm.UsersDetail.ContributionDetails.Where(x => x.UserDetailsId == itm.UsersDetail.Id).OrderByDescending(y => y.ContribDate).FirstOrDefault().ContribNumber
+                                            @{
+                                                if (itm.UsersDetail.UsersDetail1 != null)
+                                                {
+                                                    try
+                                                    {
+                                                        @itm.UsersDetail.UsersDetail1.UserName
+                                                    }
+                                                    catch
+                                                    {
+                                                        <span>NA</span>
+                                                    }
+                                                }
+                                            }
+                                        </td>
+                                        <td>
+                                            @{
+                                                if (itm.UsersDetail.ContributionDetails != null)
+                                                {
+                                                    try
+                                                    {
+                                                        @itm.UsersDetail.ContributionDetails.Where(x => x.UserDetailsId == itm.UsersDetail.Id).OrderByDescending(y => y.ContribDate).FirstOrDefault().ContribNumber
+                                                                                    }
+                                                    catch
+                                                    {
+                                                        <span>0</span>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <span>0</span>
+                                                }
+                                            }
                                         </td>
                                         <td class="center">
-                                            @Convert.ToDateTime(itm.UsersDetail.ContributionDetails
+                                            @{
+                                                if (itm.UsersDetail.ContributionDetails != null)
+                                                {
+                                                    try
+                                                    {@Convert.ToDateTime(itm.UsersDetail.ContributionDetails
                                        .Where(x => x.UserDetailsId == itm.UsersDetail.Id)
                                        .OrderByDescending(y => y.ContribDate).FirstOrDefault().ContribDate).ToString("dd/MM/yyyy")
+                                                    }
+                                                    catch
+                                                    {
+                                                        <span>NA</span>
+                                                    }
+
+                                                }
+                                                else
+                                                {
+                                                    <span>NA</span>
+                                                }
+                                            }
                                         </td>
                                     </tr>
                                     i = i + 1;

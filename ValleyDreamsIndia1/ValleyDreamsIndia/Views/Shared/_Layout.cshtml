@@ -116,7 +116,7 @@
                         <a class="page-scroll" href="#pricing">Pricing</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="/Home/gallery">Gallery</a>
+                        <a class="page-scroll" href="#">Gallery</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="#">Legal</a>
@@ -286,8 +286,8 @@
     <script src="~/Content/EndUser/js/script.js"></script>
 
     <script type="text/javascript">
-
-        document.getElementById('loginpassword').addEventListener('keypress', function (event) {
+	
+	document.getElementById('loginpassword').addEventListener('keypress', function (event) {
             if (event.keyCode == 13) {
 
                 var loginusername = $('#loginusername').val();
@@ -333,8 +333,7 @@
             }
         });
 
-        
-
+		
         $(function () {
             $("#submit").click(function () {
                 document.forms[0].submit();
