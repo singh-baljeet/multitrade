@@ -31,7 +31,7 @@ namespace ValleyDreamsIndia.Controllers
                 personalIdList.Add(res.Value);
             }
 
-            objList = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => personalIdList.Contains(x.Id)).ToList();
+            objList = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => personalIdList.Contains(x.Id) && x.Deleted == 0).ToList();
 
 
             GetUserInfo();
@@ -54,7 +54,7 @@ namespace ValleyDreamsIndia.Controllers
             ViewBag.SponsorName = SponsorPersonalDetail.FirstName + " " + SponsorPersonalDetail.LastName;
 
             ViewBag.DirectTeam = _valleyDreamsIndiaDBEntities.PersonalDetails
-                .Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.LegId != CurrentUser.CurrentUserId).Count();
+                .Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.LegId != CurrentUser.CurrentUserId && x.Deleted == 0).Count();
 
             var myUserList = _valleyDreamsIndiaDBEntities.UsersDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.IsPinUsed == 1);
 
@@ -98,7 +98,7 @@ namespace ValleyDreamsIndia.Controllers
                     {
                         personalIdList.Add(res.Value);
                     }
-                    objList = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => personalIdList.Contains(x.Id)).ToList();
+                    objList = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => personalIdList.Contains(x.Id) && x.Deleted == 0).ToList();
                 }
                 if (placementSide == "RIGHT")
                 {
@@ -107,7 +107,7 @@ namespace ValleyDreamsIndia.Controllers
                     {
                         personalIdList.Add(res.Value);
                     }
-                    objList = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => personalIdList.Contains(x.Id)).ToList();
+                    objList = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => personalIdList.Contains(x.Id) && x.Deleted == 0).ToList();
                 }
             }
 
@@ -127,7 +127,7 @@ namespace ValleyDreamsIndia.Controllers
             }
 
             List<PersonalDetail> objList = _valleyDreamsIndiaDBEntities.PersonalDetails.
-                Where(x => x.UsersDetail.UserName == memberId).ToList();
+                Where(x => x.UsersDetail.UserName == memberId && x.Deleted == 0).ToList();
 
 
             GetUserInfo();
@@ -153,7 +153,7 @@ namespace ValleyDreamsIndia.Controllers
                     personalIdList.Add(res.Value);
                 }
 
-                objList = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => personalIdList.Contains(x.Id)).ToList();
+                objList = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => personalIdList.Contains(x.Id) && x.Deleted == 0).ToList();
 
                 ViewBag.PlacementSideMemberContributionPrint = "";
                 personalDetailList = objList;
@@ -177,17 +177,17 @@ namespace ValleyDreamsIndia.Controllers
                             personalIdList.Add(res.Value);
                         }
                         ViewBag.PlacementSideMemberContributionPrint = "LEFT";
-                        objList = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => personalIdList.Contains(x.Id)).ToList();
+                        objList = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => personalIdList.Contains(x.Id) && x.Deleted == 0).ToList();
                     }
                     if (hdnMemberContributionSearched == "RIGHT")
                     {
-                        var response = _valleyDreamsIndiaDBEntities.GetLeftSidePlacementRecords(count.UsersDetailsId, (int)CurrentUser.CurrentUserId);
+                        var response = _valleyDreamsIndiaDBEntities.GetRightSidePlacementRecords(count.UsersDetailsId, (int)CurrentUser.CurrentUserId);
                         foreach (var res in response)
                         {
                             personalIdList.Add(res.Value);
                         }
                         ViewBag.PlacementSideMemberContributionPrint = "RIGHT";
-                        objList = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => personalIdList.Contains(x.Id)).ToList();
+                        objList = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => personalIdList.Contains(x.Id) && x.Deleted == 0).ToList();
                     }
                     personalDetailList = objList;
                 }
@@ -195,7 +195,7 @@ namespace ValleyDreamsIndia.Controllers
             else
             {
                 List<PersonalDetail> objList = _valleyDreamsIndiaDBEntities.PersonalDetails.
-                Where(x => x.UsersDetail.UserName == hdnMemberContributionSearched).ToList();
+                Where(x => x.UsersDetail.UserName == hdnMemberContributionSearched && x.Deleted == 0).ToList();
                 ViewBag.PlacementSideMemberContributionPrint = "";
                 personalDetailList = objList;
             }

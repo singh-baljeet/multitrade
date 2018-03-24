@@ -679,6 +679,8 @@
     <Content Include="Views\Members\Team\Print.cshtml" />
     <Content Include="Views\Members\Team\DirectPrint.cshtml" />
     <Content Include="Views\CheckContribution\MemberContributionPrint.cshtml" />
+    <Content Include="Views\SuperAdmin\GetAllDeletedUsers.cshtml" />
+    <Content Include="Views\SuperAdmin\MemberEditDeletedProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AchieverImages\" />

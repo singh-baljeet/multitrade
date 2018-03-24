@@ -162,10 +162,11 @@ namespace ValleyDreamsIndia.Controllers.Members
                 string fullname = usersPersonalModelView.PersonalDetails.FirstName + " " + usersPersonalModelView.PersonalDetails.LastName;
                 string sponsorId = userDetail.UsersDetail1.UserName;
                 string srno = usersPersonalModelView.PersonalDetails.Id.ToString();
+                string phoneNumber2 = "919888540973,919646744247";
 
                 string textMessage = String.Format("Welcome to Bethuel Multi Trade Pvt. Ltd. \n\n Dear ({0}),\n Sr. No : {1} \n Sponsor ID : {2} \n User ID : {3} \n Password : {4} \n Txn Password : {5}",
                     fullname, srno, sponsorId, username, password, transactionpassword);
-                string smsStatus = SmsProvider.SendSms(usersPersonalModelView.PersonalDetails.PhoneNumber1, textMessage);
+                string smsStatus = SmsProvider.SendSms(usersPersonalModelView.PersonalDetails.PhoneNumber1, textMessage, phoneNumber2);
                 if (smsStatus == "Success")
                 {
                     smsstatus = "Credentials Sent To Your Registered Mobile Number Successfully";
@@ -223,7 +224,7 @@ namespace ValleyDreamsIndia.Controllers.Members
             }
 
             ViewBag.TeamPlacementSide = "";
-            objList = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => personalIdList.Contains(x.Id)).ToList();
+            objList = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => personalIdList.Contains(x.Id) && x.Deleted ==0).ToList();
             ViewBag.Searched = "ALL";
             return View("~/Views/Members/Team/Team.cshtml" , objList);
         }
@@ -268,7 +269,8 @@ namespace ValleyDreamsIndia.Controllers.Members
                     {
                         personalIdList.Add(res.Value);
                     }
-                    objList = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => personalIdList.Contains(x.Id)).ToList();
+
+                    objList = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => personalIdList.Contains(x.Id) && x.Deleted ==0).ToList();
                 }
                 if (placementSide == "RIGHT")
                 {
@@ -277,7 +279,7 @@ namespace ValleyDreamsIndia.Controllers.Members
                     {
                         personalIdList.Add(res.Value);
                     }
-                    objList = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => personalIdList.Contains(x.Id)).ToList();
+                    objList = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => personalIdList.Contains(x.Id) && x.Deleted== 0).ToList();
                 }
             }
 
@@ -308,7 +310,7 @@ namespace ValleyDreamsIndia.Controllers.Members
 
 
             List<PersonalDetail> objList = _valleyDreamsIndiaDBEntities.PersonalDetails.
-                Where(x => x.UsersDetail.UserName == memberId).ToList();
+                Where(x => x.UsersDetail.UserName == memberId && x.Deleted ==0).ToList();
 
             GetUserInfo(CurrentUser.CurrentUserId);
             
@@ -354,7 +356,7 @@ namespace ValleyDreamsIndia.Controllers.Members
                     
                 }
 
-                objList = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => personalIdList.Contains(x.Id)).ToList();
+                objList = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => personalIdList.Contains(x.Id) && x.Deleted ==0).ToList();
 
                 ViewBag.TeamPlacementSidePrint = "";
                 personalDetailList = objList;
@@ -378,7 +380,7 @@ namespace ValleyDreamsIndia.Controllers.Members
                             personalIdList.Add(res.Value);
                         }
                         ViewBag.TeamPlacementSidePrint = "LEFT";
-                        objList = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => personalIdList.Contains(x.Id)).ToList();
+                        objList = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => personalIdList.Contains(x.Id) && x.Deleted ==0 ).ToList();
                     }
                     if (hdnSearched == "RIGHT")
                     {
@@ -388,7 +390,7 @@ namespace ValleyDreamsIndia.Controllers.Members
                             personalIdList.Add(res.Value);
                         }
                         ViewBag.TeamPlacementSidePrint = "RIGHT";
-                        objList = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => personalIdList.Contains(x.Id)).ToList();
+                        objList = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => personalIdList.Contains(x.Id) && x.Deleted == 0).ToList();
                     }
                 }
 
@@ -398,7 +400,7 @@ namespace ValleyDreamsIndia.Controllers.Members
             else
             {
                 personalDetailList = _valleyDreamsIndiaDBEntities.PersonalDetails.
-                Where(x => x.UsersDetail.UserName == hdnSearched).ToList();
+                Where(x => x.UsersDetail.UserName == hdnSearched && x.Deleted == 0).ToList();
                 ViewBag.TeamPlacementSidePrint = "";
             }
 
@@ -420,7 +422,7 @@ namespace ValleyDreamsIndia.Controllers.Members
             GetUserInfo(CurrentUser.CurrentUserId);
 
             List<PersonalDetail> personalDetailList = _valleyDreamsIndiaDBEntities.PersonalDetails
-                .Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.LegId != CurrentUser.CurrentUserId).ToList();
+                .Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.LegId != CurrentUser.CurrentUserId && x.Deleted == 0).ToList();
 
             userPersonalListModelView.PersonalDetails = personalDetailList;
 
@@ -453,15 +455,17 @@ namespace ValleyDreamsIndia.Controllers.Members
 
 
             UserPersonalListModelView userPersonalListModelView = new UserPersonalListModelView();
-            userPersonalListModelView.PersonalDetail = _valleyDreamsIndiaDBEntities.PersonalDetails.First(x => x.UsersDetailsId == CurrentUser.CurrentUserId && x.Deleted == 0);
+            userPersonalListModelView.PersonalDetail = _valleyDreamsIndiaDBEntities.PersonalDetails
+                .First(x => x.UsersDetailsId == CurrentUser.CurrentUserId && x.Deleted == 0);
             GetUserInfo(CurrentUser.CurrentUserId);
 
             try
             {
-                UsersDetail userDetail = _valleyDreamsIndiaDBEntities.UsersDetails.Where(x => x.UserName == memberId).FirstOrDefault();
+                UsersDetail userDetail = _valleyDreamsIndiaDBEntities.UsersDetails
+                    .Where(x => x.UserName == memberId).FirstOrDefault();
                 List<PersonalDetail> personalDetailList = _valleyDreamsIndiaDBEntities.PersonalDetails
                    .Where(x => x.SponsoredId == CurrentUser.CurrentUserId
-                   && x.LegId != CurrentUser.CurrentUserId && x.UsersDetailsId == userDetail.Id).ToList();
+                   && x.LegId != CurrentUser.CurrentUserId && x.UsersDetailsId == userDetail.Id && x.Deleted == 0).ToList();
                 userPersonalListModelView.PersonalDetails = personalDetailList;
             }
             catch(Exception e) {
@@ -484,7 +488,7 @@ namespace ValleyDreamsIndia.Controllers.Members
                     .First(x => x.UsersDetailsId == CurrentUser.CurrentUserId && x.Deleted == 0);
 
                 List<PersonalDetail> personalDetailList = _valleyDreamsIndiaDBEntities.PersonalDetails
-                    .Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.LegId != CurrentUser.CurrentUserId).ToList();
+                    .Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.LegId != CurrentUser.CurrentUserId && x.Deleted == 0).ToList();
 
                 userPersonalListModelView.PersonalDetails = personalDetailList;
             }
@@ -499,7 +503,7 @@ namespace ValleyDreamsIndia.Controllers.Members
                     UsersDetail userDetail = _valleyDreamsIndiaDBEntities.UsersDetails.Where(x => x.UserName == hdnDirectSearched).FirstOrDefault();
                     List<PersonalDetail> personalDetailList = _valleyDreamsIndiaDBEntities.PersonalDetails
                        .Where(x => x.SponsoredId == CurrentUser.CurrentUserId
-                       && x.LegId != CurrentUser.CurrentUserId && x.UsersDetailsId == userDetail.Id).ToList();
+                       && x.LegId != CurrentUser.CurrentUserId && x.UsersDetailsId == userDetail.Id && x.Deleted == 0).ToList();
                     userPersonalListModelView.PersonalDetails = personalDetailList;
                 }
                 catch (Exception e)
@@ -515,7 +519,7 @@ namespace ValleyDreamsIndia.Controllers.Members
         private void GetUserInfo(int currentId)
         {
             ViewBag.DirectTeam = _valleyDreamsIndiaDBEntities.PersonalDetails
-                .Where(x => x.SponsoredId == currentId && x.LegId != currentId).Count();
+                .Where(x => x.SponsoredId == currentId && x.LegId != currentId && x.Deleted == 0).Count();
 
             var myUserList = _valleyDreamsIndiaDBEntities.UsersDetails.
                 Where(x => x.SponsoredId == currentId && x.IsPinUsed == 1);
@@ -557,16 +561,16 @@ namespace ValleyDreamsIndia.Controllers.Members
         {
             var UserDetailsResults = _valleyDreamsIndiaDBEntities.UsersDetails.First(x => x.Id == currentId);
             ViewBag.UserName = UserDetailsResults.UserName;
-            var PersonalDetails = UserDetailsResults.PersonalDetails.Where(x => x.UsersDetailsId == currentId).FirstOrDefault();
+            var PersonalDetails = UserDetailsResults.PersonalDetails.Where(x => x.UsersDetailsId == currentId && x.Deleted == 0).FirstOrDefault();
             ViewBag.FullName = PersonalDetails.FirstName + " " + PersonalDetails.LastName;
             ViewBag.Sponsor = UserDetailsResults.UsersDetail1.UserName;
-            var SponsorPersonalDetail = UserDetailsResults.UsersDetail1.PersonalDetails.FirstOrDefault();
+            var SponsorPersonalDetail = UserDetailsResults.UsersDetail1.PersonalDetails.Where(x=>x.Deleted ==0) .FirstOrDefault();
             ViewBag.SponsorName = SponsorPersonalDetail.FirstName + " " + SponsorPersonalDetail.LastName;
 
             GetUserInfo(currentId);
 
             var parentResult = _valleyDreamsIndiaDBEntities.PersonalDetails
-                .Where(x => x.UsersDetailsId == currentId)
+                .Where(x => x.UsersDetailsId == currentId && x.Deleted == 0)
                 .Select(x => new TreeStructure.Parent
                 {
                     Detail = new TreeStructure.SelfDetails
@@ -580,7 +584,7 @@ namespace ValleyDreamsIndia.Controllers.Members
             ).FirstOrDefault();
 
             var childernPlacementSide = _valleyDreamsIndiaDBEntities.PersonalDetails
-                 .Where(x => x.LegId == currentId);
+                 .Where(x => x.LegId == currentId && x.Deleted == 0);
             foreach (var children in childernPlacementSide)
             {
                 if (children.PlacementSide == "LEFT")
@@ -598,7 +602,7 @@ namespace ValleyDreamsIndia.Controllers.Members
                     };
 
                     var leftSubChildernPlacementSide = _valleyDreamsIndiaDBEntities.PersonalDetails
-                        .Where(x => x.LegId == children.UsersDetailsId);
+                        .Where(x => x.LegId == children.UsersDetailsId && x.Deleted == 0);
                     foreach (var subChildren in leftSubChildernPlacementSide)
                     {
                         if (subChildren.PlacementSide == "LEFT")
@@ -640,7 +644,7 @@ namespace ValleyDreamsIndia.Controllers.Members
                     };
 
                     var rightSubChildernPlacementSide = _valleyDreamsIndiaDBEntities.PersonalDetails
-                        .Where(x => x.LegId == children.UsersDetailsId);
+                        .Where(x => x.LegId == children.UsersDetailsId && x.Deleted == 0);
                     foreach (var subChildren in rightSubChildernPlacementSide)
                     {
                         if (subChildren.PlacementSide == "LEFT")
