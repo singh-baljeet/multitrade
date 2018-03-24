@@ -1,0 +1,379 @@
+﻿@model ValleyDreamsIndia.Models.UsersPersonalModelView
+@{
+    Layout = "~/Views/Shared/_SuperAdminLayout.cshtml";
+}
+@using (Html.BeginForm("MemberEditDeletedProfile", "SuperAdmin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(m => m.PersonalDetails.Id)
+    @Html.HiddenFor(m => m.UserDetails.Id)
+
+    <div id="contentHeader">
+        <h1>Edit User Profile</h1>
+    </div> <!-- #contentHeader -->
+
+    <div class="container">
+
+        <div class="grid-12">
+            <div class="widget widget-table">
+
+                <div class="widget-header">
+                    <span class="icon-list"></span>
+                    <h3 class="icon chart">Personal Info</h3>
+                </div>
+
+                <div class="widget-content">
+
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            @if (ViewBag.ShowMessage)
+                            {
+                                <tr>
+                                    <th colspan="2">
+                                        <span>Congurations, @ViewBag.Username  has been created successfully</span><br />
+                                        <span>Username:- @ViewBag.Username</span> |
+                                        <span>Password :- @ViewBag.Password</span>  |
+                                        <span>TransactionPassword :- @ViewBag.TransactionPassword</span><br />
+                                    </th>
+                                </tr>
+                            }
+
+                            <tr>
+                                <th colspan="2">
+                                    @ViewBag.Message
+                                </th>
+                            </tr>
+                            
+
+                            <tr>
+                                <th><img src="@Model.PersonalDetails.ProfilePic"
+                                        alt="@Model.PersonalDetails.ProfilePic"
+                                        style="width:150px;height:150px" /></th>
+                                <th style="vertical-align:middle;">
+                                    <div class="widget-content">
+                                        <div class="field-group inlineField">
+                                            <label for="myfile">Upload Image:</label>
+
+                                            <div class="uploader">
+                                                <input type="file" name="memberImage" id="myfile" />
+
+                                                <span class="filename" style="-moz-user-select: none;">No file selected</span>
+                                                <span class="action" style="-moz-user-select: none;">Choose File</span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </th>
+                            </tr>
+
+                            <tr>
+                                <th>Sponser Id</th>
+                                <th>
+                                    @Model.UserDetails.UsersDetail1.UserName
+                                </th>
+
+                            </tr>
+
+                            <tr>
+                                <th>Joined On</th>
+                                <th>
+                                    @Model.PersonalDetails.JoinedOn
+                                </th>
+                            </tr>
+
+
+                            <tr>
+                                <th>Placed On</th>
+                                <th>
+                                    @Model.PersonalDetails.PlacementSide
+                                </th>
+
+                            </tr>
+
+
+
+
+                            <tr>
+                                <th>Gender</th>
+                                <th>
+                                    @Html.DropDownListFor(m => m.PersonalDetails.Gender, new SelectList(
+                 new List<Object>{
+                                                                                           new { value = "Male" , text = "Male" },
+                                                                                           new { value = "Female", text = "Female"}
+                   },
+                 "value",
+                 "text",
+                  2))
+                                </th>
+
+                            </tr>
+
+
+                            <tr>
+                                <th>First Name</th>
+                                <th>
+                                    @Html.TextBoxFor(m => m.PersonalDetails.FirstName, new { placeholder = "Enter First Name" })
+                                </th>
+                            </tr>
+
+                            <tr>
+                                <th>Last Name</th>
+                                <th>
+                                    @Html.TextBoxFor(m => m.PersonalDetails.LastName, new { placeholder = "Enter Last Name" })
+                                </th>
+                            </tr>
+
+                            <tr>
+                                <th>Guardians</th>
+                                <th>
+                                    @Html.TextBoxFor(m => m.PersonalDetails.FatherName, new { placeholder = "Enter FatherName" })
+                                </th>
+                            </tr>
+
+                            <tr>
+                                <th>Contact</th>
+                                <th>
+                                    @Html.TextBoxFor(m => m.PersonalDetails.PhoneNumber1, new { placeholder = "Enter Contact No" })
+                                </th>
+
+                            </tr>
+
+                            <tr>
+                                <th>Birth Date</th>
+                                <th>
+                                    @Html.TextBoxFor(m => m.PersonalDetails.BirthDate, new { id = "datepicker", placeholder = "Select Date of Birth" })
+                                </th>
+                            </tr>
+
+
+                            
+
+                            <tr>
+                                <th style="vertical-align:middle;">Alternate Contact</th>
+                                <th style="vertical-align:middle;">
+                                    @Html.TextBoxFor(m => m.PersonalDetails.PhoneNumber2, new { placeholder = "Enter Valid Mobile No." })
+                                </th>
+
+                            </tr>
+                            <tr>
+                                <th>E-Mail</th>
+                                <th>
+                                    @Html.TextBoxFor(m => m.PersonalDetails.Email, new { placeholder = "Enter Valid E-Mail Id" })
+                                </th>
+
+                            </tr>
+
+
+                        </thead>
+
+
+                    </table>
+
+
+
+                </div> <!-- .widget-content -->
+
+
+
+
+
+            </div>
+
+
+
+
+
+        </div>
+
+        <div class="grid-12">
+            <div class="widget widget-table">
+
+                <div class="widget-header">
+                    <span class="icon-list"></span>
+                    <h3 class="icon chart">Residential Info</h3>
+                </div>
+
+                <div class="widget-content">
+
+                    <table class="table table-bordered table-striped">
+                        <thead>
+
+                            <tr>
+                                <th style="vertical-align:middle;">Address</th>
+                                <th>
+                                    @Html.TextAreaFor(m => m.PersonalDetails.Address, new { placeholder = "Enter Address" })
+                                </th>
+
+                            </tr>
+
+
+
+
+                            <tr>
+                                <th>State</th>
+                                <th>
+                                    @Html.TextBoxFor(m => m.PersonalDetails.State, new { placeholder = "Enter State" })
+                                </th>
+
+                            </tr>
+
+                            <tr>
+                                <th>District</th>
+                                <th>
+                                    @Html.TextBoxFor(m => m.PersonalDetails.District, new { placeholder = "Enter District" })
+                                </th>
+
+                            </tr>
+
+                            <tr>
+                                <th>City</th>
+                                <th>
+                                    @Html.TextBoxFor(m => m.PersonalDetails.City, new { placeholder = "Enter City" })
+                                </th>
+
+                            </tr>
+
+
+                            <tr>
+                                <th>Pin-Code</th>
+                                <th style="vertical-align:middle;">
+                                    @Html.TextBoxFor(m => m.PersonalDetails.PinCode, new { placeholder = "Enter PinCode" })
+                                </th>
+                            </tr>
+
+
+
+                        </thead>
+
+
+                    </table>
+
+
+
+                </div> <!-- .widget-content -->
+
+
+
+
+            </div>
+
+
+
+
+
+        </div>
+
+        <div class="grid-12">
+            <div class="widget widget-table">
+
+                <div class="widget-header">
+                    <span class="icon-list"></span>
+                    <h3 class="icon chart">Nominee & Banking Info</h3>
+                </div>
+
+                <div class="widget-content">
+
+                    <table class="table table-bordered table-striped">
+                        <thead>
+
+                            <tr>
+                                <th>Nominee</th>
+                                <th>
+
+                                   @Html.TextBoxFor(m => m.BankDetails.NomineeName, new { placeholder = "Enter Nominee Name" })
+
+
+                                </th>
+
+                            </tr>
+
+                            <tr>
+                                <th>Relation</th>
+                                <th>
+
+                                   @Html.TextBoxFor(m => m.BankDetails.NomineeRelation, new { placeholder = "Relation with Nominee" })
+
+
+                                </th>
+
+                            </tr>
+
+
+                            <tr>
+                                <th>Bank</th>
+                                <th>
+
+                                   @Html.TextBoxFor(m => m.BankDetails.BankName, new { placeholder = "Enter Bank Name" })
+
+
+                                </th>
+
+                            </tr>
+                            <tr>
+                                <th>A/C.Holder</th>
+                                <th>
+                                    @Html.TextBoxFor(m => m.BankDetails.AccountHolderName, new { placeholder = "Enter A/C Holder Name" })
+                                </th>
+
+                            </tr>
+
+                            <tr>
+                                <th>A/C No.</th>
+                                <th>
+                                    @Html.TextBoxFor(m => m.BankDetails.AccountNumber, new { placeholder = "Enter Valid A/C No." })
+
+
+                                </th>
+
+                            </tr>
+
+                            <tr>
+                                <th>IFSC Code</th>
+                                <th>
+
+                                    @Html.TextBoxFor(m => m.BankDetails.IFSCCode, new { placeholder = "Enter IFSC" })
+
+
+                                </th>
+
+                            </tr>
+                            <tr>
+                                <th>Pan</th>
+                                <th>
+                                    @Html.TextBoxFor(m => m.BankDetails.PANNumber, new { placeholder = "Enter Valid Pan No." })
+
+                                </th>
+
+                            </tr>
+
+
+                        </thead>
+
+
+                    </table>
+
+
+
+                </div> <!-- .widget-content -->
+
+
+
+
+            </div>
+
+
+
+
+
+        </div>
+
+
+
+    </div>
+
+    <p align="center">
+        <span>  <button class="btn btn-large btn-blue">Update</button>         </span>
+
+        <span style="margin-left:10px;">  <button class="btn btn-large btn-gray">Cancel</button></span>
+
+    </p>
+}

@@ -1,0 +1,496 @@
+﻿@model List<ValleyDreamsIndia.AchieverDetail>
+    @{
+        ViewBag.Title = "Index";
+        Layout = "~/Views/Shared/_OtherLayout.cshtml";
+    }
+
+    <!-- Start Feature Section -->
+    <section id="portfolio" class="portfolio-section-1">
+        <div class="container" style="margin-top:5%;">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-title text-center">
+                        <h3>Our Winners</h3>
+                        <p>Bethuel Multi Trade Pvt. Ltd.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+
+                    <!-- Start Portfolio items -->
+                    <ul id="portfolio-list">
+
+                        @if (Model != null)
+                        {
+                            var i = 1;
+                            foreach (var achiever in Model)
+                            {
+                            <li>
+                                <div class="portfolio-item">
+                                    <img src="@achiever.AchieverImage" class="img-responsive" alt="" />
+                                    <div class="portfolio-caption">
+                                        <h4>Results @System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat.GetMonthName(Convert.ToInt32(achiever.Month))  @achiever.Year</h4>
+                                        <a href="#portfolio-modal_@i" data-toggle="modal" class="link-1">
+                                            <i style="margin-left:25px;" class="fa fa-magic"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                                i = i + 1;
+                            }
+                        }
+                    </ul>
+                    <!-- End Portfolio items -->
+                </div>
+            </div>
+
+            @*<div class="row">
+                    <div class="col-md-12">
+
+                        <!-- Start Portfolio items -->
+                        <ul id="portfolio-list">
+                            <li>
+                                <div class="portfolio-item">
+                                    <img src="~/Content/EndUser/images/winners/Aug-2018-Coming-Soon.png" class="img-responsive" alt="" />
+                                    <div class="portfolio-caption">
+                                        <h4>Results August 2018</h4>
+                                        <a href="#portfolio-modal5" data-toggle="modal" class="link-1"><i style="margin-left:25px;" class="fa fa-magic"></i></a>
+
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="portfolio-item">
+                                    <img src="~/Content/EndUser/images/winners/Sep-2018-Coming-Soon.png" class="img-responsive" alt="" />
+                                    <div class="portfolio-caption">
+                                        <h4>Results September 2018</h4>
+                                        <a href="#portfolio-modal6" data-toggle="modal" class="link-1"><i style="margin-left:25px;" class="fa fa-magic"></i></a>
+
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="portfolio-item">
+                                    <img src="~/Content/EndUser/images/winners/Oct-2018-Coming-Soon.png" class="img-responsive" alt="" />
+                                    <div class="portfolio-caption">
+                                        <h4>Results October 2018</h4>
+                                        <a href="#portfolio-modal7" data-toggle="modal" class="link-1"><i style="margin-left:25px;" class="fa fa-magic"></i></a>
+
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="portfolio-item">
+                                    <img src="~/Content/EndUser/images/winners/Nov-2018-Coming-Soon.png" class="img-responsive" alt="" />
+                                    <div class="portfolio-caption">
+                                        <h4>Results November 2018</h4>
+                                        <a href="#portfolio-modal8" data-toggle="modal" class="link-1"><i style="margin-left:25px;" class="fa fa-magic"></i></a>
+
+                                    </div>
+                                </div>
+                            </li>
+
+
+
+                        </ul>
+                        <!-- End Portfolio items -->
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <!-- Start Portfolio items -->
+                        <ul id="portfolio-list">
+                            <li>
+                                <div class="portfolio-item">
+                                    <img src="~/Content/EndUser/images/winners/Dec-2018-Coming-Soon.png" class="img-responsive" alt="" />
+                                    <div class="portfolio-caption">
+                                        <h4>Results December 2018</h4>
+                                        <a href="#portfolio-modal9" data-toggle="modal" class="link-1"><i style="margin-left:25px;" class="fa fa-magic"></i></a>
+
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="portfolio-item">
+                                    <img src="~/Content/EndUser/images/winners/January-2019-Coming-Soon.png" class="img-responsive" alt="" />
+                                    <div class="portfolio-caption">
+                                        <h4>Results January 2019</h4>
+                                        <a href="#portfolio-modal10" data-toggle="modal" class="link-1"><i style="margin-left:25px;" class="fa fa-magic"></i></a>
+
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="portfolio-item">
+                                    <img src="~/Content/EndUser/images/winners/Feb-2019-Coming-Soon.png" class="img-responsive" alt="" />
+                                    <div class="portfolio-caption">
+                                        <h4>Results February 2019</h4>
+                                        <a href="#portfolio-modal11" data-toggle="modal" class="link-1"><i style="margin-left:25px;" class="fa fa-magic"></i></a>
+
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="portfolio-item">
+                                    <img src="~/Content/EndUser/images/winners/March-2019-Coming-Soon.png" class="img-responsive" alt="" />
+                                    <div class="portfolio-caption">
+                                        <h4>Results March 2019</h4>
+                                        <a href="#portfolio-modal12" data-toggle="modal" class="link-1"><i style="margin-left:25px;" class="fa fa-magic"></i></a>
+
+                                    </div>
+                                </div>
+                            </li>
+
+
+
+                        </ul>
+                        <!-- End Portfolio items -->
+                    </div>
+                </div>*@
+
+
+        </div>
+    </section>
+    <!-- End Feature Section -->
+    @if(Model != null)
+    {
+        var i = 1;
+        foreach (var achiever in Model)
+        {
+            <div class="section-modal modal fade" id="portfolio-modal_@i" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="section-title text-center">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12" style="border:1px solid #666;">
+                        <img src="@achiever.AchieverImage" class="img-responsive" alt="..">
+                    </div>
+
+                </div><!-- /.row -->
+            </div>
+        </div>
+    </div>
+            i = i + 1;
+        }
+    }
+
+    @*<div class="section-modal modal fade" id="portfolio-modal2" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="section-title text-center">
+
+                    </div>
+                </div>
+                <div class="row">
+
+
+                    <div class="col-md-12" style="border:1px solid #666;">
+                        <img src="~/Content/EndUser/images/winners/May-2018-Coming-Soon.png" class="img-responsive" alt="..">
+                    </div>
+
+
+                </div><!-- /.row -->
+            </div>
+        </div>
+    </div>
+
+    <div class="section-modal modal fade" id="portfolio-modal3" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="section-title text-center">
+
+                    </div>
+                </div>
+                <div class="row">
+
+
+                    <div class="col-md-12" style="border:1px solid #666;">
+                        <img src="~/Content/EndUser/images/winners/June-2018-Coming-Soon.png" class="img-responsive" alt="..">
+                    </div>
+
+
+                </div><!-- /.row -->
+            </div>
+        </div>
+    </div>
+
+    <div class="section-modal modal fade" id="portfolio-modal4" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="section-title text-center">
+
+                    </div>
+                </div>
+                <div class="row">
+
+
+                    <div class="col-md-12" style="border:1px solid #666;">
+                        <img src="~/Content/EndUser/images/winners/July-2018-Coming-Soon.png" class="img-responsive" alt="..">
+                    </div>
+
+
+                </div><!-- /.row -->
+            </div>
+        </div>
+    </div>
+
+    <div class="section-modal modal fade" id="portfolio-modal5" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="section-title text-center">
+
+                    </div>
+                </div>
+                <div class="row">
+
+
+                    <div class="col-md-12" style="border:1px solid #666;">
+                        <img src="~/Content/EndUser/images/winners/Aug-2018-Coming-Soon.png" class="img-responsive" alt="..">
+                    </div>
+
+
+                </div><!-- /.row -->
+            </div>
+        </div>
+    </div>
+
+    <div class="section-modal modal fade" id="portfolio-modal6" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="section-title text-center">
+
+                    </div>
+                </div>
+                <div class="row">
+
+
+                    <div class="col-md-12" style="border:1px solid #666;">
+                        <img src="~/Content/EndUser/images/winners/Sep-2018-Coming-Soon.png" class="img-responsive" alt="..">
+                    </div>
+
+
+                </div><!-- /.row -->
+            </div>
+        </div>
+    </div>
+
+    <div class="section-modal modal fade" id="portfolio-modal7" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="section-title text-center">
+
+                    </div>
+                </div>
+                <div class="row">
+
+
+                    <div class="col-md-12" style="border:1px solid #666;">
+                        <img src="~/Content/EndUser/images/winners/Oct-2018-Coming-Soon.png" class="img-responsive" alt="..">
+                    </div>
+
+
+                </div><!-- /.row -->
+            </div>
+        </div>
+    </div>
+
+    <div class="section-modal modal fade" id="portfolio-modal8" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="section-title text-center">
+
+                    </div>
+                </div>
+                <div class="row">
+
+
+                    <div class="col-md-12" style="border:1px solid #666;">
+                        <img src="~/Content/EndUser/images/winners/Nov-2018-Coming-Soon.png" class="img-responsive" alt="..">
+                    </div>
+
+
+                </div><!-- /.row -->
+            </div>
+        </div>
+    </div>
+
+    <div class="section-modal modal fade" id="portfolio-modal9" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="section-title text-center">
+
+                    </div>
+                </div>
+                <div class="row">
+
+
+                    <div class="col-md-12" style="border:1px solid #666;">
+                        <img src="~/Content/EndUser/images/winners/Dec-2018-Coming-Soon.png" class="img-responsive" alt="..">
+                    </div>
+
+
+                </div><!-- /.row -->
+            </div>
+        </div>
+    </div>
+
+    <div class="section-modal modal fade" id="portfolio-modal10" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="section-title text-center">
+
+                    </div>
+                </div>
+                <div class="row">
+
+
+                    <div class="col-md-12" style="border:1px solid #666;">
+                        <img src="~/Content/EndUser/images/winners/January-2019-Coming-Soon.png" class="img-responsive" alt="..">
+                    </div>
+
+
+                </div><!-- /.row -->
+            </div>
+        </div>
+    </div>
+
+    <div class="section-modal modal fade" id="portfolio-modal11" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="section-title text-center">
+
+                    </div>
+                </div>
+                <div class="row">
+
+
+                    <div class="col-md-12" style="border:1px solid #666;">
+                        <img src="~/Content/EndUser/images/winners/Feb-2019-Coming-Soon.png" class="img-responsive" alt="..">
+                    </div>
+
+
+                </div><!-- /.row -->
+            </div>
+        </div>
+    </div>
+
+    <div class="section-modal modal fade" id="portfolio-modal12" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="section-title text-center">
+
+                    </div>
+                </div>
+                <div class="row">
+
+
+                    <div class="col-md-12" style="border:1px solid #666;">
+                        <img src="~/Content/EndUser/images/winners/March-2019-Coming-Soon.png" class="img-responsive" alt="..">
+                    </div>
+
+
+                </div><!-- /.row -->
+            </div>
+        </div>
+    </div>*@
+

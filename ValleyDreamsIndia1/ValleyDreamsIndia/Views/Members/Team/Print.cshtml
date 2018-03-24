@@ -1,0 +1,130 @@
+﻿@model  ValleyDreamsIndia.Models.UserPersonalListModelView
+@{
+    Layout = null;
+}
+
+<div class="container">
+    <div class="grid-4"></div>
+
+    <div class="grid-16">
+        <div class="widget widget-table">
+            <div class="widget-content">
+            
+                <center>
+                    <table class="table table-bordered table-striped data-table" border="1">
+                        <thead>
+                            <tr>
+                                <th>Sr.</th>
+                                <th>Member Name</th>
+                                <th>Placement</th>
+                                <th>User Id</th>
+                                <th>DOJ</th>
+                                <th>Contact</th>
+                                <th>Sponser Id</th>
+                                <th>Last Contri.</th>
+                                <th>Paid On</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.PersonalDetails != null)
+                            {
+                                var i = 1;
+                                foreach (var item in Model.PersonalDetails)
+                                {
+                                    <tr class="gradeA">
+                                        <td>@i</td>
+                                        <td>
+                                            @item.FirstName  @item.LastName
+                                        </td>
+                                        <td>
+                                            @if (Convert.ToString(ViewBag.TeamPlacementSidePrint) == "LEFT")
+                                            {
+                                                <span>LEFT</span>
+                                            }
+                                            else if (Convert.ToString(ViewBag.TeamPlacementSidePrint) == "RIGHT")
+                                            {
+                                                <span>RIGHT</span>
+                                            }
+                                            else
+                                            {
+                                                <span>@item.PlacementSide</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            
+                                                        @item.UsersDetail.UserName
+                                                    
+                                        </td>
+                                        <td class="center">
+                                            @Convert.ToDateTime(item.JoinedOn).ToString("dd/MM/yyyy")
+                                        </td>
+                                        <td>@item.PhoneNumber1</td>
+                                        <td>@{
+                                            if (item.UsersDetail.UsersDetail1 != null)
+                                            {
+                                                try
+                                                {@item.UsersDetail.UsersDetail1.UserName
+                                                }
+                                                catch
+                                                {
+                                                    <span>NA</span>
+                                                    }
+                                                }
+                                            }
+                                        </td>
+                                        <td>
+                                            @{
+                                            if (item.UsersDetail.ContributionDetails != null)
+                                            {
+                                                try
+                                                {
+                                                        @item.UsersDetail.ContributionDetails.Where(x => x.UserDetailsId == item.UsersDetail.Id).OrderByDescending(y => y.ContribDate).FirstOrDefault().ContribNumber
+                                                }
+                                                catch
+                                                {
+                                                        <span>0</span>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                    <span>0</span>
+                                            }
+                                            }
+                                        </td>
+                                        <td>
+                                            @{
+                                            if (item.UsersDetail.ContributionDetails != null)
+                                            {
+                                                try
+                                                {
+                                                        @Convert.ToDateTime(item.UsersDetail.ContributionDetails.Where(x => x.UserDetailsId == item.UsersDetail.Id).OrderByDescending(y => y.ContribDate).FirstOrDefault().ContribDate).ToString("dd/MM/yyyy")
+                                                }
+                                                catch
+                                                {
+                                                        <span>NA</span>
+                                                }
+
+                                            }
+                                            else
+                                            {
+                                                    <span>NA</span>
+                                            }
+                                            }
+
+                                        </td>
+                                    </tr>
+                                i = i + 1;
+                            }
+                        }
+
+                        </tbody>
+                    </table>
+                </center>
+            </div> <!-- .widget-content -->
+
+        </div> <!-- .widget-content -->
+
+    </div>
+
+    <div class="grid-4"></div>
+</div>

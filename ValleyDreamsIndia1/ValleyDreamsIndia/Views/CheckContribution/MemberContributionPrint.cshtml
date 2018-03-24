@@ -1,0 +1,176 @@
+﻿@model  IEnumerable<PersonalDetail>
+
+@{
+    Layout = null;
+}
+
+<div class="container">
+    <div class="grid-4"></div>
+
+    <div class="grid-16">
+        <div class="widget widget-table">
+            <div class="widget-content">
+
+                <center>
+                    <table class="table table-bordered table-striped data-table" border="1">
+                        <thead>
+                            <tr>
+                                <th>Sr.</th>
+                                <th>Member Name</th>
+                                <th>Placement</th>
+                                <th>User Id</th>
+                                <th>DOJ</th>
+                                <th>Contact</th>
+                                <th>Sponser Id</th>
+                                <th>Last Contri.</th>
+                                <th>Paid On</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                if (Model.ToList().Count > 1)
+                                {
+                                    var i = 1;
+                                    foreach (var itm in Model)
+                                    {
+
+                                        <tr class="gradeA">
+                                            <td>@i</td>
+                                            <td>@itm.FirstName @itm.LastName</td>
+                                            <td>
+                                                @if (Convert.ToString(ViewBag.PlacementSideMemberContributionPrint) == "LEFT")
+                                                {
+                                                    <span>LEFT</span>
+                                                }
+                                                else if (Convert.ToString(ViewBag.PlacementSideMemberContributionPrint) == "RIGHT")
+                                                {
+                                                    <span>RIGHT</span>
+                                                }
+                                                else
+                                                {
+                                                    <span>@itm.PlacementSide</span>
+                                                }
+
+                                            </td>
+                                            <td>@itm.UsersDetail.UserName</td>
+                                            <td>@Convert.ToDateTime(itm.JoinedOn).ToString("dd/MM/yyyy")</td>
+                                            <td>@itm.PhoneNumber1</td>
+                                            <td>
+                                                @{
+                                                    if (itm.UsersDetail.UsersDetail1 != null)
+                                                    {
+                                                        try
+                                                        {
+                                                            @itm.UsersDetail.UsersDetail1.UserName
+                                                        }
+                                                        catch
+                                                        {
+                                                            <span>NA</span>
+                                                        }
+                                                    }
+                                                }
+                                            </td>
+                                            <td>
+                                                @{
+                                                    if (itm.UsersDetail.ContributionDetails != null)
+                                                    {
+                                                        try
+                                                        {
+                                                            @itm.UsersDetail.ContributionDetails.Where(x => x.UserDetailsId == itm.UsersDetail.Id).OrderByDescending(y => y.ContribDate).FirstOrDefault().ContribNumber
+                                                        }
+                                                        catch
+                                                        {
+                                                            <span>0</span>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>0</span>
+                                                    }
+                                                }
+                                            </td>
+                                            <td class="center">
+                                                @{
+                                                    if (itm.UsersDetail.ContributionDetails != null)
+                                                    {
+                                                        try
+                                                        {@Convert.ToDateTime(itm.UsersDetail.ContributionDetails
+                                       .Where(x => x.UserDetailsId == itm.UsersDetail.Id)
+                                       .OrderByDescending(y => y.ContribDate).FirstOrDefault().ContribDate).ToString("dd/MM/yyyy")
+                                                        }
+                                                        catch
+                                                        {
+                                                            <span>NA</span>
+                                                        }
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>NA</span>
+                                                    }
+                                                }
+                                            </td>
+                                        </tr>
+                                                            i = i + 1;
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        var cnt = 1;
+                                                        foreach (var itm in Model)
+                                                        {
+                                                            var contribNumber = Convert.ToInt32(itm.UsersDetail.ContributionDetails.Where(x => x.UserDetailsId == itm.UsersDetail.Id).OrderByDescending(y => y.ContribDate).FirstOrDefault().ContribNumber);
+                                                            var contribDate = Convert.ToDateTime(itm.UsersDetail.ContributionDetails.Where(x => x.UserDetailsId == itm.UsersDetail.Id).OrderByDescending(y => y.ContribDate).FirstOrDefault().ContribDate);
+
+                                                            foreach (var contrib in itm.UsersDetail.ContributionDetails)
+                                                            {
+
+                                                                <tr class="gradeA">
+                                                                    <td>@cnt</td>
+                                                                    <td>@itm.FirstName @itm.LastName</td>
+                                                                    <td>@itm.PlacementSide</td>
+                                                                    <td>@itm.UsersDetail.UserName</td>
+                                                                    <td>@Convert.ToDateTime(itm.JoinedOn).ToString("dd/MM/yyyy")</td>
+                                                                    <td>@itm.PhoneNumber1</td>
+                                                                    <td>@itm.UsersDetail.UsersDetail1.UserName</td>
+                                                                    <td>@contrib.ContribNumber</td>
+                                                                    <td class="center" style="color:lightgreen;">@Convert.ToDateTime(contrib.ContribDate).ToString("dd/MM/yyyy") </td>
+                                                                </tr>
+                                                                cnt = cnt + 1;
+                                                            }
+                                                            for (int i = contribNumber + 1; i <= 15; i++)
+                                                            {
+
+                                                                <tr class="gradeA">
+                                                                    <td>@i</td>
+                                                                    <td>@itm.FirstName @itm.LastName</td>
+                                                                    <td>@itm.PlacementSide</td>
+                                                                    <td>@itm.UsersDetail.UserName</td>
+                                                                    <td>@Convert.ToDateTime(itm.JoinedOn).ToString("dd/MM/yyyy")</td>
+                                                                    <td>@itm.PhoneNumber1</td>
+                                                                    <td>@itm.UsersDetail.UsersDetail1.UserName</td>
+                                                                    <td>@i</td>
+                                                                    <td class="center" style="color:red;">
+                                                                        20/@Convert.ToDateTime(contribDate.AddMonths(contribNumber)).ToString("MM")/@contribDate.AddMonths(contribNumber).Year
+                                                                    </td>
+                                                                </tr>
+                                                                    contribNumber = contribNumber + 1;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                        </tbody>
+
+                    </table>
+
+                </center>
+            </div> <!-- .widget-content -->
+
+        </div> <!-- .widget-content -->
+
+    </div>
+
+    <div class="grid-4"></div>
+</div>

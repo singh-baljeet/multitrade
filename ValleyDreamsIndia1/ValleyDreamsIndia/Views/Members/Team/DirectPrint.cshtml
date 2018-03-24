@@ -1,0 +1,79 @@
+﻿@model  ValleyDreamsIndia.Models.UserPersonalListModelView
+@{
+    Layout = null;
+}
+
+<div class="container">
+    <div class="grid-4"></div>
+
+    <div class="grid-16">
+        <div class="widget widget-table">
+            <div class="widget-content">
+            
+                <center>
+                    <div class="widget-content">
+
+                        <table class="table table-bordered table-striped data-table" border="1">
+                            <thead>
+                                <tr>
+                                    <th>Sr.</th>
+                                    <th>Member Name</th>
+                                    <th>Placement</th>
+                                    <th>User Id</th>
+                                    <th>DOJ</th>
+                                    <th>Contact</th>
+                                    <th>Sponser Id</th>
+                                    <th>Last Contri.</th>
+                                    <th>Paid On</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.PersonalDetails != null)
+                                {
+                                    var i = 1;
+                                    foreach (var item in Model.PersonalDetails)
+                                    {
+                                        <tr class="gradeA">
+                                            <td>@i</td>
+                                            <td>
+                                                @item.FirstName  @item.LastName
+                                            </td>
+                                            <td>
+                                                @item.PlacementSide
+                                            </td>
+                                            <td>
+                                                @item.UsersDetail.UserName
+                                            </td>
+                                            <td class="center">
+                                                @Convert.ToDateTime(item.JoinedOn).ToString("dd/MM/yyyy")
+                                            </td>
+                                            <td>@item.PhoneNumber1</td>
+                                            <td>@item.UsersDetail.UsersDetail1.UserName</td>
+                                            <td>
+                                                @Convert.ToInt32(item.UsersDetail.ContributionDetails
+                                            .Where(x => x.UserDetailsId == item.UsersDetail.Id)
+                                        .OrderByDescending(y => y.ContribDate).FirstOrDefault().ContribNumber)
+                                            </td>
+                                            <td>
+                                                @Convert.ToDateTime(item.UsersDetail.ContributionDetails
+                                       .Where(x => x.UserDetailsId == item.UsersDetail.Id)
+                                       .OrderByDescending(y => y.ContribDate).FirstOrDefault().ContribDate).ToString("dd/MM/yyyy")
+                                            </td>
+                                        </tr>
+                                        i = i + 1;
+                                    }
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </center>
+            </div> <!-- .widget-content -->
+
+        </div> <!-- .widget-content -->
+
+    </div>
+
+    <div class="grid-4"></div>
+</div>
