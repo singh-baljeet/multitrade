@@ -50,14 +50,14 @@
                                             </td>
                                             <td>@item.PhoneNumber1</td>
                                             <td>
-                                            @if (item.UsersDetail.UsersDetail1 != null)
-                                            {
-                                                @item.UsersDetail.UsersDetail1.UserName
-                                            }
-                                            else
-                                            {
-                                                <span>NA</span>
-                                            }
+                                                @if (item.UsersDetail.UsersDetail1 != null)
+                                                {
+                                                    @item.UsersDetail.UsersDetail1.UserName
+                                                }
+                                                else
+                                                {
+                                                    <span>NA</span>
+                                                }
                                             </td>
                                             <td>
                                                 @if (item.UsersDetail.ContributionDetails.Count > 0)

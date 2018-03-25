@@ -82,6 +82,11 @@
                     <a href="/SuperAdmin/Contribution">Check Contributions</a>
                 </li>
 
+                <li id="navType" class="nav @(ViewContext.RouteData.Values["action"].ToString() == "Direct" ? "active" : "") ">
+                    <span class="icon-equalizer"></span>
+                    <a href="/SuperAdmin/Direct">Direct Profiles</a>
+                </li>
+
                 <li id="navType" class="nav @(ViewContext.RouteData.Values["action"].ToString() == "RenewalContribution" ? "active" : "") ">
                     <span class="icon-equalizer"></span>
                     <a href="/SuperAdmin/RenewalContribution">Renewal Contributions</a>

@@ -595,7 +595,7 @@ namespace ValleyDreamsIndia.Controllers
         private void GetUserInfo(int currentId)
         {
             ViewBag.DirectTeam = _valleyDreamsIndiaDBEntities.PersonalDetails
-                .Where(x => x.SponsoredId == currentId && x.LegId != currentId).Count();
+                .Where(x => x.SponsoredId == currentId && x.LegId != currentId && x.Deleted == 0).Count();
 
             var myUserList = _valleyDreamsIndiaDBEntities.UsersDetails.
                 Where(x => x.SponsoredId == currentId && x.IsPinUsed == 1);
@@ -1766,6 +1766,107 @@ namespace ValleyDreamsIndia.Controllers
             usersPersonalModelView.BankDetails = new BankDetail();
             return usersPersonalModelView;
         }
+
+
+
+
+
+        [CustomAuthorize]
+        [HttpGet]
+        public ActionResult Direct()
+        {
+            ViewBag.Title = "Admin: Direct Team";
+
+            UserPersonalListModelView userPersonalListModelView = new UserPersonalListModelView();
+            userPersonalListModelView.PersonalDetail = _valleyDreamsIndiaDBEntities.PersonalDetails
+                .First(x => x.UsersDetailsId == CurrentUser.CurrentUserId && x.Deleted == 0);
+
+            GetUserInfo(CurrentUser.CurrentUserId);
+
+            List<PersonalDetail> personalDetailList = _valleyDreamsIndiaDBEntities.PersonalDetails
+                .Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.LegId != CurrentUser.CurrentUserId && x.Deleted == 0).ToList();
+
+            userPersonalListModelView.PersonalDetails = personalDetailList;
+
+           
+            ViewBag.DirectSearched = "ALL";
+            return View(userPersonalListModelView);
+        }
+
+        [CustomAuthorize]
+        [HttpPost]
+        public ActionResult Direct(string memberId)
+        {
+            if (memberId == "" || memberId == String.Empty)
+            {
+                return RedirectToAction("Direct");
+            }
+
+            ViewBag.Title = "Admin: Direct Team";
+
+
+            UserPersonalListModelView userPersonalListModelView = new UserPersonalListModelView();
+            userPersonalListModelView.PersonalDetail = _valleyDreamsIndiaDBEntities.PersonalDetails
+                .First(x => x.UsersDetailsId == CurrentUser.CurrentUserId && x.Deleted == 0);
+            GetUserInfo(CurrentUser.CurrentUserId);
+
+            try
+            {
+                UsersDetail userDetail = _valleyDreamsIndiaDBEntities.UsersDetails
+                    .Where(x => x.UserName == memberId).FirstOrDefault();
+                List<PersonalDetail> personalDetailList = _valleyDreamsIndiaDBEntities.PersonalDetails
+                   .Where(x => x.SponsoredId == CurrentUser.CurrentUserId
+                   && x.LegId != CurrentUser.CurrentUserId && x.UsersDetailsId == userDetail.Id && x.Deleted == 0).ToList();
+                userPersonalListModelView.PersonalDetails = personalDetailList;
+            }
+            catch (Exception e)
+            {
+                userPersonalListModelView.PersonalDetails = null;
+            }
+
+            ViewBag.DirectSearched = memberId;
+            return View(userPersonalListModelView);
+        }
+
+
+        [CustomAuthorize]
+        [HttpPost]
+        public ActionResult DirectPrint(string hdnDirectSearched)
+        {
+            UserPersonalListModelView userPersonalListModelView = new UserPersonalListModelView();
+            if (hdnDirectSearched == "ALL")
+            {
+                userPersonalListModelView.PersonalDetail = _valleyDreamsIndiaDBEntities.PersonalDetails
+                    .First(x => x.UsersDetailsId == CurrentUser.CurrentUserId && x.Deleted == 0);
+
+                List<PersonalDetail> personalDetailList = _valleyDreamsIndiaDBEntities.PersonalDetails
+                    .Where(x => x.SponsoredId == CurrentUser.CurrentUserId && x.LegId != CurrentUser.CurrentUserId && x.Deleted == 0).ToList();
+
+                userPersonalListModelView.PersonalDetails = personalDetailList;
+            }
+            else
+            {
+                userPersonalListModelView.PersonalDetail = _valleyDreamsIndiaDBEntities.PersonalDetails
+                    .First(x => x.UsersDetailsId == CurrentUser.CurrentUserId && x.Deleted == 0);
+                GetUserInfo(CurrentUser.CurrentUserId);
+
+                try
+                {
+                    UsersDetail userDetail = _valleyDreamsIndiaDBEntities.UsersDetails.Where(x => x.UserName == hdnDirectSearched).FirstOrDefault();
+                    List<PersonalDetail> personalDetailList = _valleyDreamsIndiaDBEntities.PersonalDetails
+                       .Where(x => x.SponsoredId == CurrentUser.CurrentUserId
+                       && x.LegId != CurrentUser.CurrentUserId && x.UsersDetailsId == userDetail.Id && x.Deleted == 0).ToList();
+                    userPersonalListModelView.PersonalDetails = personalDetailList;
+                }
+                catch (Exception e)
+                {
+                    userPersonalListModelView.PersonalDetails = null;
+                }
+            }
+
+            return View(userPersonalListModelView);
+        }
+
 
         [HttpPost]
         public ActionResult LogOut()
