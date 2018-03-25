@@ -303,22 +303,38 @@
                 var email = $('#email').val();
                 var phone = $('#phone').val();
                 var message = $('#message').val();
-                debugger;
                 $.ajax({
                     url: '/Home/ContactUs',
                     data: { 'name': name, 'email': email, 'phone': phone, 'message': message },
                     type: "post",
                     success: function (response) {
-                        response = response.replace(/\"/g, "")
-                        if (response != "Success") {
-                            $("#loginptag").text(response);
+                        if (response == "success") {
+                            $('#success').html("<div class='alert alert-success'>");
+                            $('#success > .alert-success').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
+                                .append("</button>");
+                            $('#success > .alert-success')
+                                .append("<strong>Your message has been sent. </strong>");
+                            $('#success > .alert-success')
+                                .append('</div>');
+                            $('#contactForm').trigger("reset");
                         }
-                        else {
-                            window.location.href = "/Dashboard/Index";
+                        else
+                        {
+                                $('#success').html("<div class='alert alert-danger'>");
+                                $('#success > .alert-danger').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
+                                    .append("</button>");
+                                $('#success > .alert-danger').append("<strong>"+ response + "</strong>");
+                                $('#success > .alert-danger').append('</div>');
+                                $('#contactForm').trigger("reset");
                         }
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
-                        $('#loginptag').text("Error while login.");
+                        $('#success').html("<div class='alert alert-danger'>");
+                        $('#success > .alert-danger').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
+                            .append("</button>");
+                        $('#success > .alert-danger').append("<strong>" + xhr.responseText + "</strong>");
+                        $('#success > .alert-danger').append('</div>');
+                        $('#contactForm').trigger("reset");
                     }
                 });
             })

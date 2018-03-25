@@ -3,6 +3,7 @@ using SendGrid.Helpers.Mail;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -154,17 +155,41 @@ namespace ValleyDreamsIndia.Controllers
         [HttpPost]
         public JsonResult ContactUs(string name,string email,string phone,string message)
         {
-            var apiKey = "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";
+            //var response = Execute(name,email,phone,message);
+            var apiKey = "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";
             var client = new SendGridClient(apiKey);
             var from = new EmailAddress(email, name);
             var subject = "Contact Us";
             var to = new EmailAddress("bethuelinfo@gmail.com", "Administrator");
-            var plainTextContent = message + ". My phone number is " +  phone;
+            var plainTextContent = message + ". My phone number is " + phone;
             var htmlContent = "";
             var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
             var response = client.SendEmailAsync(msg);
-            var res = response.Result;
-            return Json("Message  Sent Successfully", JsonRequestBehavior.AllowGet);
+            Response result = response.Result;
+            var res = result.Body.ReadAsStringAsync().Result;
+            if(res == "")
+            {
+                return Json("success", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(res.ToString(), JsonRequestBehavior.AllowGet);
+            }
+            
+        }
+
+        public static async Task<Response> Execute(string name, string email, string phone, string message)
+        {
+            var apiKey = "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";
+            var client = new SendGridClient(apiKey);
+            var from = new EmailAddress(email, name);
+            var subject = "Contact Us";
+            var to = new EmailAddress("bethuelinfo@gmail.com", "Administrator");
+            var plainTextContent = message + ". My phone number is " + phone;
+            var htmlContent = "";
+            var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+            var response = await client.SendEmailAsync(msg);
+            return response;
         }
 
         [HttpPost]
