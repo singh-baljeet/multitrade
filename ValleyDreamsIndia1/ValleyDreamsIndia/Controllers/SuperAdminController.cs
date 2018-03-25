@@ -1886,6 +1886,21 @@ namespace ValleyDreamsIndia.Controllers
         }
 
 
+        [CustomAuthorize]
+        [HttpGet]
+        public JsonResult SendToken(int pid)
+        {
+            var personalDetails = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.Id == pid).FirstOrDefault();
+            string phoneNumber1 = personalDetails.PhoneNumber1;
+            string fullName = personalDetails.FirstName + " " + personalDetails.LastName;
+            string textMessage = String.Format("{0}, your token number is : {1}", fullName, pid);
+            string smsStatus = SmsProvider.SendSms(phoneNumber1, textMessage);
+            return Json("success", JsonRequestBehavior.AllowGet);
+        }
+
+
+
+
         [HttpPost]
         public ActionResult LogOut()
         {

@@ -678,31 +678,7 @@ namespace ValleyDreamsIndia.Controllers.Members
                     }
                 }
             }
-
-            //ViewBag.Title = "Admin: Tree";
-            //int leftPlacementCount = 0;
-            //int rightPlacementCount = 0;
-            //int directLeftPlacementCount = 0;
-            //int directRightPlacementCount = 0;
-            //List<UsersDetail> userDetailList = _valleyDreamsIndiaDBEntities.UsersDetails.Where(x => x.SponsoredId == CurrentUser.CurrentUserId).ToList();
-            //List<PersonalDetail> personalDetailList = new List<PersonalDetail>();
-            //foreach (var usr in userDetailList)
-            //{
-            //    var placementSide =_valleyDreamsIndiaDBEntities.PersonalDetails.First(x => x.UsersDetailsId == usr.Id).PlacementSide;
-            //    if(placementSide == "LEFT")
-            //    {
-            //        leftPlacementCount += 1;
-            //    }
-            //    if (placementSide == "RIGHT")
-            //    {
-            //        rightPlacementCount += 1;
-            //    }
-            //}
-
-            //ViewBag.LeftPlacementCount = leftPlacementCount;
-            //ViewBag.RightPlacementCount = rightPlacementCount;
-            //ViewBag.DirectLeftPlacementCount = directLeftPlacementCount;
-            //ViewBag.DirectRightPlacementCount = directRightPlacementCount;
+            
             return parentResult;
 
         }
@@ -723,6 +699,20 @@ namespace ValleyDreamsIndia.Controllers.Members
                 return Json("False", JsonRequestBehavior.AllowGet);
             }
         }
+
+
+        [CustomAuthorize]
+        [HttpGet]
+        public JsonResult SendToken(int pid)
+        {
+            var personalDetails = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.Id == pid).FirstOrDefault();
+            string phoneNumber1 = personalDetails.PhoneNumber1;
+            string fullName = personalDetails.FirstName + " " + personalDetails.LastName;
+            string textMessage = String.Format("{0}, your token number is : {1}", fullName, pid);
+            string smsStatus = SmsProvider.SendSms(phoneNumber1, textMessage);
+            return Json("success", JsonRequestBehavior.AllowGet);
+        }
+
 
     }
 }

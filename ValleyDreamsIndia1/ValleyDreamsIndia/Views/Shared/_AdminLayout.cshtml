@@ -173,6 +173,25 @@
 
         $(function () {
 
+
+            $("#teamTable").on('click', '.anchSendToken', function () {
+                debugger;
+                var pid = $(this).attr("userid");
+                $.ajax({
+                    url: '/Team/SendToken?pid=' + pid,
+                    type: "GET",
+                    success: function (response, textStatus, xhr) {
+                        if (response == "success") {
+                            alert("Token Number send successfully");
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.responseText);
+                    }
+                });
+            });
+
+
             $('#forgettransactionpassword').click(function () {
 
                 $.ajax({

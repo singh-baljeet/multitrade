@@ -1,4 +1,4 @@
-﻿@model List < ValleyDreamsIndia.GalleryDetail>
+﻿@model List <ValleyDreamsIndia.GalleryDetail>
 @{
     Layout = null;
 }
@@ -74,6 +74,23 @@
 
 <body class="index" style="background:#f7f7f7;">
 
+    <!-- Styleswitcher
+    ================================================== -->
+    <div class="colors-switcher">
+        <a id="show-panel" class="hide-panel"><i class="fa fa-tint"></i></a>
+        <ul class="colors-list">
+            <li><a title="Light Red" onClick="setActiveStyleSheet('light-red'); return false;" class="light-red"></a></li>
+            <li><a title="Blue" class="blue" onClick="setActiveStyleSheet('blue'); return false;"></a></li>
+            <li class="no-margin"><a title="Light Blue" onClick="setActiveStyleSheet('light-blue'); return false;" class="light-blue"></a></li>
+            <li><a title="Green" class="green" onClick="setActiveStyleSheet('green'); return false;"></a></li>
+
+            <li class="no-margin"><a title="light-green" class="light-green" onClick="setActiveStyleSheet('light-green'); return false;"></a></li>
+            <li><a title="Yellow" class="yellow" onClick="setActiveStyleSheet('yellow'); return false;"></a></li>
+
+        </ul>
+
+    </div>
+    <!-- Styleswitcher End
 
 
     <!-- Navigation -->
@@ -255,8 +272,30 @@
     <!-- jQuery Version 2.1.1 -->
     <!-- Bootstrap Core JavaScript -->
 
+    <!-- jQuery Version 2.1.1 -->
+    <script src="~/Content/EndUser/js/jquery-2.1.1.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="~/Content/EndUser/asset/js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="~/Content/EndUser/js/jquery.easing.1.3.js"></script>
+    <script src="~/Content/EndUser/js/classie.js"></script>
+    <script src="~/Content/EndUser/js/count-to.js"></script>
+    <script src="~/Content/EndUser/js/jquery.appear.js"></script>
+    <script src="~/Content/EndUser/js/cbpAnimatedHeader.js"></script>
+    <script src="~/Content/EndUser/js/owl.carousel.min.js"></script>
+    <script src="~/Content/EndUser/js/jquery.fitvids.js"></script>
+    <script src="~/Content/EndUser/js/styleswitcher.js"></script>
+
+    <!-- Contact Form JavaScript -->
+    <script src="~/Content/EndUser/js/jqBootstrapValidation.js"></script>
+    <script src="~/Content/EndUser/js/contact_me.js"></script>
+
+    <!-- Custom Theme JavaScript -->
     <script src="~/Content/EndUser/js/script.js"></script>
 
+    
     <script src="~/Content/EndUser/index_files/vlb_engine/thumbscript1.js" type="text/javascript"></script>
     <script src="~/Content/EndUser/index_files/vlb_engine/vlbdata1.js" type="text/javascript"></script>
 

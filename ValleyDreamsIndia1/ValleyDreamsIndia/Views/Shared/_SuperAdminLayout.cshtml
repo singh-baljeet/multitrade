@@ -203,6 +203,25 @@
 
         $(function () {
 
+
+            $("#usersTable").on('click', '.anchSendToken', function () {
+                debugger;
+                var pid = $(this).attr("userid");
+                $.ajax({
+                    url: '/SuperAdmin/SendToken?pid=' + pid,
+                    type: "GET",
+                    success: function (response, textStatus, xhr) {
+                        if (response == "success") {
+                            alert("Token Number send successfully");
+                        }
+                        
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.responseText);
+                    }
+                });
+            });
+
             $(".ancPayment").on('click', function () {
                 var pairs = $(this).attr("pairs");
                 var userid = $(this).attr("userid");

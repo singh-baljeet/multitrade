@@ -98,7 +98,7 @@
 
             <div class="widget-content">
             
-                <table class="table table-bordered table-striped data-table">
+                <table class="table table-bordered table-striped data-table" id="usersTable">
                     <thead>
                         <tr>
                             <th>Sr.</th>
@@ -208,6 +208,9 @@
                                         </span> | 
                                         <span>
                                             @Html.ActionLink("Rewards", "ViewReward", "SuperAdmin", new { memberId = item.UsersDetailsId }, null)
+                                        </span>| 
+                                        <span style="margin-left:10px;">
+                                            <a href="#" class="anchSendToken" userid="@item.Id" style="cursor:pointer;">Send Token</a>
                                         </span>
                                     </td>
                                 </tr>
