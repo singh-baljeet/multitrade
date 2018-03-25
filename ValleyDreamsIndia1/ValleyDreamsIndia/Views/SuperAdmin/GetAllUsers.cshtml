@@ -86,10 +86,10 @@
                         @using (Html.BeginForm("Print", "SuperAdmin", FormMethod.Post, new { id = "printForm", target = "_blank" }))
                         {
                             <input type="hidden" value="@ViewBag.Searched" name="hdnSearched" />
-                            <h3>
-                                <a href="javascript:document.getElementById('printForm').submit()" target="_blank" 
-                                   style="cursor:pointer;">Print Result</a>
-                            </h3>
+                            <button style="margin-left:5px;" class="btn btn-primary "
+                                    onclick="javascript: document.getElementById('printForm').submit()">
+                                Print Result
+                            </button>
                         }
                  </span>
                 

@@ -162,11 +162,11 @@
                 <span style="float:right;">
                     @using (Html.BeginForm("MemberContributionPrint", "CheckContribution", FormMethod.Post, new { id = "printForm", target = "_blank" }))
                     {
-                        <input type="hidden" value="@ViewBag.MemberContributionSearched" name="hdnMemberContributionSearched" />
-                        <h3>
-                            <a href="javascript:document.getElementById('printForm').submit()" target="_blank"
-                               style="cursor:pointer;">Print Result</a>
-                        </h3>
+                        <input type="hidden" value="@ViewBag.MemberContributionSearched" 
+                               name="hdnMemberContributionSearched" />
+                            <button style="margin-left:5px;" class="btn btn-primary "
+                                    onclick="javascript: document.getElementById('printForm').submit()">
+                                Print Result </button>
                     }
                 </span>
 
