@@ -162,11 +162,17 @@ namespace ValleyDreamsIndia.Controllers.Members
                 string fullname = usersPersonalModelView.PersonalDetails.FirstName + " " + usersPersonalModelView.PersonalDetails.LastName;
                 string sponsorId = userDetail.UsersDetail1.UserName;
                 string srno = usersPersonalModelView.PersonalDetails.Id.ToString();
-                string phoneNumber2 = "919888540973,919646744247";
 
-                string textMessage = String.Format("Welcome to Bethuel Multi Trade Pvt. Ltd. \n\n Dear ({0}),\n Sr. No : {1} \n Sponsor ID : {2} \n User ID : {3} \n Password : {4} \n Txn Password : {5}",
-                    fullname, srno, sponsorId, username, password, transactionpassword);
-                string smsStatus = SmsProvider.SendSms(usersPersonalModelView.PersonalDetails.PhoneNumber1, textMessage, phoneNumber2);
+                string placementSide = usersPersonalModelView.PersonalDetails.PlacementSide;
+                string legIdUsername = _valleyDreamsIndiaDBEntities.UsersDetails.Where(x => x.Id == lastleg).FirstOrDefault().UserName;
+                string textMessage = String.Format("Welcome to Bethuel Multi Trade Pvt. Ltd. \n\n Dear ({0}), \n Token No : {1} \n Sponsor ID : {2} \n User ID : {3} \n Password : {4} \n Txn Password : {5} \n User ({6}) is placed in the ({7}) leg of ({8}).",
+                    fullname, srno, sponsorId, username, password, transactionpassword, username, placementSide.ToLower(), legIdUsername);
+
+                string phoneNumber1 = usersPersonalModelView.PersonalDetails.PhoneNumber1;
+                string phoneNumber2 = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x=>x.UsersDetailsId == CurrentUser.CurrentUserId).FirstOrDefault().PhoneNumber1;
+                //string phoneNumber2 = "919888540973,919646744247";
+                string smsStatus = SmsProvider.SendSms(phoneNumber1, textMessage, phoneNumber2);
+
                 if (smsStatus == "Success")
                 {
                     smsstatus = "Credentials Sent To Your Registered Mobile Number Successfully";

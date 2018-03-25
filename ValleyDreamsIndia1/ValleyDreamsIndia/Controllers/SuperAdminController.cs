@@ -232,8 +232,10 @@ namespace ValleyDreamsIndia.Controllers
             string sponsorId = usersPersonalModelView.UserDetails.UserName;
             string srno = usersPersonalModelView.PersonalDetails.Id.ToString();
 
-            string textMessage = String.Format("Welcome to Bethuel Multi Trade Pvt. Ltd. \n\n Dear ({0}), \n Sr. No : {1} \n Sponsor ID : {2} \n User ID : {3} \n Password : {4} \n Txn Password : {5}",
-                fullname, srno, sponsorId, username, password, transactionpassword);
+            string placementSide = usersPersonalModelView.PersonalDetails.PlacementSide;
+            string legIdUsername = _valleyDreamsIndiaDBEntities.UsersDetails.Where(x => x.Id == lastleg).FirstOrDefault().UserName;
+            string textMessage = String.Format("Welcome to Bethuel Multi Trade Pvt. Ltd. \n\n Dear ({0}), \n Token No : {1} \n Sponsor ID : {2} \n User ID : {3} \n Password : {4} \n Txn Password : {5} \n User ({6}) is placed in the ({7}) leg of ({8}).",
+                fullname, srno, sponsorId, username, password, transactionpassword, username,placementSide.ToLower(),legIdUsername);
 
             string phoneNumber1 = usersPersonalModelView.PersonalDetails.PhoneNumber1;
             string phoneNumber2 = "919888540973,919646744247";
@@ -308,8 +310,8 @@ namespace ValleyDreamsIndia.Controllers
                 string receiverphonenumber = getUser.PersonalDetails
                     .Where(x => x.UsersDetailsId == getUser.Id).FirstOrDefault().PhoneNumber1;
 
-                string textMessage = String.Format("Dear ({0}), ({1}) has sucessfully transferred {2} pins to the user ({3})",
-                    receiverfullname, senderusername, totalPin, receiverusername);
+                string textMessage = String.Format("Dear ({0}), ({1}) has sucessfully transferred {2} {3} pins to the user ({4})",
+                    receiverfullname, senderusername, totalPin, pinType.ToLower(), receiverusername);
 
                 string phoneNumber2 = "919888540973,919646744247";
                 string smsStatus = SmsProvider.SendSms(receiverphonenumber, textMessage, phoneNumber2);
@@ -1301,6 +1303,22 @@ namespace ValleyDreamsIndia.Controllers
                     renewalPinDetails.IsPinUsed = 1;
                     _valleyDreamsIndiaDBEntities.Entry(renewalPinDetails).State = System.Data.Entity.EntityState.Modified;
                     _valleyDreamsIndiaDBEntities.SaveChanges();
+
+
+                    var ownDetails = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.UsersDetailsId == CurrentUser.CurrentUserId).FirstOrDefault();
+                    var otherDetails = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.UsersDetailsId == otherMemberUserDetails.Id).FirstOrDefault();
+                    string phoneNumber2 = "919888540973,919646744247";
+
+
+                    string receiverPhoneNumber = otherDetails.PhoneNumber1;
+                    string fullName = otherDetails.FirstName + " " + otherDetails.LastName;
+
+                    string textMessage = String.Format("Dear ({0}), {1} has been paid {2}'s  {3} contribution on {4}.",
+                           fullName, ownDetails.UsersDetail.UserName, otherDetails.UsersDetail.UserName, 
+                           contributionDetails.ContribNumber, 
+                           Convert.ToDateTime(contributionDetails.ContribDate).ToString("dd/MM/yyyy"));
+
+                    string smsStatus = SmsProvider.SendSms(receiverPhoneNumber, textMessage, phoneNumber2);
 
                     return RedirectToAction("RenewalContribution");
                 }

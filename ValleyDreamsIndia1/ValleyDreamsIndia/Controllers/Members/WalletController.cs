@@ -107,16 +107,17 @@ namespace ValleyDreamsIndia.Controllers.Members
                         string receiverusername = sponsoredId;
                         string receiverfullname = getUser.PersonalDetails.Where(x => x.UsersDetailsId == getUser.Id).FirstOrDefault().FirstName + " " + getUser.PersonalDetails.Where(x => x.UsersDetailsId == getUser.Id).FirstOrDefault().LastName;
                         string senderusername = sender.UsersDetail.UserName;
+                        string senderphonenumber = sender.PhoneNumber1;
                         string receiverphonenumber = getUser.PersonalDetails.Where(x => x.UsersDetailsId == getUser.Id).FirstOrDefault().PhoneNumber1;
-                        string textMessage = String.Format("Dear ({0}), ({1}) has sucessfully transferred {2} pins to the user ({3})",
-                            receiverfullname, senderusername, totalPin, receiverusername);
+                        string textMessage = String.Format("Dear ({0}), ({1}) has sucessfully transferred {2} {3} pins to the user ({4})",
+                            receiverfullname, senderusername, totalPin, pinType.ToLower(), receiverusername);
 
-                        string smsStatus = SmsProvider.SendSms(receiverphonenumber, textMessage);
-                        if (smsStatus == "Success")
-                        {
-                            smsstatus = "Credentials Sent To Your Registered Mobile Number Successfully";
-                        }
-                        ViewBag.SmsStatus = smsstatus;
+                        string smsStatus = SmsProvider.SendSms(receiverphonenumber, textMessage, senderphonenumber);
+                        //if (smsStatus == "Success")
+                        //{
+                        //    smsstatus = "Credentials Sent To Your Registered Mobile Number Successfully";
+                        //}
+                        //ViewBag.SmsStatus = smsstatus;
 
 
                         @ViewBag.Message = $"{pinType} type pins transfered successfully";

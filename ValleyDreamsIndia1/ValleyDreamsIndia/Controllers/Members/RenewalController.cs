@@ -105,6 +105,16 @@ namespace ValleyDreamsIndia.Controllers.Members
                     _valleyDreamsIndiaDBEntities.SaveChanges();
 
 
+                    var userDetails = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.UsersDetailsId == CurrentUser.CurrentUserId).FirstOrDefault();
+
+                    string phoneNumber = userDetails.PhoneNumber1;
+                    string fullName = userDetails.FirstName + " " + userDetails.LastName;
+
+                    string textMessage = String.Format("Dear ({0}), your {1} contribution has been paid on {2}",
+                            fullName, contributionDetails.ContribNumber, Convert.ToDateTime(contributionDetails.ContribDate).ToString("dd/MM/yyyy"));
+
+                    string smsStatus = SmsProvider.SendSms(phoneNumber, textMessage);
+
                     ViewBag.OwnRenewalMessage = "Renewal Transfer Successfully ";
                     UsersPersonalModelView usersPersonalModelView = GetContributionData();
                     return View("~/Views/Members/Renewal/Contribution.cshtml", usersPersonalModelView);
@@ -167,6 +177,19 @@ namespace ValleyDreamsIndia.Controllers.Members
                     renewalPinDetails.IsPinUsed = 1;
                     _valleyDreamsIndiaDBEntities.Entry(renewalPinDetails).State = System.Data.Entity.EntityState.Modified;
                     _valleyDreamsIndiaDBEntities.SaveChanges();
+
+                    var ownDetails = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.UsersDetailsId == CurrentUser.CurrentUserId).FirstOrDefault() ;
+                    var otherDetails = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.UsersDetailsId == otherMemberUserDetails.Id).FirstOrDefault();
+
+                    string senderPhoneNumber = ownDetails.PhoneNumber1;
+                    string receiverPhoneNumber = otherDetails.PhoneNumber1;
+                    string fullName = otherDetails.FirstName + " " + otherDetails.LastName;
+
+                    string textMessage = String.Format("Dear ({0}), {1} has been paid {2}'s  {3} contribution on {4}.",
+                           fullName, ownDetails.UsersDetail.UserName, otherDetails.UsersDetail.UserName, contributionDetails.ContribNumber, Convert.ToDateTime(contributionDetails.ContribDate).ToString("dd/MM/yyyy"));
+
+                    string smsStatus = SmsProvider.SendSms(senderPhoneNumber, textMessage,receiverPhoneNumber);
+
 
                     return RedirectToAction("Contribution");
                 }
