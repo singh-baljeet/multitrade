@@ -157,63 +157,44 @@ namespace ValleyDreamsIndia.Controllers
         [HttpPost]
         public JsonResult ContactUs(string name,string email,string phone,string message)
         {
-            //MailMessage msg = new MailMessage();
-            ////Add your email address to the recipients
-            //msg.To.Add("bethuelinfo@gmail.com");
-            ////Configure the address we are sending the mail from
-            //MailAddress address = new MailAddress("baljeetpnf@gmail.com");
-            //msg.From = address;
-            //msg.Subject = "Hello";
-            //msg.Body = "Testing";
-
-            //SmtpClient client = new SmtpClient();
-            //client.UseDefaultCredentials = false;
-            //NetworkCredential credentials = new NetworkCredential("GodaddyEmail@YourDomain.com", "YourPassword");
-            //client.Credentials = credentials;
-            //client.Host = "relay-hosting.secureserver.net";
-            //client.Port = 25;
-
-            ////Send the msg
-            //client.Send(msg);
-
-            string res = "";
-            //var response = Execute(name,email,phone,message);
-            //var apiKey = "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";
-            //var client = new SendGridClient(apiKey);
-            //var from = new EmailAddress(email, name);
-            //var subject = "Contact Us";
-            //var to = new EmailAddress("bethuelinfo@gmail.com", "Administrator");
-            //var plainTextContent = message + ". My phone number is " + phone;
-            //var htmlContent = "";
-            //var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
-            //var response = client.SendEmailAsync(msg);
-            //Response result = response.Result;
-            //var res = result.Body.ReadAsStringAsync().Result;
-            if(res == "")
+            try
             {
+
+                //const string SERVER = "relay-hosting.secureserver.net";
+                //MailMessage oMail = new System.Web.Mail.MailMessage();
+                //oMail.From = "emailaddress@domainname";
+                //oMail.To = "emailaddress@domainname";
+                //oMail.Subject = "Test email subject";
+                //oMail.BodyFormat = MailFormat.Html; // enumeration
+                //oMail.Priority = MailPriority.High; // enumeration
+                //oMail.Body = "Sent at: " + DateTime.Now;
+                //SmtpMail.SmtpServer = SERVER;
+                //SmtpMail.Send(oMail);
+
+
+
+                MailMessage Msg = new MailMessage();
+                Msg.From = new MailAddress("baljeetpnf@gmail.com");
+                Msg.To.Add("bethuelinfo@gmail.com");
+                Msg.Subject = "Contact Us";
+                string msg = String.Format("Name : {0} , Email : {1} , Phone Number: {2} , Message : {3}", 
+                    name, email,phone, message);
+                Msg.Body = msg;
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = "smtp.gmail.com";
+                smtp.Port = 587;
+                smtp.Credentials = new System.Net.NetworkCredential("bethuelinfo@gmail.com", "iqbalbtl");
+                smtp.EnableSsl = true;
+                smtp.Send(Msg);
                 return Json("success", JsonRequestBehavior.AllowGet);
             }
-            else
+            catch (Exception ex)
             {
-                return Json(res.ToString(), JsonRequestBehavior.AllowGet);
+                return Json(ex.Message.ToString(), JsonRequestBehavior.AllowGet);
             }
-            
         }
 
-        public static async Task<Response> Execute(string name, string email, string phone, string message)
-        {
-            var apiKey = "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";
-            var client = new SendGridClient(apiKey);
-            var from = new EmailAddress(email, name);
-            var subject = "Contact Us";
-            var to = new EmailAddress("bethuelinfo@gmail.com", "Administrator");
-            var plainTextContent = message + ". My phone number is " + phone;
-            var htmlContent = "";
-            var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
-            var response = await client.SendEmailAsync(msg);
-            return response;
-        }
-
+       
         [HttpPost]
         public ActionResult LogOut()
         {
