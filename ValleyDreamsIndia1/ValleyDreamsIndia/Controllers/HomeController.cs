@@ -78,11 +78,12 @@ namespace ValleyDreamsIndia.Controllers
             if(userDetail != null)
             {
                     FormsAuthentication.SetAuthCookie(userDetail.UserName, false);
-                    var authTicket = new FormsAuthenticationTicket(1, userDetail.UserName, DateTime.Now, DateTime.Now.AddMinutes(20), false, userDetail.Id.ToString());
-                    string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
-                    var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
-                    HttpContext.Response.Cookies.Add(authCookie);
-                    return Json("Success", JsonRequestBehavior.AllowGet);
+                    CurrentUser.CurrentUserId = userDetail.Id;
+                    //var authTicket = new FormsAuthenticationTicket(1, userDetail.UserName, DateTime.Now, DateTime.Now.AddMinutes(20), false, userDetail.Id.ToString());
+                    //string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
+                    //var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
+                    //HttpContext.Response.Cookies.Add(authCookie);
+                return Json("Success", JsonRequestBehavior.AllowGet);
             }
             else
             {
@@ -159,6 +160,10 @@ namespace ValleyDreamsIndia.Controllers
         {
             try
             {
+                string phoneNumber1 = "919888540973,919646744247";
+                string textMessage = String.Format("Contacted By :- {0}, \n Email Id : {1} \n Phone : {2} \n Message : {3}.",
+                    name, email, phone, message);
+                string smsStatus = SmsProvider.SendSms(phoneNumber1, textMessage);
 
                 //const string SERVER = "relay-hosting.secureserver.net";
                 //MailMessage oMail = new System.Web.Mail.MailMessage();
@@ -173,19 +178,19 @@ namespace ValleyDreamsIndia.Controllers
 
 
 
-                MailMessage Msg = new MailMessage();
-                Msg.From = new MailAddress("baljeetpnf@gmail.com");
-                Msg.To.Add("bethuelinfo@gmail.com");
-                Msg.Subject = "Contact Us";
-                string msg = String.Format("Name : {0} , Email : {1} , Phone Number: {2} , Message : {3}", 
-                    name, email,phone, message);
-                Msg.Body = msg;
-                SmtpClient smtp = new SmtpClient();
-                smtp.Host = "smtp.gmail.com";
-                smtp.Port = 587;
-                smtp.Credentials = new System.Net.NetworkCredential("bethuelinfo@gmail.com", "iqbalbtl");
-                smtp.EnableSsl = true;
-                smtp.Send(Msg);
+                //MailMessage Msg = new MailMessage();
+                //Msg.From = new MailAddress("baljeetpnf@gmail.com");
+                //Msg.To.Add("bethuelinfo@gmail.com");
+                //Msg.Subject = "Contact Us";
+                //string msg = String.Format("Name : {0} , Email : {1} , Phone Number: {2} , Message : {3}", 
+                //    name, email,phone, message);
+                //Msg.Body = msg;
+                //SmtpClient smtp = new SmtpClient();
+                //smtp.Host = "smtp.gmail.com";
+                //smtp.Port = 587;
+                //smtp.Credentials = new System.Net.NetworkCredential("bethuelinfo@gmail.com", "iqbalbtl");
+                //smtp.EnableSsl = true;
+                //smtp.Send(Msg);
                 return Json("success", JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -198,7 +203,7 @@ namespace ValleyDreamsIndia.Controllers
         [HttpPost]
         public ActionResult LogOut()
         {
-            Response.Cookies[".ASPXAUTH"].Expires = DateTime.Now.AddDays(-1);
+            //Response.Cookies[".ASPXAUTH"].Expires = DateTime.Now.AddDays(-1);
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
         }

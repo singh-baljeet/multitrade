@@ -308,13 +308,14 @@
                 <div class="form" id="loginform">
                     @using (Html.BeginForm("Login", "Home", FormMethod.Post, new { id = "loginForm" }))
                     {
-                        @Html.TextBox("Username",null, htmlAttributes: new { @id = "loginusername", placeholder = "Username" })
-                        @Html.Password("Password", null, htmlAttributes: new { @id = "loginpassword", placeholder = "Password" })
+                        @Html.TextBox("Username",null, htmlAttributes: new { @id = "loginusername", placeholder = "Username" , required="required" })
+                        @Html.Password("Password", null, htmlAttributes: new { @id = "loginpassword", placeholder = "Password", required = "required" })
 
-                       <button type="button" class="btn btn-primary loginsubmit">
-                           <a href="#" class="loginsubmit" style="color:#fff;">Login</a>
-                            @*@Html.ActionLink("Login", "", null, new { @id = "loginsubmit" ,style = "color:#fff;"})*@
+                        <button type="button" id="loginsubmit"
+                                class="btn btn-primary ">
+                            Login
                         </button>
+                        
 						
                             <p style="color: red;font-size: 15px;"margin-top:10px;" id="loginptag">
                             </p>
@@ -331,8 +332,7 @@
                         @Html.TextBox("username", null, htmlAttributes: new { @id = "forgetusername", placeholder = "Username" })
                         @Html.TextBox("mobilenumber", null, htmlAttributes: new { @id = "forgetmobilenumber",  placeholder = "Mobile Number" })
 
-                        <button type="button" class="btn btn-primary forgetpasswordsubmit" >
-                                <a href="#" class="forgetpasswordsubmit" style="color:#fff;">Recover</a>
+                        <button type="button" class="btn btn-primary" id="forgetpasswordsubmit" >Recover
                         </button>
 
                             <p style="color: red;font-size: 15px;" margin-top:10px;"  id="forgetptag">
@@ -570,7 +570,21 @@
                                 </ul>
                             </div>
                         </div>
-
+						
+						<div class="team-member">
+                            <img src="~/Content/EndUser/images/team/manage-5.png" class="img-responsive" alt="">
+                            <div class="team-details">
+                                <h3>Gulshan Kumar</h3>
+                                <h4>Trainer</h4>
+                                <ul>
+                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
                         
 
                     </div>

@@ -245,3 +245,4 @@ E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\obj\Debug\ValleyDreamsIndia.p
 E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\bin\SendGrid.dll
 E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\bin\SendGrid.pdb
 E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\bin\SendGrid.xml
+E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\obj\Debug\ValleyDreamsIndia.csprojResolveAssemblyReference.cache

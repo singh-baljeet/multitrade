@@ -212,7 +212,7 @@
             }
         });
 
-        document.getElementById('forgetmobilenumber').addEventListener('keypress', function (event) {
+    document.getElementById('forgetmobilenumber').addEventListener('keypress', function (event) {
             if (event.keyCode == 13) {
                 var forgetusername = $('#forgetusername').val();
                 var forgetmobilenumber = $('#forgetmobilenumber').val();
@@ -232,6 +232,48 @@
             }
         });
 
+    document.getElementById('loginsubmit').addEventListener('click', function (event) {
+            debugger;
+            var loginusername = $('#loginusername').val();
+            var loginpassword = $('#loginpassword').val();
+
+            $.ajax({
+                url: '/Home/Login',
+                data: { 'Username': loginusername, 'Password': loginpassword },
+                type: "post",
+                success: function (response) {
+                    response = response.replace(/\"/g, "")
+                    if (response != "Success") {
+                        $("#loginptag").text(response);
+                    }
+                    else {
+                        window.location.href = "/Dashboard/Index";
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    $('#loginptag').text("Error while login.");
+                }
+            });
+        });
+
+    document.getElementById('forgetpasswordsubmit').addEventListener('click',function (event) {
+        var forgetusername = $('#forgetusername').val();
+        var forgetmobilenumber = $('#forgetmobilenumber').val();
+
+        $.ajax({
+            url: '/Home/ForgotPassword',
+            data: { 'username': forgetusername, 'mobilenumber': forgetmobilenumber },
+            type: "post",
+            success: function (response) {
+                response = response.replace(/\"/g, "")
+                $("#forgetptag").text(response);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                $('#forgetptag').text("Error while recover password.");
+            }
+        });
+    })
+
 		
         $(function () {
             $("#submit").click(function () {
@@ -239,53 +281,7 @@
                 return false;
             });
 
-            $('.loginsubmit').click(function () {
-                var loginusername = $('#loginusername').val();
-                var loginpassword = $('#loginpassword').val();
-
-                $.ajax({
-                    url: '/Home/Login',
-                    data: { 'Username': loginusername, 'Password': loginpassword },
-                    type: "post",
-                    success: function (response) {
-                        response = response.replace(/\"/g, "")
-                        if (response != "Success") {
-                            $("#loginptag").text(response);
-                        }
-                        else {
-                            window.location.href = "/Dashboard/Index";
-                        }
-                    },
-                    error: function (xhr, ajaxOptions, thrownError) {
-                        $('#loginptag').text("Error while login.");
-                    }
-                });
-            })
-
-
-
-            $('.forgetpasswordsubmit').click(function () {
-                var forgetusername = $('#forgetusername').val();
-                var forgetmobilenumber = $('#forgetmobilenumber').val();
-
-                $.ajax({
-                    url: '/Home/ForgotPassword',
-                    data: { 'username': forgetusername, 'mobilenumber': forgetmobilenumber },
-                    type: "post",
-                    success: function (response) {
-                        response = response.replace(/\"/g, "")
-                            $("#forgetptag").text(response);
-                    },
-                    error: function (xhr, ajaxOptions, thrownError) {
-                        $('#forgetptag').text("Error while recover password.");
-                    }
-                });
-            })
-
-            
-
-
-
+         
             $('#openForgetForm').click(function () {
                 $("#loginform").css('display', 'none');
                 $('#forgetform').css('display', 'block');
@@ -295,8 +291,6 @@
                 $("#forgetform").css('display', 'none');
                 $('#loginform').css('display', 'block');
             })
-
-
 
             $('#btnSendMessage').click(function () {
                 var name = $('#name').val();
