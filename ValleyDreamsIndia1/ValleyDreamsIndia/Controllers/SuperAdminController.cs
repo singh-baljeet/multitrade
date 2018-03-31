@@ -43,11 +43,12 @@ namespace ValleyDreamsIndia.Controllers
             if (usrDetail != null)
             {
                 FormsAuthentication.SetAuthCookie(usrDetail.UserName, false);
-                var authTicket = new FormsAuthenticationTicket(1, usrDetail.UserName, DateTime.Now
-                    , DateTime.Now.AddMinutes(20), false, usrDetail.Id.ToString());
-                string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
-                var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
-                HttpContext.Response.Cookies.Add(authCookie);
+                CurrentUser.CurrentUserId = usrDetail.Id;
+                //var authTicket = new FormsAuthenticationTicket(1, usrDetail.UserName, DateTime.Now
+                //    , DateTime.Now.AddMinutes(20), false, usrDetail.Id.ToString());
+                //string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
+                //var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
+                //HttpContext.Response.Cookies.Add(authCookie);
                 return RedirectToAction("Dashboard", "SuperAdmin");
             }
             else
