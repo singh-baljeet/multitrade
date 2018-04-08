@@ -14,9 +14,27 @@ namespace ValleyDreamsIndia.Controllers.Members
     public class DashboardController : Controller
     {
         ValleyDreamsIndiaDBEntities _valleyDreamsIndiaDBEntities = null;
+        Dictionary<string, int> pairDic = new Dictionary<string, int>();
+
         public DashboardController()
         {
             _valleyDreamsIndiaDBEntities = new ValleyDreamsIndiaDBEntities();
+            pairDic = new Dictionary<string, int>()
+            {
+                { "2",1500 },
+                {"16",5000 },
+                {"38",27000 },
+                {"129",55000 },
+                {"500",100000 },
+                {"1020",250000 },
+                { "2040",700000 },
+                {"3200",900000 },
+                {"10000",1500000 },
+                {"25000",2500000 },
+                {"51000",4000000 },
+                {"110000",7000000 },
+                {"215000",10000000 }
+            };
         }
 
         [CustomAuthorize]
@@ -47,6 +65,29 @@ namespace ValleyDreamsIndia.Controllers.Members
 
             ViewBag.LeftTeam = countLeftTeam;
             ViewBag.RightTeam = countRightTeam;
+
+
+            var countPairs = _valleyDreamsIndiaDBEntities.MemberRewardDetails.Where(x => x.UserDetailsId == CurrentUser.CurrentUserId).ToList();
+
+            string achievedPairs = "";
+            foreach(var pair in countPairs)
+            {
+                achievedPairs += pair.Pairs + ";";
+            }
+
+            achievedPairs = achievedPairs.Substring(0, achievedPairs.Length - 1);
+
+            int totalIncome = 0;
+
+            foreach(var dic in pairDic)
+            {
+                if (achievedPairs.Contains(dic.Key))
+                {
+                    totalIncome += dic.Value; 
+                }
+            }
+
+            ViewBag.TotalIncome = totalIncome;
 
             ViewBag.MyTeam = Convert.ToInt32(ViewBag.LeftTeam) + Convert.ToInt32(ViewBag.RightTeam);
 
