@@ -258,9 +258,9 @@
             })
 
 
-            $("#memberid").bind('blur', function (e) {
-                if (e.type === 'blur') {
-                    var memberId = $(this).val();
+            $("#checkStatus").bind('click', function (e) {
+                if (e.type === 'click') {
+                    var memberId = $("#memberid").val();
                     $.ajax({
                         url: '/SuperAdmin/GetMemberDetailsById?memberId=' + memberId,
                         dataType: "json",

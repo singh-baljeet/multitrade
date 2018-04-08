@@ -140,7 +140,10 @@
                             <tr>
                                 <th>Member Id</th>
                                 <th>
-                                    @Html.TextBox("memberid", null, new { htmlAttributes = new { @id = "txtMemberId" } })
+                                    @Html.TextBox("memberid", null, 
+                                   new { htmlAttributes = new { @id = "txtMemberId" } })
+
+                                    <span><input type="button" class="btn btn-primary" value="Check Status" id="checkStatus" /></span>
                                 </th>
                             </tr>
                             <tr>
