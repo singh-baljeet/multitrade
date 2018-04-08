@@ -160,25 +160,27 @@
         var i = 1;
         foreach (var achiever in Model)
         {
-            <div class="section-modal modal fade" id="portfolio-modal_@i" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
+            <div class="section-modal modal fade" id="portfolio-modal_@i" tabindex="-1" role="dialog" aria-hidden="true" style="overflow-y:hidden;">
+        <div class="modal-content" >
             <div class="close-modal" data-dismiss="modal">
                 <div class="lr">
                     <div class="rl">
                     </div>
                 </div>
             </div>
-            <div class="container">
+            <div class="container" >
                 <div class="row">
-                    <div class="section-title text-center">
+                    <div class="col-md-3">
+                        <div class="section-title text-center">
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12" style="border:1px solid #666;">
-                        <img src="@achiever.AchieverImage" class="img-responsive" alt="..">
-                    </div>
+                    <div class="col-md-9">
+                        <div class="col-md-9" style="border:1px solid #666;height:500px;width:auto">
+                            <img src="@achiever.AchieverImage" class="img-responsive" alt=".." style="height:500px;width:auto;">
+                        </div>
 
-                </div><!-- /.row -->
+                    </div><!-- /.row -->
+                </div>
             </div>
         </div>
     </div>
