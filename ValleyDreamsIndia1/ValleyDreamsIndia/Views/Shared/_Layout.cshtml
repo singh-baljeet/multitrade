@@ -297,6 +297,55 @@
                 var email = $('#email').val();
                 var phone = $('#phone').val();
                 var message = $('#message').val();
+
+                var errorArray = [];
+
+                if(!(name.length > 0))
+                {
+                    $("#nameRequired").text("Please enter your name.");
+                    errorArray.push(1);
+                }
+                else
+                {
+                    $("#nameRequired").text("");
+                    errorArray.push(0);
+                }
+
+
+                if (!(email.length > 0)) {
+                    $("#emailRequired").text("Please enter your email.");
+                    errorArray.push(1);
+                }
+                else {
+                    $("#emailRequired").text("");
+                    errorArray.push(0);
+                }
+
+
+                if (!(phone.length > 0)) {
+                    $("#phoneRequired").text("Please enter your phone.");
+                    errorArray.push(1);
+                }
+                else {
+                    $("#phoneRequired").text("");
+                    errorArray.push(0);
+                }
+
+
+                if (!(message.length > 0)) {
+                    $("#messageRequired").text("Please enter your message.");
+                    errorArray.push(1);
+                }
+                else {
+                    $("#messageRequired").text("");
+                    errorArray.push(0);
+                }
+
+                if(errorArray.indexOf(1) != -1)
+                {
+                    return false;
+                }
+                
                 $.ajax({
                     url: '/Home/ContactUs',
                     data: { 'name': name, 'email': email, 'phone': phone, 'message': message },
