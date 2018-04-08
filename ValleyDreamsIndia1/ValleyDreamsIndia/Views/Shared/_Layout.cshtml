@@ -184,13 +184,48 @@
     <!-- Custom Theme JavaScript -->
     <script src="~/Content/EndUser/js/script.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.0/dist/loadingoverlay.min.js"></script>
+
+
     <script type="text/javascript">
-	
+
 	document.getElementById('loginpassword').addEventListener('keypress', function (event) {
-            if (event.keyCode == 13) {
+	    if (event.keyCode == 13) {
+
+	            $('#loginptag').text("");
+                $.LoadingOverlay("show");
+                var button = $(this);
+                button.prop('disabled', true);
+
 
                 var loginusername = $('#loginusername').val();
                 var loginpassword = $('#loginpassword').val();
+
+                var errorArray = [];
+
+                if (!(loginusername.length > 0)) {
+                    $("#usernameRequired").css('display', 'block');
+                    errorArray.push(1);
+                }
+                else {
+                    $("#usernameRequired").css('display', 'none');
+                    errorArray.push(0);
+                }
+
+                if (!(loginpassword.length > 0)) {
+                    $("#passwordRequired").css('display', 'block');
+                    errorArray.push(1);
+                }
+                else {
+                    $("#passwordRequired").css('display', 'none');
+                    errorArray.push(0);
+                }
+
+                if (errorArray.indexOf(1) != -1) {
+                    $.LoadingOverlay("hide");
+                    button.prop('disabled', false);
+                    return false;
+                }
 
                 $.ajax({
                     url: '/Home/Login',
@@ -199,13 +234,16 @@
                     success: function (response) {
                         response = response.replace(/\"/g, "")
                         if (response != "Success") {
-                            $("#loginptag").text(response);
+                            $.LoadingOverlay("hide");
+                            button.prop('disabled', false);
+                            $("#loginptag").text("Username or password is incorrect");
                         }
                         else {
                             window.location.href = "/Dashboard/Index";
                         }
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
+                        button.prop('disabled', false);
                         $('#loginptag').text("Error while login.");
                     }
                 });
@@ -213,9 +251,41 @@
         });
 
     document.getElementById('forgetmobilenumber').addEventListener('keypress', function (event) {
-            if (event.keyCode == 13) {
+        if (event.keyCode == 13) {
+                $("#forgetptag").text("");
+                $.LoadingOverlay("show");
+                var button = $(this);
+                button.prop('disabled', true);
+
+
                 var forgetusername = $('#forgetusername').val();
                 var forgetmobilenumber = $('#forgetmobilenumber').val();
+
+                var errorArray = [];
+
+                if (!(forgetusername.length > 0)) {
+                    $("#forgetusernameRequired").css('display', 'block');
+                    errorArray.push(1);
+                }
+                else {
+                    $("#forgetusernameRequired").css('display', 'none');
+                    errorArray.push(0);
+                }
+
+                if (!(forgetmobilenumber.length > 0)) {
+                    $("#forgetmobRequired").css('display', 'block');
+                    errorArray.push(1);
+                }
+                else {
+                    $("#forgetmobRequired").css('display', 'none');
+                    errorArray.push(0);
+                }
+
+                if (errorArray.indexOf(1) != -1) {
+                    $.LoadingOverlay("hide");
+                    button.prop('disabled', false);
+                    return false;
+                }
 
                 $.ajax({
                     url: '/Home/ForgotPassword',
@@ -223,9 +293,12 @@
                     type: "post",
                     success: function (response) {
                         response = response.replace(/\"/g, "")
-                        $("#forgetptag").text(response);
+                        $.LoadingOverlay("hide");
+                        button.prop('disabled', false);
+                        $("#forgetptag").text("Username or Mobile No is incorrect");
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
+                        button.prop('disabled', false);
                         $('#forgetptag').text("Error while recover password.");
                     }
                 });
@@ -233,9 +306,40 @@
         });
 
     document.getElementById('loginsubmit').addEventListener('click', function (event) {
-            debugger;
+
+            $('#loginptag').text("");
+            $.LoadingOverlay("show");
+            var button = $(this);
+            button.prop('disabled', true);
+
             var loginusername = $('#loginusername').val();
             var loginpassword = $('#loginpassword').val();
+
+            var errorArray = [];
+
+            if (!(loginusername.length > 0)) {
+                $("#usernameRequired").css('display','block');
+                errorArray.push(1);
+            }
+            else {
+                $("#usernameRequired").css('display', 'none');
+                errorArray.push(0);
+            }
+
+            if (!(loginpassword.length > 0)) {
+                $("#passwordRequired").css('display', 'block');
+                errorArray.push(1);
+            }
+            else {
+                $("#passwordRequired").css('display', 'none');
+                errorArray.push(0);
+            }
+
+            if (errorArray.indexOf(1) != -1) {
+                $.LoadingOverlay("hide");
+                button.prop('disabled', false);
+                return false;
+            }
 
             $.ajax({
                 url: '/Home/Login',
@@ -244,21 +348,58 @@
                 success: function (response) {
                     response = response.replace(/\"/g, "")
                     if (response != "Success") {
-                        $("#loginptag").text(response);
+                        $.LoadingOverlay("hide");
+                        button.prop('disabled', false);
+                        $("#loginptag").text("Username or password is incorrect");
                     }
                     else {
                         window.location.href = "/Dashboard/Index";
                     }
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
+                    button.prop('disabled', false);
                     $('#loginptag').text("Error while login.");
                 }
             });
         });
 
-    document.getElementById('forgetpasswordsubmit').addEventListener('click',function (event) {
+    document.getElementById('forgetpasswordsubmit').addEventListener('click', function (event) {
+
+        $("#forgetptag").text("");
+        $.LoadingOverlay("show");
+        var button = $(this);
+        button.prop('disabled', true);
+
+
         var forgetusername = $('#forgetusername').val();
         var forgetmobilenumber = $('#forgetmobilenumber').val();
+
+        var errorArray = [];
+
+        if (!(forgetusername.length > 0)) {
+            $("#forgetusernameRequired").css('display', 'block');
+            errorArray.push(1);
+        }
+        else {
+            $("#forgetusernameRequired").css('display', 'none');
+            errorArray.push(0);
+        }
+
+        if (!(forgetmobilenumber.length > 0)) {
+            $("#forgetmobRequired").css('display', 'block');
+            errorArray.push(1);
+        }
+        else {
+            $("#forgetmobRequired").css('display', 'none');
+            errorArray.push(0);
+        }
+
+        if (errorArray.indexOf(1) != -1) {
+            $.LoadingOverlay("hide");
+            button.prop('disabled', false);
+            return false;
+        }
+
 
         $.ajax({
             url: '/Home/ForgotPassword',
@@ -266,22 +407,25 @@
             type: "post",
             success: function (response) {
                 response = response.replace(/\"/g, "")
-                $("#forgetptag").text(response);
+                $.LoadingOverlay("hide");
+                button.prop('disabled', false);
+                $("#forgetptag").text("Username or Mobile No is incorrect");
             },
             error: function (xhr, ajaxOptions, thrownError) {
+                button.prop('disabled', false);
                 $('#forgetptag').text("Error while recover password.");
             }
         });
     })
 
-		
+
         $(function () {
             $("#submit").click(function () {
                 document.forms[0].submit();
                 return false;
             });
 
-         
+
             $('#openForgetForm').click(function () {
                 $("#loginform").css('display', 'none');
                 $('#forgetform').css('display', 'block');
@@ -345,7 +489,7 @@
                 {
                     return false;
                 }
-                
+
                 $.ajax({
                     url: '/Home/ContactUs',
                     data: { 'name': name, 'email': email, 'phone': phone, 'message': message },
@@ -381,7 +525,7 @@
                     }
                 });
             })
-    
+
         });
     </script>
 </body>

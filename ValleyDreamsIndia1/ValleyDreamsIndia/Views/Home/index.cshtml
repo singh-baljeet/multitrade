@@ -309,15 +309,21 @@
                     @using (Html.BeginForm("Login", "Home", FormMethod.Post, new { id = "loginForm" }))
                     {
                         @Html.TextBox("Username",null, htmlAttributes: new { @id = "loginusername", placeholder = "Username" , required="required" })
-                        @Html.Password("Password", null, htmlAttributes: new { @id = "loginpassword", placeholder = "Password", required = "required" })
+                        <p style="color: red;font-size: 15px;margin-top:5px;display:none;" id="usernameRequired">
+                            Please enter username
+                        </p>
 
+                        @Html.Password("Password", null, htmlAttributes: new { @id = "loginpassword", placeholder = "Password", required = "required" })
+                        <p style="color: red;font-size: 15px;margin-top:5px;display:none;" id="passwordRequired">
+                            Please enter password
+                        </p>
                         <button type="button" id="loginsubmit"
                                 class="btn btn-primary ">
                             Login
                         </button>
                         
 						
-                            <p style="color: red;font-size: 15px;"margin-top:10px;" id="loginptag">
+                            <p style="color: red;font-size: 15px;margin-top:5px;" id="loginptag">
                             </p>
 
                         <p style="margin-top:20px;">
@@ -330,7 +336,15 @@
                     @using (Html.BeginForm("ForgotPassword", "Home", FormMethod.Post, new { id = "forgetForm" }))
                     {
                         @Html.TextBox("username", null, htmlAttributes: new { @id = "forgetusername", placeholder = "Username" })
+                        <p style="color: red;font-size: 15px;margin-top:5px;display:none;" id="forgetusernameRequired">
+                            Please enter username
+                        </p>
+
                         @Html.TextBox("mobilenumber", null, htmlAttributes: new { @id = "forgetmobilenumber",  placeholder = "Mobile Number" })
+                        <p style="color: red;font-size: 15px;margin-top:5px;display:none;" id="forgetmobRequired">
+                            Please enter mobile number
+                        </p>
+
 
                         <button type="button" class="btn btn-primary" id="forgetpasswordsubmit" >Recover
                         </button>
