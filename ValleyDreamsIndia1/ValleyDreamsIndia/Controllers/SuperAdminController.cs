@@ -1907,7 +1907,7 @@ namespace ValleyDreamsIndia.Controllers
         {
             Response.Cookies[".ASPXAUTH"].Expires = DateTime.Now.AddDays(-1);
             FormsAuthentication.SignOut();
-            return RedirectToAction("Login", "SuperAdmin");
+            return RedirectToAction("Index", "Home");
         }
     }
 }
