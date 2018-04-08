@@ -54,7 +54,7 @@
 
                 <div class="dashboard_report first activeState">
                     <div class="pad">
-                        <span class="value">@ViewBag.Sponsor</span>My Sponser
+                        <span class="value"><span style="font-size:18px;">@Convert.ToDateTime(ViewBag.DOJ).ToString("dd/MM/yyyy")</span></span>Joining Date
                     </div> <!-- .pad -->
                 </div>
 
@@ -72,7 +72,7 @@
 
 
 
-                <div class="dashboard_report first activeState">
+                @*<div class="dashboard_report first activeState">
                     <div class="pad">
                         <span class="value">@ViewBag.NewPins</span>New Pins
                     </div><!-- .pad -->
@@ -95,7 +95,7 @@
                     <div class="pad">
                         <span class="value">0</span>My Income
                     </div> <!-- .pad -->
-                </div>
+                </div>*@
 
 
 
