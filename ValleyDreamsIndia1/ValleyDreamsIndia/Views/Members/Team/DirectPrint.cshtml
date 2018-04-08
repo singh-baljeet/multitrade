@@ -49,40 +49,16 @@
                                                 @Convert.ToDateTime(item.JoinedOn).ToString("dd/MM/yyyy")
                                             </td>
                                             <td>@item.PhoneNumber1</td>
+                                            <td>@item.UsersDetail.UsersDetail1.UserName</td>
                                             <td>
-                                            @if (item.UsersDetail.UsersDetail1 != null)
-                                            {
-                                                @item.UsersDetail.UsersDetail1.UserName
-                                            }
-                                            else
-                                            {
-                                                <span>NA</span>
-                                            }
-                                            </td>
-                                            <td>
-                                                @if (item.UsersDetail.ContributionDetails.Count > 0)
-                                                {
-                                                    @Convert.ToInt32(item.UsersDetail.ContributionDetails
+                                                @Convert.ToInt32(item.UsersDetail.ContributionDetails
                                             .Where(x => x.UserDetailsId == item.UsersDetail.Id)
                                         .OrderByDescending(y => y.ContribDate).FirstOrDefault().ContribNumber)
-                                                }
-                                                else
-                                                {
-                                                    <span>NA</span>
-                                                }
-
                                             </td>
                                             <td>
-                                                @if (item.UsersDetail.ContributionDetails.Count > 0)
-                                                {
-                                                    @Convert.ToDateTime(item.UsersDetail.ContributionDetails
-                                                  .Where(x => x.UserDetailsId == item.UsersDetail.Id)
-                                                  .OrderByDescending(y => y.ContribDate).FirstOrDefault().ContribDate).ToString("dd/MM/yyyy")
-                                                }
-                                                else
-                                                {
-                                                    <span>NA</span>
-                                                }
+                                                @Convert.ToDateTime(item.UsersDetail.ContributionDetails
+                                       .Where(x => x.UserDetailsId == item.UsersDetail.Id)
+                                       .OrderByDescending(y => y.ContribDate).FirstOrDefault().ContribDate).ToString("dd/MM/yyyy")
                                             </td>
                                         </tr>
                                         i = i + 1;

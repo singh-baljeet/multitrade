@@ -181,7 +181,7 @@ body {
 	}
 	
 		#header h1 a { display: block; }
-		
+
 		
 	#header #reveal-nav {
 		background: black;
@@ -4708,9 +4708,8 @@ body.error-page {
 	
 	height: 40px;
 	line-height: 40px;
-	
 	border-bottom: 1px solid #D5D5D5;
-	
+	width:100%;	
 	position: relative;
 	
 	-webkit-border-top-left-radius: 4px;

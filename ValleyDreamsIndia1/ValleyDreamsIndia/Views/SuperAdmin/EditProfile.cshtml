@@ -98,28 +98,28 @@
                             <tr>
                                 <th>First Name</th>
                                 <th>
-                                    @Html.TextBoxFor(m => m.PersonalDetails.FirstName, new { placeholder = "Enter First Name" })
+                                    @Model.PersonalDetails.FirstName
                                 </th>
                             </tr>
 
                             <tr>
                                 <th>Last Name</th>
                                 <th>
-                                    @Html.TextBoxFor(m => m.PersonalDetails.LastName, new { placeholder = "Enter Last Name" })
+                                    @Model.PersonalDetails.LastName
                                 </th>
                             </tr>
 
                             <tr>
                                 <th>Guardians</th>
                                 <th>
-                                    @Html.TextBoxFor(m => m.PersonalDetails.FatherName, new { placeholder = "Enter Guardians Name" })
+                                    @Model.PersonalDetails.FatherName
                                 </th>
                             </tr>
 
                             <tr>
                                 <th>Contact</th>
                                 <th>
-                                    @Html.TextBoxFor(m => m.PersonalDetails.PhoneNumber1, new { placeholder = "Enter Contact No." })
+                                    @Model.PersonalDetails.PhoneNumber1
                                 </th>
 
                             </tr>
@@ -187,7 +187,8 @@
                             <tr>
                                 <th style="vertical-align:middle;">Address</th>
                                 <th>
-                                    @Html.TextAreaFor(m => m.PersonalDetails.Address, new { placeholder = "Enter Address" })
+
+                                   @Model.PersonalDetails.Address
                                 </th>
 
                             </tr>
@@ -360,9 +361,7 @@
     <p align="center">
         <span>  <button class="btn btn-large btn-blue">Update</button>         </span>
 
-        <span style="margin-left:10px;">  
-        <button class="btn btn-large btn-gray reset" >
-            Cancel</button></span>
+        <span style="margin-left:10px;">  <button class="btn btn-large btn-gray">Cancel</button></span>
 
     </p>
 }

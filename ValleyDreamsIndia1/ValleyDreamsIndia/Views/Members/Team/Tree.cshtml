@@ -24,7 +24,7 @@
                                     <tr>
                                         <th>User Id</th>
                                         <th>
-                                            @Html.TextBox("userId", null, new { placeholder= "Enter User Id", required= "required" })
+                                            @Html.TextBox("userId", null, new { placeholder= "Enter User Id" , required="required" })
                                         </th>
                                     </tr>
                                 </thead>
@@ -35,8 +35,8 @@
                                 <input type="submit" class="btn btn-large btn-blue" value="Search" />
                              </span>
 
-                            <span style="margin-left:10px;"> 
-                             <button class="btn btn-large btn-gray" onclick="return treeCancelButton()">Cancel</button></span>
+                            <span style="margin-left:10px;">  
+							<button class="btn btn-large btn-gray" onclick="return treeCancelButton()">Cancel</button></span>
                         </p>
             }
 
@@ -125,7 +125,7 @@
     </div>
 
     <div class="grid-24">
-        <div class="widget widget-table">
+        <div class="widget widget-table" style="overflow:auto">
 
             <div class="widget-header">
                 <span class="icon-compass"></span>
@@ -134,46 +134,47 @@
 
 
             <div class="widget-content">
-                <center>
-                    <table >
+				<center>
+                   <table>
                         <tbody>
                             <tr>
                                 <th></th>
                                 <th></th>
-                                <th></th>
+								<th></th>
                                 <th>
                                     
                                     @if (Model.Detail != null)
                                     {
-                                        <p align="center" style="margin-right:10px;">
+                                        <div align="center" style="margin-right:10px;">
                                             <img src="~/Content/images/stream/defaultavatar_sm.png" />
-                                        </p>
-                                        <p align="center">
+                                        </div>
+										
+                                        <span align="center">
                                                 @Model.Detail.Name <br /> 
-                                            <span>User ID :</span>@Model.Detail.UserName <br />
-                                            <span>Sponser ID :</span>@Model.Detail.SponsorName
-                                        </p>
-                                        <p align="center">
-                                            <button class="btn btn-primary explore" 
-                                                    userId="@Model.Detail.UserName">
+                                            <span>User: </span>@Model.Detail.UserName<br />
+                                            <span>Sponser:</span>@Model.Detail.SponsorName<br/>
+                                        </span>
+										
+                                        <span align="center">
+                                            <button class="btn btn-primary explore" userId="@Model.Detail.UserName">
                                             <span class="icon-loop"></span>Explore</button>
-                                        </p>
+                                        </span>
                                     }
                                     else
                                     {
-                                        <p align="center" style="margin-right:10px;">
+                                        <div align="center" style="margin-right:10px;">
                                             <img src="~/Content/images/stream/defaultavatar_sm.png" />
-                                        </p>
-                                        <p align="center">
+                                        </div>
+                                        <div align="center">
                                             <button class="btn btn-primary">
                                                 <span class="icon-loop"></span>Explore
                                             </button>
-                                        </p>
+                                        </div>
                                     }
                                 </th>
                                 <th></th>
-                                <th></th>
-                                <th></th>
+	                            <th></th>
+	                            <th></th>
                             </tr>
                             <tr>
                                 <th></th>
@@ -188,8 +189,8 @@
                                                 <br>
                                                 <span align="center">
                                                     @Model.LeftChildren.Detail.Name <br />
-                                                    <span>User ID :</span>@Model.LeftChildren.Detail.UserName <br />
-                                                    <span>Sponser ID :</span>@Model.LeftChildren.Detail.SponsorName <br />
+                                                    <span>User: </span>@Model.LeftChildren.Detail.UserName <br />
+                                                    <span>Sponser:  </span>@Model.LeftChildren.Detail.SponsorName<br />
                                                 </span>
                                                 <button style="margin-left:5px;" class="btn btn-primary explore " 
                                                         userId="@Model.LeftChildren.Detail.UserName">
@@ -208,8 +209,8 @@
                                     </div>
                                 </th>
                                 <th></th>
-                                <th></th>
-                                <th></th>
+	                            <th></th>
+	                            <th></th>
                                 <th>
                                     <div style="float:right;">
                                         
@@ -221,9 +222,9 @@
                                                 <br>
                                                 <span style="text-align:center">
                                                     @Model.RightChildren.Detail.Name <br />
-                                                <span>User ID :</span>
+                                                <span>User: </span>
                                                 @Model.RightChildren.Detail.UserName <br />
-                                                <span>Sponser ID :</span>
+                                                <span>Sponser: </span>
                                                 @Model.RightChildren.Detail.SponsorName  <br />
                                                 </span>
                                                 <button style="margin-left:5px;" class="btn btn-primary explore" 
@@ -258,9 +259,9 @@
                                                     <br>
                                                     <span align="center">
                                                         @Model.LeftChildren.LeftSubChildren.Name <br />
-                                                     <span>User ID :</span>
+                                                     <span>User: </span>
                                                         @Model.LeftChildren.LeftSubChildren.UserName <br />
-                                                     <span>Sponser ID :</span>                                   
+                                                     <span>Sponser: </span>                                   
                                                         @Model.LeftChildren.LeftSubChildren.SponsorName <br />
                                                     </span>
                                                     <button style="margin-left:5px;" class="btn btn-primary explore"
@@ -303,9 +304,9 @@
                                                     <br>
                                                     <span style="text-align:center">
                                                         @Model.LeftChildren.RightSubChildren.Name <br />
-                                                    <span>User ID :</span>                                                       
+                                                    <span>User: </span>                                                       
                                                         @Model.LeftChildren.RightSubChildren.UserName <br />
-                                                    <span>Sponser ID :</span>                                    
+                                                    <span>Sponser: </span>                                    
                                                         @Model.LeftChildren.RightSubChildren.SponsorName  <br />
                                                     </span>
                                                     <button style="margin-left:5px;" class="btn btn-primary explore" 
@@ -347,9 +348,9 @@
                                                     <br>
                                                     <span align="center">
                                                         @Model.RightChildren.LeftSubChildren.Name <br />
-                                                    <span>User ID :</span>                                                        
+                                                    <span>User: </span>                                                        
                                                         @Model.RightChildren.LeftSubChildren.UserName <br />
-                                                    <span>Sponser ID :</span>                                                        
+                                                    <span>Sponser: </span>                                                        
                                                         @Model.RightChildren.LeftSubChildren.SponsorName <br />
                                                     </span>
                                                     <button style="margin-left:5px;" class="btn btn-primary explore" 
@@ -392,9 +393,9 @@
                                                      <br>
                                                     <span align="center">
                                                         @Model.RightChildren.RightSubChildren.Name <br />
-                                                    <span>User ID :</span>                                                        
+                                                    <span>User: </span>                                                        
                                                         @Model.RightChildren.RightSubChildren.UserName <br />
-                                                    <span>Sponser ID :</span>                                                        
+                                                    <span>Sponser: </span>                                                        
                                                         @Model.RightChildren.RightSubChildren.SponsorName <br />
                                                     </span>
                                                     <button style="margin-left:5px;" class="btn btn-primary explore" 
@@ -428,7 +429,7 @@
 
                         </tbody>
                     </table>
-                </center>
+			  </center>
             </div> <!-- .widget-content -->
 
         </div>

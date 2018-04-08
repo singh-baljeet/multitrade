@@ -145,20 +145,18 @@
                         </tr>
                         <tr>
                             <th>Contribution No.</th>
-                            <th><label id="sOtherContributionNumber"></label></th>
+                            <th>@ViewBag.OtherContributionNumber</th>
                         </tr>
                         <tr>
                             <th>Contribution Date</th>
                             <th>
-                                <label id="sOtherContributionDate"></label>
+                                @ViewBag.OtherContributionDate
                             </th>
                         </tr>
 
                         <tr>
                             <th>Sponser Id</th>
-                            <th>
-                                <label id="sOtherSponsoredId"></label>
-                            </th>
+                            <th>@ViewBag.OtherSponsoredId</th>
                         </tr>
                         <tr>
                             <th>Amount</th>
@@ -167,10 +165,10 @@
                         </tr>
                         <tr>
                             <th>Available Renewal Pins</th>
-                            <th>
-                                <label id="sRenewalPinAvailable"></label>
-                            </th>
+                            <th>@ViewBag.RenewalPinAvailable</th>
                         </tr>
+
+
 
                         <tr>
                             <th>Transaction</th>
@@ -179,19 +177,21 @@
                             </th>
 
                         </tr>
+
+
+
+
                     </thead>
+
+
                 </table>
+
+
             </div> <!-- .widget-content -->
 
             <div style="margin-top:20px; margin-bottom:10px;" align="center">
                 <span><input type="submit" class="btn btn-primary" value="Pay Contribution"/></span>
             </div>
-            <div style="margin-top:20px; margin-bottom:10px;" align="center">
-                <span id="renewalPinStatus"></span>
-            </div>
-
-    
-
 }
         </div> <!-- .widget-content -->
 
