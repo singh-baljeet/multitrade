@@ -11,6 +11,22 @@
             <div class="widget-content">
             
                 <center>
+
+                    <h1>Bethuel Multi Trade Pvt. Ltd.</h1>
+
+                    @if (Convert.ToString(ViewBag.TeamPlacementSidePrint) == "LEFT")
+                    {
+                        <h2>Placement : LEFT</h2>
+                    }
+                    else if (Convert.ToString(ViewBag.TeamPlacementSidePrint) == "RIGHT")
+                    {
+                        <h2>Placement : RIGHT</h2>
+                    }
+                    else
+                    {
+                        <h2>Placement : BOTH (LEFT and RIGHT)</h2>
+                    }
+                    
                     <table class="table table-bordered table-striped data-table" border="1">
                         <thead>
                             <tr>
