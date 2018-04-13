@@ -1265,7 +1265,7 @@ namespace ValleyDreamsIndia.Controllers
         {
             try
             {
-                if(transactionpassword == "" || memberid == "")
+                if(transactionPassword == "" || memberid == "")
                 {
                     return RedirectToAction("RenewalContribution");
                 }

@@ -203,6 +203,7 @@ E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\bin\Microsoft.Owin.Security.T
 E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\bin\Microsoft.Web.Infrastructure.dll
 E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\bin\Newtonsoft.Json.dll
 E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\bin\Owin.dll
+E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\bin\SendGrid.dll
 E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\bin\System.Web.Helpers.dll
 E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\bin\System.Web.Mvc.dll
 E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\bin\System.Web.Optimization.dll
@@ -217,6 +218,9 @@ E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\bin\Microsoft.AI.Web.xml
 E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\bin\Microsoft.AI.WindowsServer.xml
 E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\bin\Microsoft.ApplicationInsights.xml
 E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\bin\Newtonsoft.Json.xml
+E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\bin\SendGrid.pdb
+E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\bin\SendGrid.xml
 E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\bin\System.Web.Helpers.xml
 E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\bin\System.Web.Mvc.xml
 E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\bin\System.Web.Optimization.xml
@@ -225,7 +229,6 @@ E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\bin\System.Web.WebPages.xml
 E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\bin\System.Web.WebPages.Deployment.xml
 E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\bin\System.Web.WebPages.Razor.xml
 E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\bin\Antlr3.Runtime.pdb
-E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\bin\Newtonsoft.Json.xml
 E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\bin\EntityFramework.xml
 E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\bin\EntityFramework.SqlServer.xml
 E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\bin\Microsoft.AspNet.Identity.Core.xml
@@ -242,7 +245,4 @@ E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\bin\Microsoft.Owin.Security.T
 E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\obj\Debug\ValleyDreamsIndia.dll
 E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\obj\Debug\ValleyDreamsIndia.pdb
-E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\bin\SendGrid.dll
-E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\bin\SendGrid.pdb
-E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\bin\SendGrid.xml
 E:\multitrade\ValleyDreamsIndia1\ValleyDreamsIndia\obj\Debug\ValleyDreamsIndia.csprojResolveAssemblyReference.cache

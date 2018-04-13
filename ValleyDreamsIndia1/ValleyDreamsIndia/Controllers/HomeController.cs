@@ -1,7 +1,9 @@
-﻿using SendGrid;
+﻿using Newtonsoft.Json;
+using SendGrid;
 using SendGrid.Helpers.Mail;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -13,6 +15,7 @@ using ValleyDreamsIndia.Common;
 
 namespace ValleyDreamsIndia.Controllers
 {
+
     
     public class HomeController : Controller
     {
@@ -23,10 +26,12 @@ namespace ValleyDreamsIndia.Controllers
             _valleyDreamsIndiaDBEntities = new ValleyDreamsIndiaDBEntities();
         }
 
+
         
         [HttpGet]
         public ActionResult Index()
         {
+            
             ViewBag.ErrorMessage = false;
             ViewBag.SmsStatusMessage = false;
             ViewBag.MobileErrorMessage = false;

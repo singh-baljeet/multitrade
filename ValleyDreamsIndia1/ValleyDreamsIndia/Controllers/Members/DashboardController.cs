@@ -7,9 +7,12 @@ using Microsoft.AspNet.Identity;
 using System.Web.Security;
 using System.Security.Claims;
 using ValleyDreamsIndia.Common;
+using System.Globalization;
+using Newtonsoft.Json;
 
 namespace ValleyDreamsIndia.Controllers.Members
 {
+
     [CustomAuthorize]
     public class DashboardController : Controller
     {
@@ -37,15 +40,58 @@ namespace ValleyDreamsIndia.Controllers.Members
             };
         }
 
+        public JsonResult BarGraph()
+        {
+            var grouped = from p in _valleyDreamsIndiaDBEntities.PersonalDetails.AsEnumerable()
+                          group p by new { month = Convert.ToDateTime(p.JoinedOn).Month, year = Convert.ToDateTime(p.JoinedOn).Year } into d
+                          select new { dt = string.Format("{0}", d.Key.month), count = d.Count() };
+
+
+            RootObject rootObj = new Controllers.Members.RootObject();
+            rootObj.xLabel = "List of Months";
+            rootObj.yLabel = "Member Joined Per Month";
+
+            rootObj.groups = new List<Group>();
+
+            Group grp = new Controllers.Members.Group();
+            grp.values = new List<Value>();
+            grp.label = "Months";
+
+            for(int i = 1; i <= 12; i++)
+            {
+                Value valObj = new Value();
+                valObj.label = CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(i);
+                valObj.value = 0;
+                grp.values.Add(valObj);
+            }
+
+            foreach (var monthValue in grouped)
+            {
+                Value valObj = grp.values.ElementAt(Convert.ToInt32(monthValue.dt) - 1);
+                valObj.label = CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(Convert.ToInt32(monthValue.dt));
+                valObj.value = Convert.ToInt32(monthValue.count);
+            }
+
+            rootObj.groups.Add(grp);
+
+            var monthSerailize = JsonConvert.SerializeObject(rootObj);
+
+            return Json(monthSerailize, JsonRequestBehavior.AllowGet);
+        }
+
+
         [CustomAuthorize]
         [HttpGet]
         public ActionResult Index()
         {
+
+          
+
             var UserDetailsResults = _valleyDreamsIndiaDBEntities.UsersDetails.First(x => x.Id == CurrentUser.CurrentUserId);
             ViewBag.UserName = UserDetailsResults.UserName;
             var PersonalDetails = UserDetailsResults.PersonalDetails.Where(x => x.UsersDetailsId == CurrentUser.CurrentUserId).FirstOrDefault();
             ViewBag.FullName = PersonalDetails.FirstName + " " + PersonalDetails.LastName;
-            ViewBag.Status = (UserDetailsResults.Deleted ==0) ? "Active": "InActive";
+            ViewBag.Status = (UserDetailsResults.Deleted == 0) ? "Active" : "InActive";
             ViewBag.Sponsor = UserDetailsResults.UsersDetail1.UserName;
             ViewBag.DOJ = Convert.ToDateTime(UserDetailsResults.CreatedOn);
 
@@ -70,20 +116,21 @@ namespace ValleyDreamsIndia.Controllers.Members
             var countPairs = _valleyDreamsIndiaDBEntities.MemberRewardDetails.Where(x => x.UserDetailsId == CurrentUser.CurrentUserId).ToList();
 
             string achievedPairs = "";
-            foreach(var pair in countPairs)
+            int totalIncome = 0;
+
+            foreach (var pair in countPairs)
             {
                 achievedPairs += pair.Pairs + ";";
             }
 
-            achievedPairs = achievedPairs.Substring(0, achievedPairs.Length - 1);
-
-            int totalIncome = 0;
-
-            foreach(var dic in pairDic)
-            {
-                if (achievedPairs.Contains(dic.Key))
+            if (achievedPairs.Length > 0) { 
+                achievedPairs = achievedPairs.Substring(0, achievedPairs.Length - 1);
+                foreach (var dic in pairDic)
                 {
-                    totalIncome += dic.Value; 
+                    if (achievedPairs.Contains(dic.Key))
+                    {
+                        totalIncome += dic.Value;
+                    }
                 }
             }
 
@@ -100,4 +147,24 @@ namespace ValleyDreamsIndia.Controllers.Members
             return View("~/Views/Members/Dashboard/Index.cshtml");
         }
     }
+
+    public class Value
+    {
+        public string label { get; set; }
+        public int value { get; set; }
+    }
+
+    public class Group
+    {
+        public string label { get; set; }
+        public List<Value> values { get; set; }
+    }
+
+    public class RootObject
+    {
+        public string xLabel { get; set; }
+        public string yLabel { get; set; }
+        public List<Group> groups { get; set; }
+    }
+
 }
