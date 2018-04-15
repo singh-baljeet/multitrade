@@ -1287,7 +1287,7 @@ namespace ValleyDreamsIndia.Controllers
                     contributionDetails.ContribDate = DateTime.Now;
                     contributionDetails.ContribAmount = 1000;
                     contributionDetails.NextContribNumber = ContributionDetails.NextContribNumber + 1;
-                    contributionDetails.NextContribDate = new DateTime(DateTime.Now.AddMonths(1).Year, DateTime.Now.AddMonths(1).Month, 20);
+                    contributionDetails.NextContribDate = new DateTime(DateTime.Now.AddMonths(Convert.ToInt32(ContributionDetails.NextContribNumber)).Year, DateTime.Now.AddMonths(Convert.ToInt32(ContributionDetails.NextContribNumber)).Month, 20);
                     contributionDetails.RemainingContrib = 15 - ContributionDetails.NextContribNumber;
                     contributionDetails.UserDetailsId = otherMemberUserDetails.Id;
                     contributionDetails.SponsoredId = CurrentUser.CurrentUserId;
@@ -1297,20 +1297,19 @@ namespace ValleyDreamsIndia.Controllers
                     _valleyDreamsIndiaDBEntities.SaveChanges();
 
 
-                    RenewalPinDetail renewalPinDetails = _valleyDreamsIndiaDBEntities.RenewalPinDetails
-                        .Where(x => x.SponsoredId == otherMemberUserDetails.Id && x.IsPinUsed == 0)
-                        .OrderBy(x => x.PinCreatedOn).FirstOrDefault();
+                    //RenewalPinDetail renewalPinDetails = _valleyDreamsIndiaDBEntities.RenewalPinDetails
+                    //    .Where(x => x.SponsoredId == otherMemberUserDetails.Id && x.IsPinUsed == 0)
+                    //    .OrderBy(x => x.PinCreatedOn).FirstOrDefault();
 
-                    renewalPinDetails.IsPinUsed = 1;
-                    _valleyDreamsIndiaDBEntities.Entry(renewalPinDetails).State = System.Data.Entity.EntityState.Modified;
-                    _valleyDreamsIndiaDBEntities.SaveChanges();
+                    //renewalPinDetails.IsPinUsed = 1;
+                    //_valleyDreamsIndiaDBEntities.Entry(renewalPinDetails).State = System.Data.Entity.EntityState.Modified;
+                    //_valleyDreamsIndiaDBEntities.SaveChanges();
 
 
                     var ownDetails = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.UsersDetailsId == CurrentUser.CurrentUserId).FirstOrDefault();
                     var otherDetails = _valleyDreamsIndiaDBEntities.PersonalDetails.Where(x => x.UsersDetailsId == otherMemberUserDetails.Id).FirstOrDefault();
                     string phoneNumber2 = "919888540973,919646744247";
-
-
+                    
                     string receiverPhoneNumber = otherDetails.PhoneNumber1;
                     string fullName = otherDetails.FirstName + " " + otherDetails.LastName;
 

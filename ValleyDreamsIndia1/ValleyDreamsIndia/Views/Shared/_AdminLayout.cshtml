@@ -57,7 +57,7 @@
                     <a href="/Dashboard/Index">Dashboard</a>
                 </li>
 
-                <li id="navPages" class="nav @((ViewContext.RouteData.Values["controller"].ToString() == "Profile") || (ViewContext.RouteData.Values["controller"].ToString() == "Users")) ? 'active' : '')">
+                <li id="navPages" class="nav @((ViewContext.RouteData.Values["action"].ToString() == "ViewProfile" || (ViewContext.RouteData.Values["action"].ToString() == "Edit") || (ViewContext.RouteData.Values["action"].ToString() == "EditPassword")) ? "active" : "") ">
                     <span class="icon-document-alt-stroke"></span>
                     <a href="javascript:;">Manage Account</a>
 
